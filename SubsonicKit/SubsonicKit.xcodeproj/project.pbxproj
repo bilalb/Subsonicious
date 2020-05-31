@@ -71,8 +71,8 @@
 		9C24521F2484265D00CDE6F3 /* SubsonicKit */ = {
 			isa = PBXGroup;
 			children = (
-				9C2452202484265D00CDE6F3 /* SubsonicKit.h */,
 				9C2452212484265D00CDE6F3 /* Info.plist */,
+				9C2452202484265D00CDE6F3 /* SubsonicKit.h */,
 			);
 			path = SubsonicKit;
 			sourceTree = "<group>";
@@ -80,8 +80,8 @@
 		9C24522A2484265D00CDE6F3 /* SubsonicKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				9C24522B2484265D00CDE6F3 /* SubsonicKitTests.swift */,
 				9C24522D2484265D00CDE6F3 /* Info.plist */,
+				9C24522B2484265D00CDE6F3 /* SubsonicKitTests.swift */,
 			);
 			path = SubsonicKitTests;
 			sourceTree = "<group>";
