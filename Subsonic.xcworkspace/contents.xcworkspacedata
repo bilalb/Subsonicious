@@ -4,4 +4,7 @@
    <FileRef
       location = "group:Subsonic/Subsonic.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:SubsonicKit/SubsonicKit.xcodeproj">
+   </FileRef>
 </Workspace>
