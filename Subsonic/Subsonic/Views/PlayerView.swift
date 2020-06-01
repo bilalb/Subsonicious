@@ -12,6 +12,7 @@ struct PlayerView: View {
 
     @State private var currentTime: TimeInterval = 0
     @State private var duration: TimeInterval = 0
+    @State private var remainingTime: TimeInterval = 0
 
     var body: some View {
         GeometryReader { containerView in
@@ -46,10 +47,10 @@ struct PlayerView: View {
                     Slider(value: self.$currentTime, in: 0...self.duration)
 
                     HStack {
-                        Text("--:--")
+                        Text(self.minutesSecondsRepresentation(for: self.currentTime))
                             .font(.caption)
                         Spacer()
-                        Text("--:--")
+                        Text(self.minutesSecondsRepresentation(for: self.remainingTime))
                             .font(.caption)
                     }
                 }
@@ -79,6 +80,16 @@ struct PlayerView: View {
             }
             .padding()
         }
+        .onAppear {
+            self.remainingTime = self.currentTime - self.duration
+        }
+    }
+}
+
+private extension PlayerView {
+
+    func minutesSecondsRepresentation(for duration: TimeInterval) -> String {
+        DateComponentsFormatter.minutesSecondsFormatter.string(from: duration) ?? "--:--"
     }
 }
 
