@@ -12,9 +12,13 @@
 		9C24522E2484265D00CDE6F3 /* SubsonicKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C2452202484265D00CDE6F3 /* SubsonicKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9C342D282490E98A000DD778 /* CombineQueuePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C342D272490E98A000DD778 /* CombineQueuePlayer.swift */; };
 		9C6133432493E7E7004E81A2 /* AVPlayer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6133422493E7E7004E81A2 /* AVPlayer+Extensions.swift */; };
-		9C6133452494D808004E81A2 /* AudioSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6133442494D808004E81A2 /* AudioSessionManager.swift */; };
 		9C61334924964399004E81A2 /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C61334824964399004E81A2 /* Publisher.swift */; };
 		9C6231FC248C12AE00D0E703 /* PlayerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6231FB248C12AE00D0E703 /* PlayerObserver.swift */; };
+		9C623204248C1B1900D0E703 /* NowPlayingInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C623203248C1B1900D0E703 /* NowPlayingInfoManager.swift */; };
+		9C623207248C1B9100D0E703 /* NowPlayingMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C623206248C1B9100D0E703 /* NowPlayingMetadata.swift */; };
+		9C62320C248D4BAC00D0E703 /* CombineQueuePlayer+RemoteCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C62320B248D4BAC00D0E703 /* CombineQueuePlayer+RemoteCommand.swift */; };
+		9C62320F248D4C1E00D0E703 /* MediaPlayerRemoteCommandsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C62320E248D4C1E00D0E703 /* MediaPlayerRemoteCommandsManager.swift */; };
+		9C6F4AC62496458100F59905 /* AudioSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F4AC52496458100F59905 /* AudioSessionManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,9 +40,13 @@
 		9C24522D2484265D00CDE6F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C342D272490E98A000DD778 /* CombineQueuePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineQueuePlayer.swift; sourceTree = "<group>"; };
 		9C6133422493E7E7004E81A2 /* AVPlayer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVPlayer+Extensions.swift"; sourceTree = "<group>"; };
-		9C6133442494D808004E81A2 /* AudioSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSessionManager.swift; sourceTree = "<group>"; };
 		9C61334824964399004E81A2 /* Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publisher.swift; sourceTree = "<group>"; };
 		9C6231FB248C12AE00D0E703 /* PlayerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerObserver.swift; sourceTree = "<group>"; };
+		9C623203248C1B1900D0E703 /* NowPlayingInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingInfoManager.swift; sourceTree = "<group>"; };
+		9C623206248C1B9100D0E703 /* NowPlayingMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingMetadata.swift; sourceTree = "<group>"; };
+		9C62320B248D4BAC00D0E703 /* CombineQueuePlayer+RemoteCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CombineQueuePlayer+RemoteCommand.swift"; sourceTree = "<group>"; };
+		9C62320E248D4C1E00D0E703 /* MediaPlayerRemoteCommandsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPlayerRemoteCommandsManager.swift; sourceTree = "<group>"; };
+		9C6F4AC52496458100F59905 /* AudioSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSessionManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +89,8 @@
 		9C24521F2484265D00CDE6F3 /* SubsonicKit */ = {
 			isa = PBXGroup;
 			children = (
+				9C6F4AC52496458100F59905 /* AudioSessionManager.swift */,
+				9C6133412493E7C8004E81A2 /* Extensions */,
 				9C2452212484265D00CDE6F3 /* Info.plist */,
 				9C6231FA248C129500D0E703 /* Player */,
 				9C2452202484265D00CDE6F3 /* SubsonicKit.h */,
@@ -247,6 +257,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C61334924964399004E81A2 /* Publisher.swift in Sources */,
+				9C6F4AC62496458100F59905 /* AudioSessionManager.swift in Sources */,
 				9C62320C248D4BAC00D0E703 /* CombineQueuePlayer+RemoteCommand.swift in Sources */,
 				9C623207248C1B9100D0E703 /* NowPlayingMetadata.swift in Sources */,
 				9C6133432493E7E7004E81A2 /* AVPlayer+Extensions.swift in Sources */,
