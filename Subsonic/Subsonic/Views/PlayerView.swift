@@ -6,13 +6,13 @@
 //  Copyright © 2020 Bilal Benlarbi. All rights reserved.
 //
 
+import AVFoundation
+import SubsonicKit
 import SwiftUI
 
 struct PlayerView: View {
 
-    @State private var currentTime: TimeInterval = 0
-    @State private var duration: TimeInterval = 0
-    @State private var remainingTime: TimeInterval = 0
+    @ObservedObject var playerObserver = PlayerObserver.dummyInstance
 
     var body: some View {
         GeometryReader { containerView in
@@ -23,7 +23,8 @@ struct PlayerView: View {
                 Image(systemName: "music.note")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(maxWidth: containerView.size.width - 48, maxHeight: containerView.size.width - 48)
+                    .frame(maxWidth: containerView.size.width - 48,
+                           maxHeight: containerView.size.width - 48)
                     .clipped()
                     .background(Color.blue)
                     .cornerRadius(6)
@@ -44,13 +45,15 @@ struct PlayerView: View {
                 Spacer()
 
                 VStack {
-                    Slider(value: self.$currentTime, in: 0...self.duration)
+                    Slider(value: self.$playerObserver.currentTime,
+                           in: 0...self.playerObserver.duration,
+                           onEditingChanged: self.sliderEditingChanged(editingStarted:))
 
                     HStack {
-                        Text(self.minutesSecondsRepresentation(for: self.currentTime))
+                        Text("\(self.playerObserver.currentTime, formatter: .minutesSecondsFormatter)")
                             .font(.caption)
                         Spacer()
-                        Text(self.minutesSecondsRepresentation(for: self.remainingTime))
+                        Text(self.remainingTimeRepresentation)
                             .font(.caption)
                     }
                 }
@@ -64,8 +67,10 @@ struct PlayerView: View {
                             .asPlayerControl()
                     }
                     Spacer()
-                    Button(action: {}) {
-                        Image(systemName: "play.fill")
+                    Button(action: {
+                        self.playerObserver.player.togglePlayPause()
+                    }) {
+                        Image(systemName: self.playPauseImageName)
                             .asPlayerControl()
                     }
                     Spacer()
@@ -80,22 +85,43 @@ struct PlayerView: View {
             }
             .padding()
         }
-        .onAppear {
-            self.remainingTime = self.currentTime - self.duration
-        }
+    }
+
+    var remainingTimeRepresentation: LocalizedStringKey {
+        let seconds = abs(self.playerObserver.currentTime - self.playerObserver.duration)
+        return "-\(seconds, formatter: .minutesSecondsFormatter)"
+    }
+
+    var playPauseImageName: String {
+        playerObserver.timeControlStatus == .playing ? "pause.fill" : "play.fill"
     }
 }
 
+// MARK: - Private Methods
+
 private extension PlayerView {
 
-    func minutesSecondsRepresentation(for duration: TimeInterval) -> String {
-        DateComponentsFormatter.minutesSecondsFormatter.string(from: duration) ?? "--:--"
+    func minutesSecondsRepresentation(for seconds: TimeInterval) -> String {
+        DateComponentsFormatter.minutesSecondsFormatter.string(from: seconds) ?? "--:--"
+    }
+
+    func sliderEditingChanged(editingStarted: Bool) {
+        if editingStarted {
+            playerObserver.shouldPauseTimeObserver = true
+        } else {
+            let targetTime = CMTime(seconds: playerObserver.currentTime,
+                                    preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+
+            playerObserver.player.seek(to: targetTime) { _ in
+                self.playerObserver.shouldPauseTimeObserver = false
+            }
+        }
     }
 }
 
 struct PlayerView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayerView()
+        PlayerView(playerObserver: PlayerObserver.dummyInstance)
     }
 }
 
@@ -106,5 +132,28 @@ extension Image {
             .resizable()
             .aspectRatio(contentMode: .fit)
             .frame(width: 32, height: 32)
+    }
+}
+
+extension AVPlayer {
+
+    func togglePlayPause() {
+        switch timeControlStatus {
+        case .paused:
+            switch status {
+            case .readyToPlay:
+                play()
+            case .failed:
+                print("error: \(String(describing: error?.localizedDescription))")
+            default:
+                print("status: \(status)")
+            }
+        case .playing:
+            pause()
+        case .waitingToPlayAtSpecifiedRate:
+            print("reasonForWaitingToPlay: \(String(describing: reasonForWaitingToPlay))")
+        @unknown default:
+            preconditionFailure("Unknown AVPlayer.TimeControlStatus")
+        }
     }
 }

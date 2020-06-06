@@ -10,6 +10,11 @@
 		9C2452272484265D00CDE6F3 /* SubsonicKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C24521D2484265D00CDE6F3 /* SubsonicKit.framework */; };
 		9C24522C2484265D00CDE6F3 /* SubsonicKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C24522B2484265D00CDE6F3 /* SubsonicKitTests.swift */; };
 		9C24522E2484265D00CDE6F3 /* SubsonicKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C2452202484265D00CDE6F3 /* SubsonicKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9C342D282490E98A000DD778 /* CombineQueuePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C342D272490E98A000DD778 /* CombineQueuePlayer.swift */; };
+		9C6133432493E7E7004E81A2 /* AVPlayer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6133422493E7E7004E81A2 /* AVPlayer+Extensions.swift */; };
+		9C6133452494D808004E81A2 /* AudioSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6133442494D808004E81A2 /* AudioSessionManager.swift */; };
+		9C61334924964399004E81A2 /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C61334824964399004E81A2 /* Publisher.swift */; };
+		9C6231FC248C12AE00D0E703 /* PlayerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6231FB248C12AE00D0E703 /* PlayerObserver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +34,11 @@
 		9C2452262484265D00CDE6F3 /* SubsonicKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SubsonicKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C24522B2484265D00CDE6F3 /* SubsonicKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubsonicKitTests.swift; sourceTree = "<group>"; };
 		9C24522D2484265D00CDE6F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9C342D272490E98A000DD778 /* CombineQueuePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineQueuePlayer.swift; sourceTree = "<group>"; };
+		9C6133422493E7E7004E81A2 /* AVPlayer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVPlayer+Extensions.swift"; sourceTree = "<group>"; };
+		9C6133442494D808004E81A2 /* AudioSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSessionManager.swift; sourceTree = "<group>"; };
+		9C61334824964399004E81A2 /* Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publisher.swift; sourceTree = "<group>"; };
+		9C6231FB248C12AE00D0E703 /* PlayerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerObserver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				9C2452212484265D00CDE6F3 /* Info.plist */,
+				9C6231FA248C129500D0E703 /* Player */,
 				9C2452202484265D00CDE6F3 /* SubsonicKit.h */,
 			);
 			path = SubsonicKit;
@@ -84,6 +95,23 @@
 				9C24522B2484265D00CDE6F3 /* SubsonicKitTests.swift */,
 			);
 			path = SubsonicKitTests;
+			sourceTree = "<group>";
+		};
+		9C6133412493E7C8004E81A2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9C6133422493E7E7004E81A2 /* AVPlayer+Extensions.swift */,
+				9C61334824964399004E81A2 /* Publisher.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		9C6231FA248C129500D0E703 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				9C6231FB248C12AE00D0E703 /* PlayerObserver.swift */,
+			);
+			path = Player;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,6 +177,7 @@
 				TargetAttributes = {
 					9C24521C2484265D00CDE6F3 = {
 						CreatedOnToolsVersion = 11.5;
+						LastSwiftMigration = 1150;
 					};
 					9C2452252484265D00CDE6F3 = {
 						CreatedOnToolsVersion = 11.5;
@@ -217,6 +246,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C61334924964399004E81A2 /* Publisher.swift in Sources */,
+				9C62320C248D4BAC00D0E703 /* CombineQueuePlayer+RemoteCommand.swift in Sources */,
+				9C623207248C1B9100D0E703 /* NowPlayingMetadata.swift in Sources */,
+				9C6133432493E7E7004E81A2 /* AVPlayer+Extensions.swift in Sources */,
+				9C62320F248D4C1E00D0E703 /* MediaPlayerRemoteCommandsManager.swift in Sources */,
+				9C6231FC248C12AE00D0E703 /* PlayerObserver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +399,7 @@
 		9C2452322484265D00CDE6F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -379,6 +415,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.bilalbenlarbi.SubsonicKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -387,6 +424,7 @@
 		9C2452332484265D00CDE6F3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -410,6 +448,7 @@
 		9C2452352484265D00CDE6F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = SubsonicKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -427,6 +466,7 @@
 		9C2452362484265D00CDE6F3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = SubsonicKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
