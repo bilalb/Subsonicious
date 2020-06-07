@@ -9,6 +9,13 @@
 import Combine
 import Foundation
 
+extension Publisher {
+    func eraseToAnyVoidPublisher() -> AnyPublisher<(), Self.Failure> {
+        map { _ in () }
+            .eraseToAnyPublisher()
+    }
+}
+
 extension Publisher where Failure == Never {
     func assign<Root: AnyObject>(to keyPath: ReferenceWritableKeyPath<Root, Output>, on root: Root) -> AnyCancellable {
         sink { [weak root] in

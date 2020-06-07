@@ -19,6 +19,7 @@
 		9C62320C248D4BAC00D0E703 /* CombineQueuePlayer+RemoteCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C62320B248D4BAC00D0E703 /* CombineQueuePlayer+RemoteCommand.swift */; };
 		9C62320F248D4C1E00D0E703 /* MediaPlayerRemoteCommandsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C62320E248D4C1E00D0E703 /* MediaPlayerRemoteCommandsManager.swift */; };
 		9C6F4AC62496458100F59905 /* AudioSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F4AC52496458100F59905 /* AudioSessionManager.swift */; };
+		9C6F4AC824966FC700F59905 /* CombineQueuePlayer+MedataChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F4AC724966FC700F59905 /* CombineQueuePlayer+MedataChanges.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		9C62320B248D4BAC00D0E703 /* CombineQueuePlayer+RemoteCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CombineQueuePlayer+RemoteCommand.swift"; sourceTree = "<group>"; };
 		9C62320E248D4C1E00D0E703 /* MediaPlayerRemoteCommandsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPlayerRemoteCommandsManager.swift; sourceTree = "<group>"; };
 		9C6F4AC52496458100F59905 /* AudioSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSessionManager.swift; sourceTree = "<group>"; };
+		9C6F4AC724966FC700F59905 /* CombineQueuePlayer+MedataChanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CombineQueuePlayer+MedataChanges.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 				9C6133412493E7C8004E81A2 /* Extensions */,
 				9C2452212484265D00CDE6F3 /* Info.plist */,
 				9C62320D248D4C0E00D0E703 /* MediaPlayerRemoteCommands */,
+				9C623202248C1B0E00D0E703 /* NowPlayingInfo */,
 				9C6231FA248C129500D0E703 /* Player */,
 				9C2452202484265D00CDE6F3 /* SubsonicKit.h */,
 			);
@@ -123,6 +126,17 @@
 				9C6231FB248C12AE00D0E703 /* PlayerObserver.swift */,
 			);
 			path = Player;
+			sourceTree = "<group>";
+		};
+		9C623202248C1B0E00D0E703 /* NowPlayingInfo */ = {
+			isa = PBXGroup;
+			children = (
+				9C342D272490E98A000DD778 /* CombineQueuePlayer.swift */,
+				9C6F4AC724966FC700F59905 /* CombineQueuePlayer+MedataChanges.swift */,
+				9C623203248C1B1900D0E703 /* NowPlayingInfoManager.swift */,
+				9C623206248C1B9100D0E703 /* NowPlayingMetadata.swift */,
+			);
+			path = NowPlayingInfo;
 			sourceTree = "<group>";
 		};
 		9C62320D248D4C0E00D0E703 /* MediaPlayerRemoteCommands */ = {
@@ -272,7 +286,9 @@
 				9C623207248C1B9100D0E703 /* NowPlayingMetadata.swift in Sources */,
 				9C6133432493E7E7004E81A2 /* AVPlayer+Extensions.swift in Sources */,
 				9C62320F248D4C1E00D0E703 /* MediaPlayerRemoteCommandsManager.swift in Sources */,
+				9C6F4AC824966FC700F59905 /* CombineQueuePlayer+MedataChanges.swift in Sources */,
 				9C6231FC248C12AE00D0E703 /* PlayerObserver.swift in Sources */,
+				9C623204248C1B1900D0E703 /* NowPlayingInfoManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
