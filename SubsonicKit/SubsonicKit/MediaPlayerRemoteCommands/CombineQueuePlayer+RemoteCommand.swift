@@ -1,5 +1,5 @@
 //
-//  AVQueuePlayer+RemoteCommand.swift
+//  CombineQueuePlayer+RemoteCommand.swift
 //  SubsonicKit
 //
 //  Created by Bilal on 07/06/2020.
@@ -11,22 +11,21 @@ import MediaPlayer
 
 // MARK: - Playback Commands Handlers
 
-extension AVQueuePlayer {
+extension CombineQueuePlayer {
 
     var pauseCommandHandler: (MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
         return { [weak self] _ in
             switch self?.timeControlStatus {
             case .paused:
-                break
+                preconditionFailure("Tried to pause the player which is already paused")
             case .playing:
                 self?.pause()
                 return .success
             case .waitingToPlayAtSpecifiedRate:
-                print("reasonForWaitingToPlay: \(String(describing: self?.reasonForWaitingToPlay))")
+                preconditionFailure("reasonForWaitingToPlay: \(String(describing: self?.reasonForWaitingToPlay))")
             default:
-                preconditionFailure("Unknown AVPlayer.TimeControlStatus")
+                preconditionFailure("Unknown AVPlayer.TimeControlStatus: \(String(describing: self?.timeControlStatus))")
             }
-            return .commandFailed
         }
     }
 
@@ -39,18 +38,17 @@ extension AVQueuePlayer {
                     self?.play()
                     return .success
                 case .failed:
-                    print("error: \(String(describing: self?.error?.localizedDescription))")
+                    preconditionFailure("error: \(String(describing: self?.error?.localizedDescription))")
                 default:
-                    print("status: \(String(describing: self?.status))")
+                    preconditionFailure("status: \(String(describing: self?.status))")
                 }
             case .playing:
-                break
+                preconditionFailure("Tried to play the player which is already playing")
             case .waitingToPlayAtSpecifiedRate:
-                print("reasonForWaitingToPlay: \(String(describing: self?.reasonForWaitingToPlay))")
+                preconditionFailure("reasonForWaitingToPlay: \(String(describing: self?.reasonForWaitingToPlay))")
             default:
-                preconditionFailure("Unknown AVPlayer.TimeControlStatus")
+                preconditionFailure("Unknown AVPlayer.TimeControlStatus: \(String(describing: self?.timeControlStatus))")
             }
-            return .commandFailed
         }
     }
 
@@ -63,34 +61,16 @@ extension AVQueuePlayer {
     }
 
     var togglePlayPauseCommandHandler: (MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
-        return { [weak self] event in
-            switch self?.timeControlStatus {
-            case .paused:
-                switch self?.status {
-                case .readyToPlay:
-                    self?.play()
-                    return .success
-                case .failed:
-                    print("error: \(String(describing: self?.error?.localizedDescription))")
-                default:
-                    print("status: \(String(describing: self?.status))")
-                }
-            case .playing:
-                self?.pause()
-                return .success
-            case .waitingToPlayAtSpecifiedRate:
-                print("reasonForWaitingToPlay: \(String(describing: self?.reasonForWaitingToPlay))")
-            default:
-                preconditionFailure("Unknown AVPlayer.TimeControlStatus")
-            }
-            return .commandFailed
+        return { [weak self] _ in
+            self?.togglePlayPause()
+            return .success
         }
     }
 }
 
 // MARK: - Between Tracks Navigation Commands Handlers
 
-extension AVQueuePlayer {
+extension CombineQueuePlayer {
 
     var nextTrackCommandHandler: (MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
         return { [weak self] _ in
@@ -101,29 +81,31 @@ extension AVQueuePlayer {
 
     var previousTrackCommandHandler: (MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
         return { _ in
-            // TODO: to implement
-            return .success
+            // TODO: to implement when the player will have more than one track
+            return .commandFailed
         }
     }
 
     var changeRepeatModeCommandHandler: (MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
         return { _ in
-            // TODO: to implement
-            return .success
+            // TODO: to implement when the player will have more than one track
+            // set remoteCommandCenter.changeRepeatModeCommand.currentRepeatType
+            return .commandFailed
         }
     }
 
     var changeShuffleModeCommandHandler: (MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
         return { _ in
-            // TODO: to implement
-            return .success
+            // TODO: to implement when the player will have more than one track
+            // Set remoteCommandCenter.changeShuffleModeCommand.currentShuffleType
+            return .commandFailed
         }
     }
 }
 
 // MARK: - Inner Track Navigation Commands Handlers
 
-extension AVQueuePlayer {
+extension CombineQueuePlayer {
 
     var changePlaybackRateCommandHandler: (MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
         return { [weak self] event in

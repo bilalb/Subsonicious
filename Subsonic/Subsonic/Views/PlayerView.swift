@@ -12,7 +12,8 @@ import SwiftUI
 
 struct PlayerView: View {
 
-    @ObservedObject var playerObserver = PlayerObserver.dummyInstance
+    @EnvironmentObject var player: CombineQueuePlayer
+    @EnvironmentObject var playerObserver: PlayerObserver
 
     var body: some View {
         GeometryReader { containerView in
@@ -20,6 +21,7 @@ struct PlayerView: View {
 
                 Spacer()
 
+                // TODO: to move to a dedicated view
                 Image(systemName: "music.note")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -68,7 +70,7 @@ struct PlayerView: View {
                     }
                     Spacer()
                     Button(action: {
-                        self.playerObserver.player.togglePlayPause()
+                        self.player.togglePlayPause()
                     }) {
                         Image(systemName: self.playPauseImageName)
                             .asPlayerControl()
@@ -112,16 +114,20 @@ private extension PlayerView {
             let targetTime = CMTime(seconds: playerObserver.currentTime,
                                     preferredTimescale: CMTimeScale(NSEC_PER_SEC))
 
-            playerObserver.player.seek(to: targetTime) { _ in
-                self.playerObserver.shouldPauseTimeObserver = false
-            }
+            player.seek(to: targetTime)
         }
     }
 }
 
 struct PlayerView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayerView(playerObserver: PlayerObserver.dummyInstance)
+        let player = CombineQueuePlayer.dummyInstance
+        let playerObserver = PlayerObserver(player: player)
+        let playerView = PlayerView()
+            .environmentObject(player)
+            .environmentObject(playerObserver)
+
+        return playerView
     }
 }
 
@@ -132,28 +138,5 @@ extension Image {
             .resizable()
             .aspectRatio(contentMode: .fit)
             .frame(width: 32, height: 32)
-    }
-}
-
-extension AVPlayer {
-
-    func togglePlayPause() {
-        switch timeControlStatus {
-        case .paused:
-            switch status {
-            case .readyToPlay:
-                play()
-            case .failed:
-                print("error: \(String(describing: error?.localizedDescription))")
-            default:
-                print("status: \(status)")
-            }
-        case .playing:
-            pause()
-        case .waitingToPlayAtSpecifiedRate:
-            print("reasonForWaitingToPlay: \(String(describing: reasonForWaitingToPlay))")
-        @unknown default:
-            preconditionFailure("Unknown AVPlayer.TimeControlStatus")
-        }
     }
 }

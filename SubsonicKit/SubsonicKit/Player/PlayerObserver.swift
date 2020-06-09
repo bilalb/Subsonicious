@@ -12,19 +12,21 @@ import Foundation
 
 public final class PlayerObserver: ObservableObject {
 
-    public let player: AVQueuePlayer!
     public var shouldPauseTimeObserver = false
 
+    private let player: CombineQueuePlayer!
     private var cancellables = [AnyCancellable]()
     private var timeObserverToken: Any?
 
-    @Published public var timeControlStatus: AVPlayer.TimeControlStatus?
-    @Published public var duration: Double = .zero
+    @Published public private(set) var timeControlStatus: AVPlayer.TimeControlStatus?
+    @Published public private(set) var duration: Double = .zero
     @Published public var currentTime: Double = .zero
 
-    init(player: AVQueuePlayer) {
+    public init(player: CombineQueuePlayer) {
         self.player = player
+    }
 
+    public func listenToPlayerChanges() {
         player.publisher(for: \.timeControlStatus)
             .map { $0 }
             .assign(to: \.timeControlStatus, on: self)
@@ -41,23 +43,17 @@ public final class PlayerObserver: ObservableObject {
             .assign(to: \.shouldPauseTimeObserver, on: self)
             .store(in: &cancellables)
 
+        player.seeking
+            .sink { [weak self] finished in
+                self?.shouldPauseTimeObserver = !finished
+        }
+        .store(in: &cancellables)
+
         addPeriodicTimeObserver()
     }
 
     deinit {
         removePeriodicTimeObserver()
-    }
-}
-
-public extension PlayerObserver {
-
-    static var dummyInstance: PlayerObserver {
-        let path = Bundle.main.path(forResource: "example.mp3", ofType: nil)!
-        let url = URL(fileURLWithPath: path)
-        let playerItem = AVPlayerItem(url: url)
-        let player = AVQueuePlayer(items: [playerItem])
-        player.actionAtItemEnd = .advance
-        return PlayerObserver(player: player)
     }
 }
 

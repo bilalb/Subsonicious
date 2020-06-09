@@ -142,7 +142,7 @@
 		9C62320D248D4C0E00D0E703 /* MediaPlayerRemoteCommands */ = {
 			isa = PBXGroup;
 			children = (
-				9C62320B248D4BAC00D0E703 /* AVQueuePlayer+RemoteCommand.swift */,
+				9C62320B248D4BAC00D0E703 /* CombineQueuePlayer+RemoteCommand.swift */,
 				9C62320E248D4C1E00D0E703 /* MediaPlayerRemoteCommandsManager.swift */,
 			);
 			path = MediaPlayerRemoteCommands;
@@ -288,6 +288,7 @@
 				9C62320F248D4C1E00D0E703 /* MediaPlayerRemoteCommandsManager.swift in Sources */,
 				9C6F4AC824966FC700F59905 /* CombineQueuePlayer+MedataChanges.swift in Sources */,
 				9C6231FC248C12AE00D0E703 /* PlayerObserver.swift in Sources */,
+				9C342D282490E98A000DD778 /* CombineQueuePlayer.swift in Sources */,
 				9C623204248C1B1900D0E703 /* NowPlayingInfoManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
