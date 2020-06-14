@@ -52,26 +52,7 @@ struct PlayerView: View {
 
             Spacer()
 
-            HStack {
-                Spacer()
-                Button(action: {}) {
-                    Image(systemName: "backward.fill")
-                        .asPlayerControl()
-                }
-                Spacer()
-                Button(action: {
-                    self.player.togglePlayPause()
-                }) {
-                    Image(systemName: self.playPauseImageName)
-                        .asPlayerControl()
-                }
-                Spacer()
-                Button(action: {}) {
-                    Image(systemName: "forward.fill")
-                        .asPlayerControl()
-                }
-                Spacer()
-            }
+            PlayerControlsView()
 
             Spacer()
         }
@@ -81,10 +62,6 @@ struct PlayerView: View {
     var remainingTimeRepresentation: LocalizedStringKey {
         let seconds = abs(self.playerObserver.currentTime - self.playerObserver.duration)
         return "-\(seconds, formatter: .minutesSecondsFormatter)"
-    }
-
-    var playPauseImageName: String {
-        playerObserver.timeControlStatus == .playing ? "pause.fill" : "play.fill"
     }
 }
 
@@ -117,15 +94,5 @@ struct PlayerView_Previews: PreviewProvider {
             .environmentObject(playerObserver)
 
         return playerView
-    }
-}
-
-extension Image {
-
-    func asPlayerControl() -> some View {
-        self
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 32, height: 32)
     }
 }
