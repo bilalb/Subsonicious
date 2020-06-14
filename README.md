@@ -1,6 +1,6 @@
 # Subsonicious
 
-Subsonicious is Subsonic app for iOS in SwiftUI.
+Subsonicious is a Subsonic app for iOS in SwiftUI.
 
 The goal is to get used to SwiftUI & Combine.
 

@@ -21,15 +21,7 @@ struct PlayerView: View {
 
             Spacer()
 
-            VStack(alignment: .leading) {
-                Text("Title")
-                    .font(.system(size: 20))
-                    .fontWeight(.bold)
-                Text("Artist")
-                    .font(.subheadline)
-                    .opacity(0.6)
-            }
-            .frame(maxWidth: .infinity, alignment: .topLeading)
+            PlayerItemDataView()
 
             Spacer()
 
