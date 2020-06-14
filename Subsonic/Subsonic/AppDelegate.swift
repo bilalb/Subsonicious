@@ -6,13 +6,17 @@
 //  Copyright © 2020 Bilal Benlarbi. All rights reserved.
 //
 
+import SubsonicKit
 import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    let audioSessionManager = AudioSessionManager()
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        audioSessionManager.configureAudioSession()
+
         return true
     }
 
