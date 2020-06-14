@@ -22,7 +22,7 @@ public final class PlayerObserver: ObservableObject {
     @Published public private(set) var duration: Double = .zero
     @Published public var currentTime: Double = .zero
 
-    public init(player: CombineQueuePlayer) {
+    init(player: CombineQueuePlayer) {
         self.player = player
     }
 

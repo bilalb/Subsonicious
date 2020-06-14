@@ -16,7 +16,7 @@ public final class NowPlayingInfoManager {
     private let nowPlayingInfoCenter = MPNowPlayingInfoCenter.default()
     private var cancellables = [AnyCancellable]()
 
-    public init(player: CombineQueuePlayer) {
+    init(player: CombineQueuePlayer) {
         self.player = player
     }
 

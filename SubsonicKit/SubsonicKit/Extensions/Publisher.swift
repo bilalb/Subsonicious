@@ -23,3 +23,31 @@ extension Publisher where Failure == Never {
         }
     }
 }
+
+public protocol ManagerProviding {
+
+    var player: CombineQueuePlayer! { get }
+    var audioSessionManager: AudioSessionManager! { get }
+    var playerObserver: PlayerObserver! { get }
+    var remoteCommandsManager: MediaPlayerRemoteCommandsManager! { get }
+    var nowPlayingInfoManager: NowPlayingInfoManager! { get }
+}
+
+public class ManagerProvider: ManagerProviding {
+
+    public static var shared = ManagerProvider()
+
+    public var player: CombineQueuePlayer!
+    public var audioSessionManager: AudioSessionManager!
+    public var playerObserver: PlayerObserver!
+    public var remoteCommandsManager: MediaPlayerRemoteCommandsManager!
+    public var nowPlayingInfoManager: NowPlayingInfoManager!
+
+    init() {
+        player = CombineQueuePlayer.dummyInstance
+        audioSessionManager = AudioSessionManager()
+        playerObserver = PlayerObserver(player: player)
+        remoteCommandsManager = MediaPlayerRemoteCommandsManager(player: player)
+        nowPlayingInfoManager = NowPlayingInfoManager(player: player)
+    }
+}

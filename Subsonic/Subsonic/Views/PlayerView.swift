@@ -121,13 +121,9 @@ private extension PlayerView {
 
 struct PlayerView_Previews: PreviewProvider {
     static var previews: some View {
-        let player = CombineQueuePlayer.dummyInstance
-        let playerObserver = PlayerObserver(player: player)
-        let playerView = PlayerView()
-            .environmentObject(player)
-            .environmentObject(playerObserver)
-
-        return playerView
+        PlayerView()
+            .environmentObject(ManagerProvider.shared.player)
+            .environmentObject(ManagerProvider.shared.playerObserver)
     }
 }
 

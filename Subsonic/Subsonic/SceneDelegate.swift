@@ -14,25 +14,15 @@ import UIKit
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    private var playerObserver: PlayerObserver!
-    private var remoteCommandsManager: MediaPlayerRemoteCommandsManager!
-    private var nowPlayingInfoManager: NowPlayingInfoManager!
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        let player = CombineQueuePlayer.dummyInstance
-
-        playerObserver = PlayerObserver(player: player)
-        playerObserver.listenToPlayerChanges()
-
-        remoteCommandsManager = MediaPlayerRemoteCommandsManager(player: player)
-        remoteCommandsManager.configureRemoteCommands()
-
-        nowPlayingInfoManager = NowPlayingInfoManager(player: player)
-        nowPlayingInfoManager.listenToNowPlayingInfoChanges()
+        ManagerProvider.shared.playerObserver.listenToPlayerChanges()
+        ManagerProvider.shared.remoteCommandsManager.configureRemoteCommands()
+        ManagerProvider.shared.nowPlayingInfoManager.listenToNowPlayingInfoChanges()
 
         let contentView = ContentView()
-            .environmentObject(player)
-            .environmentObject(playerObserver)
+            .environmentObject(ManagerProvider.shared.player)
+            .environmentObject(ManagerProvider.shared.playerObserver)
 
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)

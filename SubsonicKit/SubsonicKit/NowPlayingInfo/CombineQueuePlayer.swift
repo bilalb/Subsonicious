@@ -63,7 +63,7 @@ public class CombineQueuePlayer: AVQueuePlayer, ObservableObject {
     }
 }
 
-public extension CombineQueuePlayer {
+extension CombineQueuePlayer {
 
     static var dummyInstance: CombineQueuePlayer {
         let path = Bundle.main.path(forResource: "example.mp3", ofType: nil)!

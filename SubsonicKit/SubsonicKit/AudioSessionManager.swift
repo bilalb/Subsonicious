@@ -13,7 +13,7 @@ public class AudioSessionManager {
 
     private let audioSession = AVAudioSession.sharedInstance()
 
-    public init() { }
+    init() { }
 
     public func configureAudioSession() {
         do {
