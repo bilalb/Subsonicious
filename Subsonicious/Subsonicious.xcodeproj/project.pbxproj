@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C062FBE24A26681006001EB /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C062FBD24A26681006001EB /* String.swift */; };
 		9C220F512497D67400839395 /* SubsoniciousKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C220F502497D67400839395 /* SubsoniciousKit.framework */; };
 		9C220F522497D67400839395 /* SubsoniciousKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9C220F502497D67400839395 /* SubsoniciousKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9C2222002497E2FE00B35A29 /* ArtworkImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2221FE2497E2FE00B35A29 /* ArtworkImage.swift */; };
@@ -26,6 +27,7 @@
 		9C2452502485648800CDE6F3 /* DateComponentsFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C24524F2485648800CDE6F3 /* DateComponentsFormatter.swift */; };
 		9C2452522485666A00CDE6F3 /* example.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9C2452512485666A00CDE6F3 /* example.mp3 */; };
 		9C6133472496436F004E81A2 /* LocalizedStringKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6133462496436F004E81A2 /* LocalizedStringKey.swift */; };
+		9CE84DCA249FD8D00008D429 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE84DC9249FD8D00008D429 /* LoginView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9C062FBD24A26681006001EB /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		9C220F502497D67400839395 /* SubsoniciousKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SubsoniciousKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C2221FE2497E2FE00B35A29 /* ArtworkImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtworkImage.swift; sourceTree = "<group>"; };
 		9C2221FF2497E2FE00B35A29 /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
@@ -86,6 +89,7 @@
 		9C24524F2485648800CDE6F3 /* DateComponentsFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateComponentsFormatter.swift; sourceTree = "<group>"; };
 		9C2452512485666A00CDE6F3 /* example.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = example.mp3; sourceTree = "<group>"; };
 		9C6133462496436F004E81A2 /* LocalizedStringKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedStringKey.swift; sourceTree = "<group>"; };
+		9CE84DC9249FD8D00008D429 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				9C24523F24842D5900CDE6F3 /* ContentView.swift */,
+				9CE84DC9249FD8D00008D429 /* LoginView.swift */,
 				9C2221FD2497E2FE00B35A29 /* Player */,
 			);
 			path = Views;
@@ -205,6 +210,7 @@
 			children = (
 				9C24524F2485648800CDE6F3 /* DateComponentsFormatter.swift */,
 				9C6133462496436F004E81A2 /* LocalizedStringKey.swift */,
+				9C062FBD24A26681006001EB /* String.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -377,8 +383,10 @@
 				9C2452502485648800CDE6F3 /* DateComponentsFormatter.swift in Sources */,
 				9C2222072497E50900B35A29 /* PlayerSliderView.swift in Sources */,
 				9C2222012497E2FE00B35A29 /* PlayerView.swift in Sources */,
+				9C062FBE24A26681006001EB /* String.swift in Sources */,
 				9C2222002497E2FE00B35A29 /* ArtworkImage.swift in Sources */,
 				9C2222032497E45D00B35A29 /* PlayerControlImage.swift in Sources */,
+				9CE84DCA249FD8D00008D429 /* LoginView.swift in Sources */,
 				9C2222052497E47400B35A29 /* PlayerControlsView.swift in Sources */,
 				9C2451E224841B5900CDE6F3 /* SceneDelegate.swift in Sources */,
 				9C2222092497E5C700B35A29 /* PlayerItemDataView.swift in Sources */,
