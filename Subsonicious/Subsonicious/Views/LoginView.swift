@@ -11,6 +11,7 @@ import SwiftUI
 
 struct LoginView: View {
 
+    @EnvironmentObject var authentication: Authentication
     @State private var server = Server()
 
     var body: some View {
@@ -34,7 +35,7 @@ struct LoginView: View {
                         .asLoginField()
                 }
 
-                Button(action: { }) {
+                Button(action: continueButtonPressed) {
                     Text("Continue")
                         .font(.headline)
                         .foregroundColor(.white)
@@ -62,6 +63,10 @@ private extension LoginView {
         !server.address.isValid ||
             !server.username.isValid ||
             !server.password.isValid
+    }
+
+    func continueButtonPressed() {
+        authentication.isConnected = true
     }
 }
 
