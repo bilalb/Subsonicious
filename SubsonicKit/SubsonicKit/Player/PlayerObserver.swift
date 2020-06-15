@@ -43,12 +43,6 @@ public final class PlayerObserver: ObservableObject {
             .assign(to: \.shouldPauseTimeObserver, on: self)
             .store(in: &cancellables)
 
-        player.seeking
-            .sink { [weak self] finished in
-                self?.shouldPauseTimeObserver = !finished
-        }
-        .store(in: &cancellables)
-
         addPeriodicTimeObserver()
     }
 
