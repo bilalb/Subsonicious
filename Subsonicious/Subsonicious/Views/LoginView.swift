@@ -17,26 +17,26 @@ struct LoginView: View {
     var body: some View {
         GeometryReader { content in
             VStack {
-                Text("Subsonic server")
+                Text("login.login")
 
                 VStack {
-                    TextField("Server", text: self.$server.address)
+                    TextField("login.server", text: self.$server.address)
                         .keyboardType(.URL)
                         .textContentType(.URL)
                         .asLoginField()
 
-                    TextField("Username", text: self.$server.username)
+                    TextField("login.username", text: self.$server.username)
                         .keyboardType(.asciiCapable)
                         .textContentType(.username)
                         .asLoginField()
 
-                    SecureField("Password", text: self.$server.password)
+                    SecureField("login.password", text: self.$server.password)
                         .textContentType(.password)
                         .asLoginField()
                 }
 
                 Button(action: continueButtonPressed) {
-                    Text("Continue")
+                    Text("login.continue")
                         .font(.headline)
                         .foregroundColor(.white)
                         .frame(maxWidth: content.size.width, maxHeight: 44)
