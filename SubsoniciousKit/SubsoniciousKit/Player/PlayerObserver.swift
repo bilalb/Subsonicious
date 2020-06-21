@@ -21,6 +21,9 @@ public final class PlayerObserver: ObservableObject {
     @Published public private(set) var timeControlStatus: AVPlayer.TimeControlStatus?
     @Published public private(set) var duration: Double = .zero
     @Published public var currentTime: Double = .zero
+    public var remainingTime: Double {
+         abs(currentTime - duration)
+    }
 
     public init(player: CombineQueuePlayer) {
         self.player = player
