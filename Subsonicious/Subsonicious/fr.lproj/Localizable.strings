@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  Subsonicious
+
+  Created by Bilal on 21/06/2020.
+  Copyright © 2020 Bilal Benlarbi. All rights reserved.
+*/
+
+// MARK: - Login
+"login.login" = "Connectez-vous à votre serveur Subsonic";
+"login.server" = "Serveur";
+"login.username" = "Nom d'utilisateur";
+"login.password" = "Mot de passe";
+"login.continue" = "Continuer";

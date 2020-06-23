@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C062FC124A26997006001EB /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C062FC024A26997006001EB /* Server.swift */; };
 		9C2452272484265D00CDE6F3 /* SubsoniciousKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C24521D2484265D00CDE6F3 /* SubsoniciousKit.framework */; };
 		9C24522C2484265D00CDE6F3 /* SubsoniciousKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C24522B2484265D00CDE6F3 /* SubsoniciousKitTests.swift */; };
 		9C24522E2484265D00CDE6F3 /* SubsoniciousKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C2452202484265D00CDE6F3 /* SubsoniciousKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -33,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9C062FC024A26997006001EB /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		9C24521D2484265D00CDE6F3 /* SubsoniciousKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SubsoniciousKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C2452202484265D00CDE6F3 /* SubsoniciousKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubsoniciousKit.h; sourceTree = "<group>"; };
 		9C2452212484265D00CDE6F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -70,6 +72,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9C062FBF24A26985006001EB /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				9C062FC024A26997006001EB /* Server.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		9C2452132484265D00CDE6F3 = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +104,7 @@
 				9C6F4AC52496458100F59905 /* AudioSessionManager.swift */,
 				9C6133412493E7C8004E81A2 /* Extensions */,
 				9C2452212484265D00CDE6F3 /* Info.plist */,
+				9C062FBF24A26985006001EB /* Login */,
 				9C62320D248D4C0E00D0E703 /* MediaPlayerRemoteCommands */,
 				9C623202248C1B0E00D0E703 /* NowPlayingInfo */,
 				9C6231FA248C129500D0E703 /* Player */,
@@ -286,6 +297,7 @@
 				9C623207248C1B9100D0E703 /* NowPlayingMetadata.swift in Sources */,
 				9C6133432493E7E7004E81A2 /* AVPlayer+Extensions.swift in Sources */,
 				9C62320F248D4C1E00D0E703 /* MediaPlayerRemoteCommandsManager.swift in Sources */,
+				9C062FC124A26997006001EB /* Server.swift in Sources */,
 				9C6F4AC824966FC700F59905 /* CombineQueuePlayer+MedataChanges.swift in Sources */,
 				9C6231FC248C12AE00D0E703 /* PlayerObserver.swift in Sources */,
 				9C342D282490E98A000DD778 /* CombineQueuePlayer.swift in Sources */,
