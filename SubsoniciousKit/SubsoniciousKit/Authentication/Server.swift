@@ -9,12 +9,12 @@
 import Foundation
 
 public struct Server {
-    public var address: String
+    public var baseURL: String
     public var username: String
     public var password: String
 
-    public init(address: String = "", username: String = "", password: String = "") {
-        self.address = address
+    public init(baseURL: String = "", username: String = "", password: String = "") {
+        self.baseURL = baseURL
         self.username = username
         self.password = password
     }

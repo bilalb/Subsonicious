@@ -11,13 +11,13 @@ import SwiftUI
 
 struct RootView: View {
 
-    @EnvironmentObject var authentication: Authentication
+    @EnvironmentObject var authenticationManager: AuthenticationManager
     @EnvironmentObject var player: CombineQueuePlayer
     @EnvironmentObject var playerObserver: PlayerObserver
 
     var body: some View {
         Group {
-            if authentication.isConnected {
+            if case .success(let response) = self.authenticationManager.result, response.status == .success {
                 ContentView()
                     .environmentObject(player)
                     .environmentObject(playerObserver)
@@ -32,8 +32,4 @@ struct RootView_Previews: PreviewProvider {
     static var previews: some View {
         RootView()
     }
-}
-
-class Authentication: ObservableObject {
-    @Published var isConnected = false
 }

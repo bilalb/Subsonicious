@@ -11,7 +11,7 @@ import SwiftUI
 
 struct LoginView: View {
 
-    @EnvironmentObject var authentication: Authentication
+    @EnvironmentObject var authenticationManager: AuthenticationManager
     @State private var server = Server()
 
     var body: some View {
@@ -20,7 +20,7 @@ struct LoginView: View {
                 Text("login.login")
 
                 VStack {
-                    TextField("login.server", text: $server.address)
+                    TextField("login.server", text: $server.baseURL)
                         .keyboardType(.URL)
                         .textContentType(.URL)
                         .asLoginField()
@@ -46,6 +46,11 @@ struct LoginView: View {
                 }
                 .disabled(isContinueButtonDisabled)
 
+                if let errorMessage = self.errorMessage {
+                    Text(errorMessage)
+                        .padding()
+                }
+
                 Spacer()
             }
             .padding()
@@ -60,13 +65,22 @@ private extension LoginView {
     }
 
     var isContinueButtonDisabled: Bool {
-        !server.address.isValid ||
+        !server.baseURL.isValid ||
             !server.username.isValid ||
             !server.password.isValid
     }
 
     func continueButtonPressed() {
-        authentication.isConnected = true
+        authenticationManager.authenticate(with: server)
+    }
+
+    var errorMessage: String? {
+        if case .failure(let error) = authenticationManager.result {
+            return error.localizedDescription
+        } else if case .success(let response) = authenticationManager.result, let error = response.error {
+            return error.message
+        }
+        return nil
     }
 }
 
