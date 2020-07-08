@@ -18,7 +18,7 @@ struct ArtworkImage: View {
                        maxHeight: containerView.size.width)
                 .clipped()
                 .background(Color.blue)
-                .cornerRadius(6)
+                .cornerRadius(Constant.View.CornerRadius.default)
                 .shadow(radius: 10)
         }
         .aspectRatio(contentMode: .fit)

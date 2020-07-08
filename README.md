@@ -5,7 +5,7 @@ Subsonicious is a Subsonic app for iOS in SwiftUI.
 The goal is to get used to SwiftUI & Combine.
 
 ## Compatibility
-Requires iOS 13.0 or later.
+Requires iOS 14.0 or later.
 Compatible with iPhone, iPad and iPod touch in all orientations.
 
 Requires macOS 10.15 or later.

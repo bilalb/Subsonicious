@@ -14,15 +14,23 @@ struct RootView: View {
     @EnvironmentObject var authenticationManager: AuthenticationManager
     @EnvironmentObject var player: CombineQueuePlayer
     @EnvironmentObject var playerObserver: PlayerObserver
+    @State private var isLoggedIn = false
 
     var body: some View {
         Group {
-            if case .success(let response) = self.authenticationManager.result, response.status == .success {
+            if isLoggedIn {
                 ContentView()
                     .environmentObject(player)
                     .environmentObject(playerObserver)
             } else {
                 LoginView()
+            }
+        }
+        .onReceive(authenticationManager.$result) { result in
+            if case .success(let response) = result, response.status == .success {
+                withAnimation {
+                    isLoggedIn = true
+                }
             }
         }
     }
