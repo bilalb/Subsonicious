@@ -17,15 +17,15 @@ struct PlayerSliderView: View {
 
     var body: some View {
         VStack {
-            Slider(value: self.$playerObserver.currentTime,
-                   in: 0...self.playerObserver.duration,
-                   onEditingChanged: self.sliderEditingChanged(editingStarted:))
+            Slider(value: $playerObserver.currentTime,
+                   in: 0...playerObserver.duration,
+                   onEditingChanged: sliderEditingChanged(editingStarted:))
 
             HStack {
-                Text("\(self.playerObserver.currentTime, formatter: .minutesSecondsFormatter)")
+                Text("\(playerObserver.currentTime, formatter: .minutesSecondsFormatter)")
                     .font(.caption)
                 Spacer()
-                Text("-\(self.playerObserver.remainingTime, formatter: .minutesSecondsFormatter)")
+                Text("-\(playerObserver.remainingTime, formatter: .minutesSecondsFormatter)")
                     .font(.caption)
             }
         }

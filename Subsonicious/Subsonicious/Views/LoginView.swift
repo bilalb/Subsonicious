@@ -20,17 +20,17 @@ struct LoginView: View {
                 Text("login.login")
 
                 VStack {
-                    TextField("login.server", text: self.$server.address)
+                    TextField("login.server", text: $server.address)
                         .keyboardType(.URL)
                         .textContentType(.URL)
                         .asLoginField()
 
-                    TextField("login.username", text: self.$server.username)
+                    TextField("login.username", text: $server.username)
                         .keyboardType(.asciiCapable)
                         .textContentType(.username)
                         .asLoginField()
 
-                    SecureField("login.password", text: self.$server.password)
+                    SecureField("login.password", text: $server.password)
                         .textContentType(.password)
                         .asLoginField()
                 }
@@ -42,9 +42,9 @@ struct LoginView: View {
                         .frame(maxWidth: content.size.width, maxHeight: 44)
                         .background(Color.yellow)
                         .cornerRadius(6)
-                        .opacity(self.continueButtonOpacity)
+                        .opacity(continueButtonOpacity)
                 }
-                .disabled(self.isContinueButtonDisabled)
+                .disabled(isContinueButtonDisabled)
 
                 Spacer()
             }

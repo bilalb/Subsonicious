@@ -25,9 +25,9 @@ struct PlayerControlsView: View {
             Spacer()
 
             Button(action: {
-                self.player.togglePlayPause()
+                player.togglePlayPause()
             }) {
-                PlayerControlImage(systemName: self.playPauseImageName)
+                PlayerControlImage(systemName: playPauseImageName)
             }
 
             Spacer()
