@@ -88,12 +88,17 @@ private extension LoginView {
     }
 
     var errorMessage: String? {
-        if case .failure(let error) = authenticationManager.result {
-            return error.localizedDescription
-        } else if case .success(let response) = authenticationManager.result, let error = response.error {
-            return error.message
+        switch authenticationManager.result {
+        case .failure(let error):
+            switch error {
+            case DecodingError.Subsonic.error(let subsonicError):
+                return subsonicError.message
+            default:
+                return error.localizedDescription
+            }
+        default:
+            return nil
         }
-        return nil
     }
 }
 

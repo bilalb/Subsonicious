@@ -10,7 +10,6 @@ import Foundation
 
 public struct SubsonicResponse: Decodable {
     public let status: Status
-    public let error: Error?
 
     enum CodingKeys: String, CodingKey {
         case responseContainer = "subsonic-response"
@@ -25,38 +24,25 @@ public struct SubsonicResponse: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         let responseContainer = try container.nestedContainer(keyedBy: ResponseCodingKeys.self, forKey: .responseContainer)
+
+        if let error = try responseContainer.decodeIfPresent(Error.self, forKey: .error) {
+            throw DecodingError.Subsonic.error(error)
+        }
+
         status = try responseContainer.decode(Status.self, forKey: .status)
-        error = try responseContainer.decodeIfPresent(Error.self, forKey: .error)
+    }
+}
+
+extension DecodingError {
+    public enum Subsonic: Error {
+        case error(SubsonicResponse.Error)
     }
 }
 
 extension SubsonicResponse {
-    public enum Status: Decodable {
-        case success
-        case failure
-
-        public init(from decoder: Decoder) throws {
-            let container = try decoder.singleValueContainer()
-            let status = try container.decode(String.self)
-            try self.init(status: status)
-        }
-
-        init(status: String) throws {
-            switch status {
-            case "ok":
-                self = .success
-            case "failed":
-                self = .failure
-            default:
-                throw Error.invalidStatus(status)
-            }
-        }
-    }
-}
-
-extension SubsonicResponse.Status {
-    enum Error: Swift.Error {
-        case invalidStatus(String)
+    public enum Status: String, Decodable {
+        case success = "ok"
+        case failure = "failed"
     }
 }
 
