@@ -26,6 +26,9 @@ struct RootView: View {
                 LoginView()
             }
         }
+        .onAppear {
+            isLoggedIn = (try? authenticationManager.authenticateWithPersistedServer()) == true
+        }
         .onReceive(authenticationManager.$result) { result in
             if case .success(let response) = result, response.status == .success {
                 withAnimation {

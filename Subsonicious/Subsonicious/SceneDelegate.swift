@@ -31,7 +31,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         nowPlayingInfoManager.listenToNowPlayingInfoChanges()
 
         let authenticationService = AuthenticationService()
-        let authenticationManager = AuthenticationManager(authenticationService: authenticationService)
+        let serverPerstistenceManager = ServerPersistenceManager()
+        let authenticationManager = AuthenticationManager(
+            authenticationService: authenticationService,
+            serverPerstistenceManager: serverPerstistenceManager)
 
         let rootView = RootView()
             .environmentObject(authenticationManager)
