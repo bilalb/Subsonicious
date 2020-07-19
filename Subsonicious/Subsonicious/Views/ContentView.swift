@@ -13,20 +13,19 @@ struct ContentView: View {
  
     var body: some View {
         TabView(selection: $selection) {
-            PlayerView()
+            LibraryView()
                 .tabItem {
                     VStack {
                         Image("first")
-                        Text("First")
+                        Text("library")
                     }
                 }
                 .tag(0)
-            Text("Second View")
-                .font(.title)
+            PlayerView()
                 .tabItem {
                     VStack {
                         Image("second")
-                        Text("Second")
+                        Text("Player")
                     }
                 }
                 .tag(1)
