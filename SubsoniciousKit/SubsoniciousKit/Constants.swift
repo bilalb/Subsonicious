@@ -40,9 +40,13 @@ enum Constant {
                 static let dataFormat = "json"
             }
         }
-        
+
         enum Authentication {
             static let path = "/rest/ping"
+        }
+
+        enum ArtistList {
+            static let path = "/rest/getArtists"
         }
     }
 
