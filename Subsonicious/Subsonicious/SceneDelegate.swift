@@ -30,8 +30,11 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         nowPlayingInfoManager = NowPlayingInfoManager(player: player)
         nowPlayingInfoManager.listenToNowPlayingInfoChanges()
 
+        let authenticationService = AuthenticationService()
+        let authenticationManager = AuthenticationManager(authenticationService: authenticationService)
+
         let rootView = RootView()
-            .environmentObject(Authentication())
+            .environmentObject(authenticationManager)
             .environmentObject(player)
             .environmentObject(playerObserver)
 

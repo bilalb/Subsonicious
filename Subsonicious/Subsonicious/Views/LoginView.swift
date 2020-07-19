@@ -11,8 +11,9 @@ import SwiftUI
 
 struct LoginView: View {
 
-    @EnvironmentObject var authentication: Authentication
+    @EnvironmentObject var authenticationManager: AuthenticationManager
     @State private var server = Server()
+    @State private var isLoading = false
 
     var body: some View {
         GeometryReader { content in
@@ -20,7 +21,7 @@ struct LoginView: View {
                 Text("login.login")
 
                 VStack {
-                    TextField("login.server", text: $server.address)
+                    TextField("login.server", text: $server.baseURL)
                         .keyboardType(.URL)
                         .textContentType(.URL)
                         .asLoginField()
@@ -34,21 +35,35 @@ struct LoginView: View {
                         .textContentType(.password)
                         .asLoginField()
                 }
+                .disabled(isLoading)
 
                 Button(action: continueButtonPressed) {
-                    Text("login.continue")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: content.size.width, maxHeight: 44)
-                        .background(Color.yellow)
-                        .cornerRadius(6)
-                        .opacity(continueButtonOpacity)
+                    if isLoading {
+                        ProgressView()
+                    } else {
+                        Text("login.continue")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    }
                 }
+                .frame(maxWidth: content.size.width, maxHeight: 44)
+                .background(Color.yellow)
+                .cornerRadius(Constant.View.CornerRadius.default)
+                .opacity(continueButtonOpacity)
                 .disabled(isContinueButtonDisabled)
+
+                if let errorMessage = errorMessage {
+                    Text(errorMessage)
+                        .padding()
+                }
 
                 Spacer()
             }
             .padding()
+        }
+        .onReceive(authenticationManager.$result) { _ in
+            isLoading = false
         }
     }
 }
@@ -56,17 +71,34 @@ struct LoginView: View {
 private extension LoginView {
 
     var continueButtonOpacity: Double {
-        isContinueButtonDisabled ? 0.6 : 1
+        isContinueButtonDisabled ? Constant.View.Opacity.disabled : 1
     }
 
     var isContinueButtonDisabled: Bool {
-        !server.address.isValid ||
+        let fieldsAreInvalid = !server.baseURL.isValid ||
             !server.username.isValid ||
             !server.password.isValid
+
+        return fieldsAreInvalid || isLoading
     }
 
     func continueButtonPressed() {
-        authentication.isConnected = true
+        isLoading = true
+        authenticationManager.authenticate(with: server)
+    }
+
+    var errorMessage: String? {
+        switch authenticationManager.result {
+        case .failure(let error):
+            switch error {
+            case DecodingError.Subsonic.error(let subsonicError):
+                return subsonicError.message
+            default:
+                return error.localizedDescription
+            }
+        default:
+            return nil
+        }
     }
 }
 

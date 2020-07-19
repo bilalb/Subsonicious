@@ -14,8 +14,8 @@ public final class PlayerObserver: ObservableObject {
 
     public var shouldPauseTimeObserver = false
 
-    private let player: CombineQueuePlayer!
-    private var cancellables = [AnyCancellable]()
+    private let player: CombineQueuePlayer
+    private var cancellables: Set<AnyCancellable> = []
     private var timeObserverToken: Any?
 
     @Published public private(set) var timeControlStatus: AVPlayer.TimeControlStatus?
@@ -70,7 +70,7 @@ private extension PlayerObserver {
 
     func removePeriodicTimeObserver() {
         if let token = timeObserverToken {
-            player?.removeTimeObserver(token)
+            player.removeTimeObserver(token)
             timeObserverToken = nil
         }
     }

@@ -12,9 +12,9 @@ import MediaPlayer
 
 public final class NowPlayingInfoManager {
 
-    private let player: CombineQueuePlayer!
+    private let player: CombineQueuePlayer
     private let nowPlayingInfoCenter = MPNowPlayingInfoCenter.default()
-    private var cancellables = [AnyCancellable]()
+    private var cancellables: Set<AnyCancellable> = []
 
     public init(player: CombineQueuePlayer) {
         self.player = player
@@ -24,14 +24,14 @@ public final class NowPlayingInfoManager {
         player.dynamicMetadataChangesPublisher
             .sink { [weak self] _ in
                 self?.updateDynamicMetadata()
-        }
-        .store(in: &cancellables)
+            }
+            .store(in: &cancellables)
 
         player.staticMetadataChangesPublisher
             .sink { [weak self] _ in
                 self?.nowPlayingInfoCenter.setStaticMetadata(.dummyInstance)
-        }
-        .store(in: &cancellables)
+            }
+            .store(in: &cancellables)
     }
 }
 
