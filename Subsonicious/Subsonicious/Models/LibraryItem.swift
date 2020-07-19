@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SubsoniciousKit
 import SwiftUI
 
 enum LibraryItem {
@@ -41,7 +42,10 @@ extension LibraryItem {
         case .playlists:
             return AnyView(PlayerView())
         case .artists:
-            return AnyView(PlayerView())
+            return AnyView(ArtistList()
+                            .environmentObject(
+                                Manager<SubsoniciousKit.ArtistList>(
+                                    endpoint: .artistList)))
         case .albums:
             return AnyView(PlayerView())
         case .songs:

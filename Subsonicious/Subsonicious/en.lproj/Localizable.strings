@@ -23,3 +23,6 @@
 "library.songs" = "Songs";
 "library.recentlyAdded" = "Recently Added";
 "library.favorites" = "Favorites";
+
+// MARK: - Miscellaneous
+"retry" = "Retry";
