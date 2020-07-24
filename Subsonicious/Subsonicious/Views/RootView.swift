@@ -27,7 +27,11 @@ struct RootView: View {
             }
         }
         .onAppear {
-            isLoggedIn = (try? authenticationManager.authenticateWithPersistedServer()) == true
+            do {
+                isLoggedIn = try authenticationManager.authenticateWithPersistedServer()
+            } catch {
+                debugPrint(error)
+            }
         }
         .onReceive(authenticationManager.$result) { result in
             if case .success(let response) = result, response.status == .success {

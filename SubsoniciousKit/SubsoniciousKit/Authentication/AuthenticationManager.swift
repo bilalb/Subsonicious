@@ -28,14 +28,20 @@ public class AuthenticationManager: ObservableObject {
     private func bindResult() {
         $result
             .filter {
-                if case .success = $0 {
+                switch $0 {
+                case .success:
                     return true
+                default:
+                    return false
                 }
-                return false
             }
             .sink { [weak self] _ in
                 guard let server = self?.server else { return }
-                try? self?.serverPersistenceManager.persist(server: server)
+                do {
+                    try self?.serverPersistenceManager.persist(server: server)
+                } catch {
+                    debugPrint(error)
+                }
             }
             .store(in: &cancellables)
     }
