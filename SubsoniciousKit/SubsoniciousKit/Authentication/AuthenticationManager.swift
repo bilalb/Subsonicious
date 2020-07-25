@@ -13,7 +13,12 @@ public class AuthenticationManager: ObservableObject {
 
     private let authenticationService: AuthenticationService
     private let serverPersistenceManager: ServerPersistenceManager
-    private var server: Server?
+    private var server: Server? {
+        didSet {
+            guard let server = server else { return }
+            authenticationService.authentication = Authentication(server: server)
+        }
+    }
     private var cancellables: Set<AnyCancellable> = []
 
     @Published public private(set) var status: AuthenticationStatus = .notAuthenticated(.haveNotTriedYet)

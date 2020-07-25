@@ -11,10 +11,9 @@ import Foundation
 
 public class AuthenticationService: Service {
 
-    private let jsonDecoder = JSONDecoder()
-
     func fetchAuthentication(with server: Server) -> AnyPublisher<SubsonicResponse, Error> {
-        let request = AuthenticationRequest(server: server)
+        let authentication = Authentication(server: server)
+        let request = NetworkRequest(authentication: authentication, endpoint: .authentication)
 
         guard let url = request.url else {
             return Fail(outputType: SubsonicResponse.self, failure: NetworkRequest.Error.nilURL)

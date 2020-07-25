@@ -30,10 +30,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         nowPlayingInfoManager = NowPlayingInfoManager(player: player)
         nowPlayingInfoManager.listenToNowPlayingInfoChanges()
 
-        let authenticationService = AuthenticationService()
-
+        var authenticationService: AuthenticationService!
         var serverPerstistenceManager: ServerPersistenceManager!
         do {
+            authenticationService = try AuthenticationService()
             serverPerstistenceManager = try ServerPersistenceManager()
         } catch {
             preconditionFailure(error.localizedDescription)
