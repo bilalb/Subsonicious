@@ -11,40 +11,48 @@ import SwiftUI
 
 struct RootView: View {
 
-    @EnvironmentObject var authenticationManager: AuthenticationManager
     @EnvironmentObject var player: CombineQueuePlayer
     @EnvironmentObject var playerObserver: PlayerObserver
-    @State private var isLoggedIn = false
+    var status: AuthenticationStatus
+    var authenticate: () -> Void
 
     var body: some View {
         Group {
-            if isLoggedIn {
+            switch status {
+            case .authenticated:
                 ContentView()
                     .environmentObject(player)
                     .environmentObject(playerObserver)
-            } else {
+            case .authenticating:
+                ProgressView("authenticating")
+            case .notAuthenticated:
                 LoginView()
+                    .animation(nil)
             }
         }
-        .onAppear {
-            do {
-                isLoggedIn = try authenticationManager.authenticateWithPersistedServer()
-            } catch {
-                debugPrint(error)
-            }
-        }
-        .onReceive(authenticationManager.$result) { result in
-            if case .success(let response) = result, response.status == .success {
-                withAnimation {
-                    isLoggedIn = true
-                }
-            }
-        }
+        .onAppear(perform: authenticate)
+        .animation(.default)
     }
 }
 
 struct RootView_Previews: PreviewProvider {
     static var previews: some View {
-        RootView()
+        RootView(status: .authenticating(withPersistedServer: false),
+                 authenticate: {})
+    }
+}
+
+extension RootView: Equatable {
+    static func == (lhs: RootView, rhs: RootView) -> Bool {
+        let statusDidNotChange = lhs.status == rhs.status
+        var changedByUser: Bool {
+            switch rhs.status {
+            case .authenticating(let persistedServerExists):
+                return !persistedServerExists
+            default:
+                return false
+            }
+        }
+        return statusDidNotChange || changedByUser
     }
 }

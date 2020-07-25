@@ -13,28 +13,42 @@ public class AuthenticationManager: ObservableObject {
 
     private let authenticationService: AuthenticationService
     private let serverPersistenceManager: ServerPersistenceManager
-    @Published public private(set) var result: Result<SubsonicResponse, Error>?
     private var server: Server?
     private var cancellables: Set<AnyCancellable> = []
+
+    @Published public private(set) var status: AuthenticationStatus = .notAuthenticated(.haveNotTriedYet)
 
     public init(authenticationService: AuthenticationService,
                 serverPerstistenceManager: ServerPersistenceManager) {
         self.authenticationService = authenticationService
         self.serverPersistenceManager = serverPerstistenceManager
 
-        bindResult()
+        bindStatus()
     }
 
-    private func bindResult() {
-        $result
-            .filter {
-                switch $0 {
-                case .success:
-                    return true
-                default:
-                    return false
-                }
-            }
+    public func authenticate(with server: Server) throws {
+        self.server = server
+        status = .authenticating(withPersistedServer: false)
+        try authenticate()
+    }
+
+    public func authenticateWithPersistedServer() throws {
+        do {
+            self.server = try serverPersistenceManager.persistedServer()
+            status = .authenticating(withPersistedServer: true)
+            try authenticate()
+        } catch {
+            status = .notAuthenticated(.noPersistedServer)
+            throw error
+        }
+    }
+}
+
+private extension AuthenticationManager {
+
+    func bindStatus() {
+        $status
+            .filter { $0 == .authenticated }
             .sink { [weak self] _ in
                 guard let server = self?.server else { return }
                 do {
@@ -46,25 +60,20 @@ public class AuthenticationManager: ObservableObject {
             .store(in: &cancellables)
     }
 
-    public func authenticate(with server: Server) {
-        self.server = server
+    func authenticate() throws {
+        guard let server = server else { throw Error.nilServer }
 
         authenticationService.fetchAuthentication(with: server)
-            .map { Result<SubsonicResponse, Error>.success($0) }
-            .catch { Just(Result<SubsonicResponse, Error>.failure($0)).eraseToAnyPublisher() }
+            .map { _ in AuthenticationStatus.authenticated }
+            .catch { Just(AuthenticationStatus.notAuthenticated(.failure($0))).eraseToAnyPublisher() }
             .receive(on: DispatchQueue.main)
-            .assign(to: \.result, on: self)
+            .assign(to: \.status, on: self)
             .store(in: &cancellables)
     }
+}
 
-    /// Authenticate with the persisted server if exists.
-    /// - Throws: Error while trying to get the persisted server.
-    /// - Returns: `true` if the persisted server exists; otherwise `false`.
-    public func authenticateWithPersistedServer() throws -> Bool {
-        if let persistedServer = try serverPersistenceManager.persistedServer() {
-            authenticate(with: persistedServer)
-            return true
-        }
-        return false
+extension AuthenticationManager {
+    enum Error: Swift.Error {
+        case nilServer
     }
 }

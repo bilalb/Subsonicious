@@ -43,14 +43,14 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             authenticationService: authenticationService,
             serverPerstistenceManager: serverPerstistenceManager)
 
-        let rootView = RootView()
+        let rootContainerView = RootContainerView()
             .environmentObject(authenticationManager)
             .environmentObject(player)
             .environmentObject(playerObserver)
 
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: rootView)
+            window.rootViewController = UIHostingController(rootView: rootContainerView)
             self.window = window
             window.makeKeyAndVisible()
         }
