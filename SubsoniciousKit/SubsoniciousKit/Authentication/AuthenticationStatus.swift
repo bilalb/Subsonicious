@@ -10,7 +10,7 @@ import Foundation
 
 public enum AuthenticationStatus {
     case authenticated
-    case authenticating(withPersistedServer: Bool)
+    case authenticating(AuthenticationMode)
     case notAuthenticated(NotAuthenticatedReason)
 }
 

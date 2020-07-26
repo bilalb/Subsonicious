@@ -16,7 +16,7 @@ struct RootContainerView: View {
         RootView(status: authenticationManager.status,
                  authenticate: {
                     do {
-                        try authenticationManager.authenticateWithPersistedServer()
+                        try authenticationManager.authenticate(.automatic)
                     } catch {
                         debugPrint(error)
                     }

@@ -89,7 +89,7 @@ private extension LoginView {
 
     func continueButtonPressed() {
         do {
-            try authenticationManager.authenticate(with: server)
+            try authenticationManager.authenticate(.manual(server))
         } catch {
             preconditionFailure(error.localizedDescription)
         }

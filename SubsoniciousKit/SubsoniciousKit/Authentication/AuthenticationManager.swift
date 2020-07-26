@@ -26,21 +26,21 @@ public class AuthenticationManager: ObservableObject {
         bindStatus()
     }
 
-    public func authenticate(with server: Server) throws {
-        self.server = server
-        status = .authenticating(withPersistedServer: false)
-        try authenticate()
-    }
-
-    public func authenticateWithPersistedServer() throws {
-        do {
-            self.server = try serverPersistenceManager.persistedServer()
-            status = .authenticating(withPersistedServer: true)
-            try authenticate()
-        } catch {
-            status = .notAuthenticated(.noPersistedServer)
-            throw error
+    public func authenticate(_ mode: AuthenticationMode) throws {
+        switch mode {
+        case .automatic:
+            do {
+                self.server = try serverPersistenceManager.persistedServer()
+            } catch {
+                status = .notAuthenticated(.noPersistedServer)
+                throw error
+            }
+        case .manual(let server):
+            self.server = server
         }
+
+        status = .authenticating(mode)
+        try authenticate()
     }
 }
 

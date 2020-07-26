@@ -37,7 +37,7 @@ struct RootView: View {
 
 struct RootView_Previews: PreviewProvider {
     static var previews: some View {
-        RootView(status: .authenticating(withPersistedServer: false),
+        RootView(status: .authenticating(.automatic),
                  authenticate: {})
     }
 }
@@ -45,14 +45,14 @@ struct RootView_Previews: PreviewProvider {
 extension RootView: Equatable {
     static func == (lhs: RootView, rhs: RootView) -> Bool {
         let statusDidNotChange = lhs.status == rhs.status
-        var changedByUser: Bool {
+        var changedManually: Bool {
             switch rhs.status {
-            case .authenticating(let persistedServerExists):
-                return !persistedServerExists
+            case .authenticating(let mode):
+                return mode != AuthenticationMode.automatic
             default:
                 return false
             }
         }
-        return statusDidNotChange || changedByUser
+        return statusDidNotChange || changedManually
     }
 }
