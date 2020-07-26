@@ -11,18 +11,7 @@ import Foundation
 
 public class AuthenticationService: Service {
 
-    func fetchAuthentication(with server: Server) -> AnyPublisher<SubsonicResponse, Error> {
-        let authentication = Authentication(server: server)
-        let request = NetworkRequest(authentication: authentication, endpoint: .authentication)
-
-        guard let url = request.url else {
-            return Fail(outputType: SubsonicResponse.self, failure: NetworkRequest.Error.nilURL)
-                .eraseToAnyPublisher()
-        }
-
-        return session.dataTaskPublisher(for: url)
-            .map(\.data)
-            .decode(type: SubsonicResponse.self, decoder: jsonDecoder)
-            .eraseToAnyPublisher()
+    func fetch(_ url: URL) -> AnyPublisher<SubsonicResponse, Error> {
+        fetcher.fetch(url)
     }
 }

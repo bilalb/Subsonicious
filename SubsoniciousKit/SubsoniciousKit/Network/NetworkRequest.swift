@@ -12,14 +12,17 @@ struct NetworkRequest {
     let authentication: Authentication
     let endpoint: Endpoint
 
-    var url: URL? {
+    func url() throws -> URL {
         var urlComponents = URLComponents()
         urlComponents.scheme = authentication.scheme
         urlComponents.host = authentication.host
         urlComponents.path = endpoint.path
         urlComponents.queryItems = defaultQueryItems + authentication.queryItems + endpoint.queryItems
 
-        return urlComponents.url
+        guard let url = urlComponents.url else {
+            throw Error.nilURL
+        }
+        return url
     }
 }
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9C062FC124A26997006001EB /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C062FC024A26997006001EB /* Server.swift */; };
+		9C0CEA1524D6CACD00BB42D8 /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0CEA1424D6CACD00BB42D8 /* URLBuilder.swift */; };
 		9C2452272484265D00CDE6F3 /* SubsoniciousKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C24521D2484265D00CDE6F3 /* SubsoniciousKit.framework */; };
 		9C24522C2484265D00CDE6F3 /* SubsoniciousKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C24522B2484265D00CDE6F3 /* SubsoniciousKitTests.swift */; };
 		9C24522E2484265D00CDE6F3 /* SubsoniciousKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C2452202484265D00CDE6F3 /* SubsoniciousKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -21,6 +22,7 @@
 		9C623207248C1B9100D0E703 /* NowPlayingMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C623206248C1B9100D0E703 /* NowPlayingMetadata.swift */; };
 		9C62320C248D4BAC00D0E703 /* CombineQueuePlayer+RemoteCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C62320B248D4BAC00D0E703 /* CombineQueuePlayer+RemoteCommand.swift */; };
 		9C62320F248D4C1E00D0E703 /* MediaPlayerRemoteCommandsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C62320E248D4C1E00D0E703 /* MediaPlayerRemoteCommandsManager.swift */; };
+		9C635D6024D5BD85009003AF /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C635D5F24D5BD85009003AF /* Fetcher.swift */; };
 		9C6AEBC224CC684100E66B02 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6AEBC124CC684100E66B02 /* Authentication.swift */; };
 		9C6AEBC424CC687F00E66B02 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6AEBC324CC687F00E66B02 /* Endpoint.swift */; };
 		9C6AEBC624CC69AA00E66B02 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6AEBC524CC69AA00E66B02 /* String.swift */; };
@@ -51,6 +53,7 @@
 
 /* Begin PBXFileReference section */
 		9C062FC024A26997006001EB /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
+		9C0CEA1424D6CACD00BB42D8 /* URLBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLBuilder.swift; sourceTree = "<group>"; };
 		9C24521D2484265D00CDE6F3 /* SubsoniciousKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SubsoniciousKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C2452202484265D00CDE6F3 /* SubsoniciousKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubsoniciousKit.h; sourceTree = "<group>"; };
 		9C2452212484265D00CDE6F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -67,6 +70,7 @@
 		9C623206248C1B9100D0E703 /* NowPlayingMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingMetadata.swift; sourceTree = "<group>"; };
 		9C62320B248D4BAC00D0E703 /* CombineQueuePlayer+RemoteCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CombineQueuePlayer+RemoteCommand.swift"; sourceTree = "<group>"; };
 		9C62320E248D4C1E00D0E703 /* MediaPlayerRemoteCommandsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPlayerRemoteCommandsManager.swift; sourceTree = "<group>"; };
+		9C635D5F24D5BD85009003AF /* Fetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetcher.swift; sourceTree = "<group>"; };
 		9C6AEBC124CC684100E66B02 /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		9C6AEBC324CC687F00E66B02 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		9C6AEBC524CC69AA00E66B02 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -207,9 +211,11 @@
 			isa = PBXGroup;
 			children = (
 				9C6AEBC324CC687F00E66B02 /* Endpoint.swift */,
+				9C635D5F24D5BD85009003AF /* Fetcher.swift */,
 				9C99E32124B25ABF00C82B42 /* NetworkRequest.swift */,
 				9C6BB6C424B87AA100E029C9 /* Service.swift */,
 				9C99E31F24B22C3E00C82B42 /* SubsonicResponse.swift */,
+				9C0CEA1424D6CACD00BB42D8 /* URLBuilder.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -353,6 +359,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C99E32224B25ABF00C82B42 /* NetworkRequest.swift in Sources */,
+				9C0CEA1524D6CACD00BB42D8 /* URLBuilder.swift in Sources */,
 				9C9004B124C33861005454DE /* Bundle.swift in Sources */,
 				9C6AEBC624CC69AA00E66B02 /* String.swift in Sources */,
 				9C99E32924B25D2400C82B42 /* AuthenticationManager.swift in Sources */,
@@ -360,6 +367,7 @@
 				9C6F4AC62496458100F59905 /* AudioSessionManager.swift in Sources */,
 				9C62320C248D4BAC00D0E703 /* CombineQueuePlayer+RemoteCommand.swift in Sources */,
 				9C6AEBC824CC69C100E66B02 /* Data.swift in Sources */,
+				9C635D6024D5BD85009003AF /* Fetcher.swift in Sources */,
 				9C623207248C1B9100D0E703 /* NowPlayingMetadata.swift in Sources */,
 				9C6133432493E7E7004E81A2 /* AVPlayer.swift in Sources */,
 				9C62320F248D4C1E00D0E703 /* MediaPlayerRemoteCommandsManager.swift in Sources */,

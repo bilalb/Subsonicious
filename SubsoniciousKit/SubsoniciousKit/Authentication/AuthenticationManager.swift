@@ -13,12 +13,7 @@ public class AuthenticationManager: ObservableObject {
 
     private let authenticationService: AuthenticationService
     private let serverPersistenceManager: ServerPersistenceManager
-    private var server: Server? {
-        didSet {
-            guard let server = server else { return }
-            authenticationService.authentication = Authentication(server: server)
-        }
-    }
+    private var server: Server?
     private var cancellables: Set<AnyCancellable> = []
 
     @Published public private(set) var status: AuthenticationStatus = .notAuthenticated(.haveNotTriedYet)
@@ -45,7 +40,9 @@ public class AuthenticationManager: ObservableObject {
         }
 
         status = .authenticating(mode)
-        try authenticate()
+
+        let url = try authenticationURL()
+        authenticate(url: url)
     }
 }
 
@@ -65,15 +62,20 @@ private extension AuthenticationManager {
             .store(in: &cancellables)
     }
 
-    func authenticate() throws {
-        guard let server = server else { throw Error.nilServer }
-
-        authenticationService.fetchAuthentication(with: server)
+    func authenticate(url: URL) {
+        authenticationService.fetch(url)
             .map { _ in AuthenticationStatus.authenticated }
             .catch { Just(AuthenticationStatus.notAuthenticated(.failure($0))).eraseToAnyPublisher() }
             .receive(on: DispatchQueue.main)
             .assign(to: \.status, on: self)
             .store(in: &cancellables)
+    }
+
+    func authenticationURL() throws -> URL {
+        guard let server = server else { throw Error.nilServer }
+        let authentication = Authentication(server: server)
+        let urlBuilder = try URLBuilder(authentication: authentication, endpoint: .authentication)
+        return try urlBuilder.url()
     }
 }
 

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Authentication {
+struct Authentication {
 
     let server: Server
 
@@ -32,7 +32,6 @@ public struct Authentication {
 private extension Authentication {
 
     typealias ParameterName = Constant.NetworkRequest.ParameterName
-    typealias ParameterValue = Constant.NetworkRequest.ParameterValue
 
     var username: String {
         server.username
