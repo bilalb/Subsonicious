@@ -19,3 +19,7 @@ public struct Server {
         self.password = password
     }
 }
+
+extension Server: Codable { }
+
+extension Server: Equatable { }

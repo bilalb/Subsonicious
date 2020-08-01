@@ -31,16 +31,26 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         nowPlayingInfoManager.listenToNowPlayingInfoChanges()
 
         let authenticationService = AuthenticationService()
-        let authenticationManager = AuthenticationManager(authenticationService: authenticationService)
 
-        let rootView = RootView()
+        var serverPerstistenceManager: ServerPersistenceManager!
+        do {
+            serverPerstistenceManager = try ServerPersistenceManager()
+        } catch {
+            preconditionFailure(error.localizedDescription)
+        }
+
+        let authenticationManager = AuthenticationManager(
+            authenticationService: authenticationService,
+            serverPerstistenceManager: serverPerstistenceManager)
+
+        let rootContainerView = RootContainerView()
             .environmentObject(authenticationManager)
             .environmentObject(player)
             .environmentObject(playerObserver)
 
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: rootView)
+            window.rootViewController = UIHostingController(rootView: rootContainerView)
             self.window = window
             window.makeKeyAndVisible()
         }

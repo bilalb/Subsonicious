@@ -12,3 +12,5 @@
 "login.username" = "Username";
 "login.password" = "Password";
 "login.continue" = "Continue";
+
+"authenticating" = "Authentication in progress...";

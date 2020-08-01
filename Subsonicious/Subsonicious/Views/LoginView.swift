@@ -13,7 +13,6 @@ struct LoginView: View {
 
     @EnvironmentObject var authenticationManager: AuthenticationManager
     @State private var server = Server()
-    @State private var isLoading = false
 
     var body: some View {
         GeometryReader { content in
@@ -62,9 +61,6 @@ struct LoginView: View {
             }
             .padding()
         }
-        .onReceive(authenticationManager.$result) { _ in
-            isLoading = false
-        }
     }
 }
 
@@ -82,19 +78,36 @@ private extension LoginView {
         return fieldsAreInvalid || isLoading
     }
 
+    var isLoading: Bool {
+        switch authenticationManager.status {
+        case .authenticating:
+            return true
+        default:
+            return false
+        }
+    }
+
     func continueButtonPressed() {
-        isLoading = true
-        authenticationManager.authenticate(with: server)
+        do {
+            try authenticationManager.authenticate(.manual(server))
+        } catch {
+            preconditionFailure(error.localizedDescription)
+        }
     }
 
     var errorMessage: String? {
-        switch authenticationManager.result {
-        case .failure(let error):
-            switch error {
-            case DecodingError.Subsonic.error(let subsonicError):
-                return subsonicError.message
+        switch authenticationManager.status {
+        case .notAuthenticated(let reason):
+            switch reason {
+            case .failure(let error):
+                switch error {
+                case .some(DecodingError.Subsonic.error(let subsonicError)):
+                    return subsonicError.message
+                default:
+                    return error?.localizedDescription
+                }
             default:
-                return error.localizedDescription
+                return nil
             }
         default:
             return nil

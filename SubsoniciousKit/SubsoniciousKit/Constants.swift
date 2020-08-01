@@ -42,4 +42,11 @@ enum Constant {
             static let path = "/rest/ping"
         }
     }
+
+    enum Keychain {
+
+        enum Key {
+            static let server = "server"
+        }
+    }
 }
