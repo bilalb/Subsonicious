@@ -48,6 +48,24 @@ enum Constant {
         enum ArtistList {
             static let path = "/rest/getArtists"
         }
+
+        enum Artist {
+            static let path = "/rest/getArtist"
+
+            enum ParameterName {
+                /// The artist ID.
+                static let artistId = "id"
+            }
+        }
+
+        enum ArtistDetails {
+            static let path = "/rest/getArtistInfo2"
+
+            enum ParameterName {
+                /// The artist ID.
+                static let id = "id"
+            }
+        }
     }
 
     enum Keychain {

@@ -16,6 +16,7 @@ public struct SubsonicResponse: Decodable {
     enum ResponseCodingKeys: String, CodingKey {
         case error
         case artists
+        case artist
     }
 
     public init(from decoder: Decoder) throws {

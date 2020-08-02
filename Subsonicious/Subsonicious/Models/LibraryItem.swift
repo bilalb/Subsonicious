@@ -61,7 +61,6 @@ extension LibraryItem {
 extension LibraryItem: CaseIterable { }
 
 extension LibraryItem: Identifiable {
-    // swiftlint:disable identifier_name
     var id: String { localizedStringKey }
 }
 

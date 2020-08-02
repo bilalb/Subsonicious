@@ -42,6 +42,8 @@
 		9CA20A7924E9646000AC1113 /* SafeURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA20A7824E9646000AC1113 /* SafeURL.swift */; };
 		9CA20A7B24E9654F00AC1113 /* SafeInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA20A7A24E9654F00AC1113 /* SafeInt.swift */; };
 		9CA20A7D24E966C100AC1113 /* Valuable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA20A7C24E966C100AC1113 /* Valuable.swift */; };
+		9CA20A7F24E97CF200AC1113 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA20A7E24E97CF200AC1113 /* Album.swift */; };
+		9CA20A8124E97D0E00AC1113 /* ArtistDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA20A8024E97D0E00AC1113 /* ArtistDetails.swift */; };
 		9CBB21B624D71275002484DF /* FetchStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBB21B524D71275002484DF /* FetchStatus.swift */; };
 		9CBB21B824D712AB002484DF /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBB21B724D712AB002484DF /* Result.swift */; };
 		9CD36DBA24E95FD1001F6B09 /* ArtistList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD36DB924E95FD1001F6B09 /* ArtistList.swift */; };
@@ -96,6 +98,8 @@
 		9CA20A7824E9646000AC1113 /* SafeURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeURL.swift; sourceTree = "<group>"; };
 		9CA20A7A24E9654F00AC1113 /* SafeInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeInt.swift; sourceTree = "<group>"; };
 		9CA20A7C24E966C100AC1113 /* Valuable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Valuable.swift; sourceTree = "<group>"; };
+		9CA20A7E24E97CF200AC1113 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
+		9CA20A8024E97D0E00AC1113 /* ArtistDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetails.swift; sourceTree = "<group>"; };
 		9CBB21B524D71275002484DF /* FetchStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchStatus.swift; sourceTree = "<group>"; };
 		9CBB21B724D712AB002484DF /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		9CD36DB924E95FD1001F6B09 /* ArtistList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistList.swift; sourceTree = "<group>"; };
@@ -251,7 +255,9 @@
 		9CD36DB824E95FB8001F6B09 /* Decodables */ = {
 			isa = PBXGroup;
 			children = (
+				9CA20A7E24E97CF200AC1113 /* Album.swift */,
 				9CD36DBB24E96035001F6B09 /* Artist.swift */,
+				9CA20A8024E97D0E00AC1113 /* ArtistDetails.swift */,
 				9CD36DB924E95FD1001F6B09 /* ArtistList.swift */,
 			);
 			path = Decodables;
@@ -418,7 +424,9 @@
 				9C062FC124A26997006001EB /* Server.swift in Sources */,
 				9C6F4AC824966FC700F59905 /* CombineQueuePlayer+MedataChanges.swift in Sources */,
 				9C6231FC248C12AE00D0E703 /* PlayerObserver.swift in Sources */,
+				9CA20A7F24E97CF200AC1113 /* Album.swift in Sources */,
 				9C6AEBC224CC684100E66B02 /* Authentication.swift in Sources */,
+				9CA20A8124E97D0E00AC1113 /* ArtistDetails.swift in Sources */,
 				9C342D282490E98A000DD778 /* CombineQueuePlayer.swift in Sources */,
 				9C99E32B24B25D4300C82B42 /* Manager.swift in Sources */,
 				9C9004AF24C337F2005454DE /* ServerPersistenceManager.swift in Sources */,

@@ -49,7 +49,6 @@ public extension ArtistList {
     }
 }
 
-// swiftlint:disable identifier_name
 extension ArtistList.Index: Identifiable {
     public var id: String { name }
 }
