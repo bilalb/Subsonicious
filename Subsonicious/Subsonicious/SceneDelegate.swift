@@ -30,7 +30,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         nowPlayingInfoManager = NowPlayingInfoManager(player: player)
         nowPlayingInfoManager.listenToNowPlayingInfoChanges()
 
-        let authenticationService = AuthenticationService()
+        let authenticationService = Service<SubsonicResponse>()
         var serverPerstistenceManager: ServerPersistenceManager!
         do {
             serverPerstistenceManager = try ServerPersistenceManager()

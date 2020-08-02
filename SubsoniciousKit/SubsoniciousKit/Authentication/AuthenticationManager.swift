@@ -11,14 +11,14 @@ import Foundation
 
 public class AuthenticationManager: ObservableObject {
 
-    private let authenticationService: AuthenticationService
+    private let authenticationService: Service<SubsonicResponse>
     private let serverPersistenceManager: ServerPersistenceManager
     private var server: Server?
     private var cancellables: Set<AnyCancellable> = []
 
     @Published public private(set) var status: AuthenticationStatus = .notAuthenticated(.haveNotTriedYet)
 
-    public init(authenticationService: AuthenticationService,
+    public init(authenticationService: Service<SubsonicResponse>,
                 serverPerstistenceManager: ServerPersistenceManager) {
         self.authenticationService = authenticationService
         self.serverPersistenceManager = serverPerstistenceManager

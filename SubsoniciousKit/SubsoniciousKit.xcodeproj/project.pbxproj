@@ -38,7 +38,9 @@
 		9C99E32024B22C3E00C82B42 /* SubsonicResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C99E31F24B22C3E00C82B42 /* SubsonicResponse.swift */; };
 		9C99E32224B25ABF00C82B42 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C99E32124B25ABF00C82B42 /* NetworkRequest.swift */; };
 		9C99E32924B25D2400C82B42 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C99E32824B25D2400C82B42 /* AuthenticationManager.swift */; };
-		9C99E32B24B25D4300C82B42 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C99E32A24B25D4300C82B42 /* AuthenticationService.swift */; };
+		9C99E32B24B25D4300C82B42 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C99E32A24B25D4300C82B42 /* Manager.swift */; };
+		9CBB21B624D71275002484DF /* FetchStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBB21B524D71275002484DF /* FetchStatus.swift */; };
+		9CBB21B824D712AB002484DF /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBB21B724D712AB002484DF /* Result.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,7 +87,9 @@
 		9C99E31F24B22C3E00C82B42 /* SubsonicResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubsonicResponse.swift; sourceTree = "<group>"; };
 		9C99E32124B25ABF00C82B42 /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 		9C99E32824B25D2400C82B42 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
-		9C99E32A24B25D4300C82B42 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
+		9C99E32A24B25D4300C82B42 /* Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
+		9CBB21B524D71275002484DF /* FetchStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchStatus.swift; sourceTree = "<group>"; };
+		9CBB21B724D712AB002484DF /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,7 +118,6 @@
 				9C6AEBC124CC684100E66B02 /* Authentication.swift */,
 				9C99E32824B25D2400C82B42 /* AuthenticationManager.swift */,
 				9C53A1F424CDD85400A5CB79 /* AuthenticationMode.swift */,
-				9C99E32A24B25D4300C82B42 /* AuthenticationService.swift */,
 				9C94FFA924CCB818006640FF /* AuthenticationStatus.swift */,
 				9C062FC024A26997006001EB /* Server.swift */,
 				9C9004AE24C337F2005454DE /* ServerPersistenceManager.swift */,
@@ -174,6 +177,7 @@
 				9C9004B024C33861005454DE /* Bundle.swift */,
 				9C6AEBC724CC69C100E66B02 /* Data.swift */,
 				9C61334824964399004E81A2 /* Publisher.swift */,
+				9CBB21B724D712AB002484DF /* Result.swift */,
 				9C6AEBC524CC69AA00E66B02 /* String.swift */,
 			);
 			path = Extensions;
@@ -212,6 +216,8 @@
 			children = (
 				9C6AEBC324CC687F00E66B02 /* Endpoint.swift */,
 				9C635D5F24D5BD85009003AF /* Fetcher.swift */,
+				9CBB21B524D71275002484DF /* FetchStatus.swift */,
+				9C99E32A24B25D4300C82B42 /* Manager.swift */,
 				9C99E32124B25ABF00C82B42 /* NetworkRequest.swift */,
 				9C6BB6C424B87AA100E029C9 /* Service.swift */,
 				9C99E31F24B22C3E00C82B42 /* SubsonicResponse.swift */,
@@ -364,6 +370,7 @@
 				9C6AEBC624CC69AA00E66B02 /* String.swift in Sources */,
 				9C99E32924B25D2400C82B42 /* AuthenticationManager.swift in Sources */,
 				9C61334924964399004E81A2 /* Publisher.swift in Sources */,
+				9CBB21B824D712AB002484DF /* Result.swift in Sources */,
 				9C6F4AC62496458100F59905 /* AudioSessionManager.swift in Sources */,
 				9C62320C248D4BAC00D0E703 /* CombineQueuePlayer+RemoteCommand.swift in Sources */,
 				9C6AEBC824CC69C100E66B02 /* Data.swift in Sources */,
@@ -378,11 +385,12 @@
 				9C6231FC248C12AE00D0E703 /* PlayerObserver.swift in Sources */,
 				9C6AEBC224CC684100E66B02 /* Authentication.swift in Sources */,
 				9C342D282490E98A000DD778 /* CombineQueuePlayer.swift in Sources */,
-				9C99E32B24B25D4300C82B42 /* AuthenticationService.swift in Sources */,
+				9C99E32B24B25D4300C82B42 /* Manager.swift in Sources */,
 				9C9004AF24C337F2005454DE /* ServerPersistenceManager.swift in Sources */,
 				9C623204248C1B1900D0E703 /* NowPlayingInfoManager.swift in Sources */,
 				9C53A1F524CDD85400A5CB79 /* AuthenticationMode.swift in Sources */,
 				9C94FFAA24CCB818006640FF /* AuthenticationStatus.swift in Sources */,
+				9CBB21B624D71275002484DF /* FetchStatus.swift in Sources */,
 				9C99E31D24B2255600C82B42 /* Constants.swift in Sources */,
 				9C6AEBC424CC687F00E66B02 /* Endpoint.swift in Sources */,
 				9C99E32024B22C3E00C82B42 /* SubsonicResponse.swift in Sources */,

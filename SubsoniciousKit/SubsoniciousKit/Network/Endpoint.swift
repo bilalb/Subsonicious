@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Endpoint {
+public enum Endpoint {
     case authentication
 
     var path: String {
