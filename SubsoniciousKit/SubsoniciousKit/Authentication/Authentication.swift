@@ -31,7 +31,7 @@ struct Authentication {
 
 private extension Authentication {
 
-    typealias ParameterName = Constant.NetworkRequest.ParameterName
+    typealias ParameterName = Constant.NetworkRequest.Parameter.Name
 
     var username: String {
         server.username

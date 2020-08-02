@@ -10,12 +10,12 @@ import Combine
 import Foundation
 
 public class Manager<T: Decodable>: ObservableObject {
-    private let service: Service<T>
+    let service: Service<T>
     private let endpoint: Endpoint
     @Published public private(set) var status: FetchStatus = .notFetchedYet
-    private var cancellables: Set<AnyCancellable> = []
+    var cancellables: Set<AnyCancellable> = []
 
-    public init(service: Service<T>, endpoint: Endpoint) {
+    public init(service: Service<T> = Service<T>(), endpoint: Endpoint) {
         self.service = service
         self.endpoint = endpoint
     }
@@ -32,9 +32,7 @@ public class Manager<T: Decodable>: ObservableObject {
             .assign(to: \.status, on: self)
             .store(in: &cancellables)
     }
-}
 
-private extension Manager {
     func url() throws -> URL {
         let urlBuilder = try URLBuilder(endpoint: endpoint)
         return try urlBuilder.url()

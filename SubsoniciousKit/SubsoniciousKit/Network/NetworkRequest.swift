@@ -33,8 +33,8 @@ extension NetworkRequest {
 }
 
 private extension NetworkRequest {
-    typealias ParameterName = Constant.NetworkRequest.ParameterName
-    typealias ParameterValue = Constant.NetworkRequest.ParameterValue
+    typealias ParameterName = Constant.NetworkRequest.Parameter.Name
+    typealias ParameterValue = Constant.NetworkRequest.Parameter.Value
 
     var defaultQueryItems: [URLQueryItem] {
         [URLQueryItem(name: ParameterName.version, value: ParameterValue.version),

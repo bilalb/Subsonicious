@@ -79,7 +79,7 @@ private extension LoginView {
     }
 
     var isLoading: Bool {
-        switch authenticationManager.status {
+        switch authenticationManager.authenticationStatus {
         case .authenticating:
             return true
         default:
@@ -96,7 +96,7 @@ private extension LoginView {
     }
 
     var errorMessage: String? {
-        switch authenticationManager.status {
+        switch authenticationManager.authenticationStatus {
         case .notAuthenticated(let reason):
             switch reason {
             case .failure(let error):

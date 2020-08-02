@@ -9,21 +9,28 @@
 import Combine
 import Foundation
 
-public class AuthenticationManager: ObservableObject {
+public class AuthenticationManager: Manager<SubsonicResponse> {
 
-    private let authenticationService: Service<SubsonicResponse>
     private let serverPersistenceManager: ServerPersistenceManager
     private var server: Server?
-    private var cancellables: Set<AnyCancellable> = []
+    @Published public private(set) var authenticationStatus: AuthenticationStatus = .notAuthenticated(.haveNotTriedYet) {
+        // As described in https://stackoverflow.com/a/57620669
+        // "Using @Published doesn't work on a subclass.
+        // But if you update the value you want to maintain state
+        // of using the objectWillChange.send() method provided by the
+        // baseclass the state gets updated properly"
+        willSet {
+            self.objectWillChange.send()
+        }
+    }
 
-    @Published public private(set) var status: AuthenticationStatus = .notAuthenticated(.haveNotTriedYet)
-
-    public init(authenticationService: Service<SubsonicResponse>,
+    public init(service: Service<SubsonicResponse> = Service<SubsonicResponse>(),
+                endpoint: Endpoint,
                 serverPerstistenceManager: ServerPersistenceManager) {
-        self.authenticationService = authenticationService
         self.serverPersistenceManager = serverPerstistenceManager
+        super.init(service: service, endpoint: endpoint)
 
-        bindStatus()
+        bindAuthenticationStatus()
     }
 
     public func authenticate(_ mode: AuthenticationMode) throws {
@@ -32,24 +39,41 @@ public class AuthenticationManager: ObservableObject {
             do {
                 self.server = try serverPersistenceManager.persistedServer()
             } catch {
-                status = .notAuthenticated(.noPersistedServer)
+                authenticationStatus = .notAuthenticated(.noPersistedServer)
                 throw error
             }
         case .manual(let server):
             self.server = server
         }
 
-        status = .authenticating(mode)
+        authenticationStatus = .authenticating(mode)
 
-        let url = try authenticationURL()
-        authenticate(url: url)
+        try fetch()
+    }
+
+    public override func fetch() throws {
+        let url = try self.url()
+
+        service.fetch(url)
+            .map { _ in AuthenticationStatus.authenticated }
+            .catch { Just(AuthenticationStatus.notAuthenticated(.failure($0))).eraseToAnyPublisher() }
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.authenticationStatus, on: self)
+            .store(in: &cancellables)
+    }
+
+    override func url() throws -> URL {
+        guard let server = server else { throw Error.nilServer }
+        let authentication = Authentication(server: server)
+        let urlBuilder = try URLBuilder(authentication: authentication, endpoint: .authentication)
+        return try urlBuilder.url()
     }
 }
 
 private extension AuthenticationManager {
 
-    func bindStatus() {
-        $status
+    func bindAuthenticationStatus() {
+        $authenticationStatus
             .filter { $0 == .authenticated }
             .sink { [weak self] _ in
                 guard let server = self?.server else { return }
@@ -60,22 +84,6 @@ private extension AuthenticationManager {
                 }
             }
             .store(in: &cancellables)
-    }
-
-    func authenticate(url: URL) {
-        authenticationService.fetch(url)
-            .map { _ in AuthenticationStatus.authenticated }
-            .catch { Just(AuthenticationStatus.notAuthenticated(.failure($0))).eraseToAnyPublisher() }
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.status, on: self)
-            .store(in: &cancellables)
-    }
-
-    func authenticationURL() throws -> URL {
-        guard let server = server else { throw Error.nilServer }
-        let authentication = Authentication(server: server)
-        let urlBuilder = try URLBuilder(authentication: authentication, endpoint: .authentication)
-        return try urlBuilder.url()
     }
 }
 
