@@ -10,7 +10,7 @@ import SubsoniciousKit
 import SwiftUI
 
 struct LoadableView<Content: View>: View {
-    private var status: FetchStatus
+    private let status: FetchStatus
     private let content: Content
 
     init(status: FetchStatus,

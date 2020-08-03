@@ -23,7 +23,12 @@ struct ArtistList: View {
                         Section(header: Text(index.name)) {
                             ForEach(index.artists) { artist in
                                 NavigationLink(
-                                    destination: AnyView(PlayerView()),
+                                    destination: AnyView(
+                                        ArtistView(artistName: artist.name)
+                                            .environmentObject(
+                                                Manager<SubsoniciousKit.Artist>(
+                                                    endpoint: .albumList(
+                                                        artistId: "\(artist.id)")))),
                                     tag: artist,
                                     selection: $selection) {
                                     Text(artist.name)
@@ -69,7 +74,7 @@ private extension ArtistList {
         do {
             try artistListManager.fetch()
         } catch {
-            debugPrint(error)
+            preconditionFailure(error.localizedDescription)
         }
     }
 
