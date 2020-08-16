@@ -39,8 +39,13 @@
 		9C99E32224B25ABF00C82B42 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C99E32124B25ABF00C82B42 /* NetworkRequest.swift */; };
 		9C99E32924B25D2400C82B42 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C99E32824B25D2400C82B42 /* AuthenticationManager.swift */; };
 		9C99E32B24B25D4300C82B42 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C99E32A24B25D4300C82B42 /* Manager.swift */; };
+		9CA20A7924E9646000AC1113 /* SafeURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA20A7824E9646000AC1113 /* SafeURL.swift */; };
+		9CA20A7B24E9654F00AC1113 /* SafeInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA20A7A24E9654F00AC1113 /* SafeInt.swift */; };
+		9CA20A7D24E966C100AC1113 /* Valuable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA20A7C24E966C100AC1113 /* Valuable.swift */; };
 		9CBB21B624D71275002484DF /* FetchStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBB21B524D71275002484DF /* FetchStatus.swift */; };
 		9CBB21B824D712AB002484DF /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBB21B724D712AB002484DF /* Result.swift */; };
+		9CD36DBA24E95FD1001F6B09 /* ArtistList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD36DB924E95FD1001F6B09 /* ArtistList.swift */; };
+		9CD36DBC24E96035001F6B09 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD36DBB24E96035001F6B09 /* Artist.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,8 +93,13 @@
 		9C99E32124B25ABF00C82B42 /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
 		9C99E32824B25D2400C82B42 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		9C99E32A24B25D4300C82B42 /* Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
+		9CA20A7824E9646000AC1113 /* SafeURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeURL.swift; sourceTree = "<group>"; };
+		9CA20A7A24E9654F00AC1113 /* SafeInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeInt.swift; sourceTree = "<group>"; };
+		9CA20A7C24E966C100AC1113 /* Valuable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Valuable.swift; sourceTree = "<group>"; };
 		9CBB21B524D71275002484DF /* FetchStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchStatus.swift; sourceTree = "<group>"; };
 		9CBB21B724D712AB002484DF /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		9CD36DB924E95FD1001F6B09 /* ArtistList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistList.swift; sourceTree = "<group>"; };
+		9CD36DBB24E96035001F6B09 /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +224,7 @@
 		9C99E31E24B22C2600C82B42 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				9CD36DB824E95FB8001F6B09 /* Decodables */,
 				9C6AEBC324CC687F00E66B02 /* Endpoint.swift */,
 				9C635D5F24D5BD85009003AF /* Fetcher.swift */,
 				9CBB21B524D71275002484DF /* FetchStatus.swift */,
@@ -221,9 +232,29 @@
 				9C99E32124B25ABF00C82B42 /* NetworkRequest.swift */,
 				9C6BB6C424B87AA100E029C9 /* Service.swift */,
 				9C99E31F24B22C3E00C82B42 /* SubsonicResponse.swift */,
+				9CA20A7724E9644D00AC1113 /* SafeTypes */,
 				9C0CEA1424D6CACD00BB42D8 /* URLBuilder.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		9CA20A7724E9644D00AC1113 /* SafeTypes */ = {
+			isa = PBXGroup;
+			children = (
+				9CA20A7A24E9654F00AC1113 /* SafeInt.swift */,
+				9CA20A7824E9646000AC1113 /* SafeURL.swift */,
+				9CA20A7C24E966C100AC1113 /* Valuable.swift */,
+			);
+			path = SafeTypes;
+			sourceTree = "<group>";
+		};
+		9CD36DB824E95FB8001F6B09 /* Decodables */ = {
+			isa = PBXGroup;
+			children = (
+				9CD36DBB24E96035001F6B09 /* Artist.swift */,
+				9CD36DB924E95FD1001F6B09 /* ArtistList.swift */,
+			);
+			path = Decodables;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -366,9 +397,11 @@
 			files = (
 				9C99E32224B25ABF00C82B42 /* NetworkRequest.swift in Sources */,
 				9C0CEA1524D6CACD00BB42D8 /* URLBuilder.swift in Sources */,
+				9CA20A7924E9646000AC1113 /* SafeURL.swift in Sources */,
 				9C9004B124C33861005454DE /* Bundle.swift in Sources */,
 				9C6AEBC624CC69AA00E66B02 /* String.swift in Sources */,
 				9C99E32924B25D2400C82B42 /* AuthenticationManager.swift in Sources */,
+				9CD36DBA24E95FD1001F6B09 /* ArtistList.swift in Sources */,
 				9C61334924964399004E81A2 /* Publisher.swift in Sources */,
 				9CBB21B824D712AB002484DF /* Result.swift in Sources */,
 				9C6F4AC62496458100F59905 /* AudioSessionManager.swift in Sources */,
@@ -377,6 +410,8 @@
 				9C635D6024D5BD85009003AF /* Fetcher.swift in Sources */,
 				9C623207248C1B9100D0E703 /* NowPlayingMetadata.swift in Sources */,
 				9C6133432493E7E7004E81A2 /* AVPlayer.swift in Sources */,
+				9CA20A7B24E9654F00AC1113 /* SafeInt.swift in Sources */,
+				9CA20A7D24E966C100AC1113 /* Valuable.swift in Sources */,
 				9C62320F248D4C1E00D0E703 /* MediaPlayerRemoteCommandsManager.swift in Sources */,
 				9C2D97A624B4F1B600D7F543 /* Array.swift in Sources */,
 				9C6BB6C524B87AA100E029C9 /* Service.swift in Sources */,
@@ -393,6 +428,7 @@
 				9CBB21B624D71275002484DF /* FetchStatus.swift in Sources */,
 				9C99E31D24B2255600C82B42 /* Constants.swift in Sources */,
 				9C6AEBC424CC687F00E66B02 /* Endpoint.swift in Sources */,
+				9CD36DBC24E96035001F6B09 /* Artist.swift in Sources */,
 				9C99E32024B22C3E00C82B42 /* SubsonicResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
