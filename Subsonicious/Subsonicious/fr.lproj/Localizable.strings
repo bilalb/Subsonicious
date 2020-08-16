@@ -14,3 +14,12 @@
 "login.continue" = "Continuer";
 
 "authenticating" = "Authentification en cours ...";
+
+// MARK: - Library
+"library" = "Bibliothèque";
+"library.playlists" = "Playlists";
+"library.artists" = "Artistes";
+"library.albums" = "Albums";
+"library.songs" = "Morceaux";
+"library.recentlyAdded" = "Ajoutés récemment";
+"library.favorites" = "Favoris";
