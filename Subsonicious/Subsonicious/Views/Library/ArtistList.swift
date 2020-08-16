@@ -11,9 +11,9 @@ import SwiftUI
 
 struct ArtistList: View {
 
-    @EnvironmentObject var artistListManager: Manager<SubsoniciousKit.ArtistList>
+    @EnvironmentObject var artistListManager: Manager<ArtistListContainer<SubsoniciousKit.ArtistList>>
     @State private var artistList: SubsoniciousKit.ArtistList?
-    @State private var selection: Artist?
+    @State private var selection: ArtistContainer<SubsoniciousKit.Artist>?
 
     @ViewBuilder var content: some View {
         LoadableView(status: artistListManager.status) {
@@ -26,10 +26,10 @@ struct ArtistList: View {
                                     destination: AnyView(
                                         ArtistView(artistName: artist.name)
                                             .environmentObject(
-                                                Manager<SubsoniciousKit.Artist>(
+                                                Manager<ArtistContainer<SubsoniciousKit.Artist>>(
                                                     endpoint: .albumList(
                                                         artistId: "\(artist.id)")))),
-                                    tag: artist,
+                                    tag: ArtistContainer<SubsoniciousKit.Artist>(artist),
                                     selection: $selection) {
                                     Text(artist.name)
                                 }
@@ -57,8 +57,9 @@ struct ArtistList: View {
                 switch status {
                 case .fetched(let result):
                     switch result {
-                    case .success(let artistList):
-                        self.artistList = artistList as? SubsoniciousKit.ArtistList
+                    case .success(let response):
+                        let artistListContainer = response as? ArtistListContainer<SubsoniciousKit.ArtistList>
+                        artistList = artistListContainer?.content
                     default:
                         break
                     }

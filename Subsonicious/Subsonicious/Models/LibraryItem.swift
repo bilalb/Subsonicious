@@ -44,7 +44,7 @@ extension LibraryItem {
         case .artists:
             return AnyView(ArtistList()
                             .environmentObject(
-                                Manager<SubsoniciousKit.ArtistList>(
+                                Manager<ArtistListContainer<SubsoniciousKit.ArtistList>>(
                                     endpoint: .artistList)))
         case .albums:
             return AnyView(PlayerView())

@@ -25,7 +25,7 @@ extension Artist: Decodable {
         case albumCount
         case coverArt
         case artistImageUrl
-        case albums
+        case albums = "album"
     }
 
     public init(from decoder: Decoder) throws {

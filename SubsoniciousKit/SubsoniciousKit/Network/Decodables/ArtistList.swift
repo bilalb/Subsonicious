@@ -14,20 +14,9 @@ public struct ArtistList {
 }
 
 extension ArtistList: Decodable {
-
     enum CodingKeys: String, CodingKey {
         case ignoredArticles
         case indexes = "index"
-    }
-
-    public init(from decoder: Decoder) throws {
-        _ = try SubsonicResponse(from: decoder)
-        let container = try decoder.container(keyedBy: SubsonicResponse.CodingKeys.self)
-        let responseContainer = try container.nestedContainer(keyedBy: SubsonicResponse.ResponseCodingKeys.self, forKey: .responseContainer)
-        let artistContainer = try responseContainer.nestedContainer(keyedBy: CodingKeys.self, forKey: .artists)
-
-        ignoredArticles = try artistContainer.decode(String.self, forKey: .ignoredArticles)
-        indexes = try artistContainer.decode([Index].self, forKey: .indexes)
     }
 }
 

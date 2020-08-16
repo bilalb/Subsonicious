@@ -11,7 +11,7 @@ import SwiftUI
 
 struct ArtistView: View {
 
-    @EnvironmentObject var manager: Manager<SubsoniciousKit.Artist>
+    @EnvironmentObject var manager: Manager<ArtistContainer<SubsoniciousKit.Artist>>
     var artistName: String
     @State private var artist: SubsoniciousKit.Artist?
     @State private var selection: Album?
@@ -47,8 +47,9 @@ struct ArtistView: View {
                 switch status {
                 case .fetched(let result):
                     switch result {
-                    case .success(let artist):
-                        self.artist = artist as? SubsoniciousKit.Artist
+                    case .success(let response):
+                        let artistContainer = response as? ArtistContainer<SubsoniciousKit.Artist>
+                        artist = artistContainer?.content
                     default:
                         break
                     }
