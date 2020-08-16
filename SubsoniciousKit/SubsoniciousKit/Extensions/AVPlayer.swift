@@ -1,5 +1,5 @@
 //
-//  AVPlayer+Extensions.swift
+//  AVPlayer.swift
 //  SubsoniciousKit
 //
 //  Created by Bilal on 12/06/2020.

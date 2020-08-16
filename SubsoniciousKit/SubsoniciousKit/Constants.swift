@@ -12,30 +12,33 @@ enum Constant {
 
     enum NetworkRequest {
 
-        enum ParameterName {
-            /// The username.
-            static let username = "u"
+        enum Parameter {
 
-            /// Authentication token computed as md5(password + salt).
-            static let authenticationToken = "t"
+            enum Name {
+                /// The username.
+                static let username = "u"
 
-            /// A random string ("salt") used as input for computing the password hash.
-            static let salt = "s"
+                /// Authentication token computed as md5(password + salt).
+                static let authenticationToken = "t"
 
-            /// The protocol version implemented by the client, i.e., the version of the subsonic-rest-api.xsd schema used.
-            static let version = "v"
+                /// A random string ("salt") used as input for computing the password hash.
+                static let salt = "s"
 
-            /// A unique string identifying the client application.
-            static let clientApplication = "c"
+                /// The protocol version implemented by the client, i.e., the version of the subsonic-rest-api.xsd schema used.
+                static let version = "v"
 
-            /// Request data to be returned in this format. Supported values are "xml", "json" (since 1.4.0) and "jsonp" (since 1.6.0). If using jsonp, specify name of javascript callback function using a callback parameter.
-            static let dataFormat = "f"
-        }
+                /// A unique string identifying the client application.
+                static let clientApplication = "c"
 
-        enum ParameterValue {
-            static let version = "1.16.1"
-            static let clientApplication = "Subsonicious"
-            static let dataFormat = "json"
+                /// Request data to be returned in this format. Supported values are "xml", "json" (since 1.4.0) and "jsonp" (since 1.6.0). If using jsonp, specify name of javascript callback function using a callback parameter.
+                static let dataFormat = "f"
+            }
+
+            enum Value {
+                static let version = "1.16.1"
+                static let clientApplication = "Subsonicious"
+                static let dataFormat = "json"
+            }
         }
         
         enum Authentication {

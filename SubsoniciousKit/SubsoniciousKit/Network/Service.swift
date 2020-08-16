@@ -6,13 +6,18 @@
 //  Copyright © 2020 Bilal Benlarbi. All rights reserved.
 //
 
+import Combine
 import Foundation
 
-public class Service {
+public class Service<T: Decodable> {
 
-    let session: URLSession
+    let fetcher: Fetcher
 
-    public init(sessionConfiguration: URLSessionConfiguration = .default) {
-        self.session = URLSession(configuration: sessionConfiguration)
+    public init(fetcher: Fetcher = Fetcher()) {
+        self.fetcher = fetcher
+    }
+
+    func fetch(_ url: URL) -> AnyPublisher<T, Error> {
+        fetcher.fetch(url)
     }
 }

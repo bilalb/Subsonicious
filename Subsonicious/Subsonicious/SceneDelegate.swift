@@ -30,8 +30,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         nowPlayingInfoManager = NowPlayingInfoManager(player: player)
         nowPlayingInfoManager.listenToNowPlayingInfoChanges()
 
-        let authenticationService = AuthenticationService()
-
         var serverPerstistenceManager: ServerPersistenceManager!
         do {
             serverPerstistenceManager = try ServerPersistenceManager()
@@ -40,7 +38,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         let authenticationManager = AuthenticationManager(
-            authenticationService: authenticationService,
+            endpoint: .authentication,
             serverPerstistenceManager: serverPerstistenceManager)
 
         let rootContainerView = RootContainerView()

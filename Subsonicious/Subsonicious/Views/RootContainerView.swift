@@ -13,7 +13,7 @@ struct RootContainerView: View {
     @EnvironmentObject var authenticationManager: AuthenticationManager
 
     var body: some View {
-        RootView(status: authenticationManager.status,
+        RootView(status: authenticationManager.authenticationStatus,
                  authenticate: {
                     do {
                         try authenticationManager.authenticate(.automatic)
