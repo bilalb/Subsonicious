@@ -54,18 +54,7 @@ struct ArtistList: View {
                 fetchArtistList()
             }
             .onReceive(artistListManager.$status) { status in
-                switch status {
-                case .fetched(let result):
-                    switch result {
-                    case .success(let response):
-                        let artistListContainer = response as? ArtistListContainer<SubsoniciousKit.ArtistList>
-                        artistList = artistListContainer?.content
-                    default:
-                        break
-                    }
-                default:
-                    break
-                }
+                artistList = status.content(for: ArtistListContainerCodingKey.key)
             }
     }
 }
