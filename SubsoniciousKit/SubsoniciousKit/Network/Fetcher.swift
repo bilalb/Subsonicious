@@ -15,7 +15,7 @@ public class Fetcher {
     let jsonDecoder: JSONDecoder
 
     public init(sessionConfiguration: URLSessionConfiguration = .default,
-                jsonDecoder: JSONDecoder = JSONDecoder()) {
+                jsonDecoder: JSONDecoder = .subsonicDecoder) {
         self.session = URLSession(configuration: sessionConfiguration)
         self.jsonDecoder = jsonDecoder
     }

@@ -53,7 +53,6 @@ enum Constant {
             static let path = "/rest/getArtist"
 
             enum ParameterName {
-                /// The artist ID.
                 static let artistId = "id"
             }
         }

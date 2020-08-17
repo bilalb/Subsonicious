@@ -32,6 +32,8 @@
 		9C6BC35724E99B6600F55DB8 /* SingleLevelNestedDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6BC35624E99B6600F55DB8 /* SingleLevelNestedDecodable.swift */; };
 		9C6BC35A24E99DAE00F55DB8 /* ArtistListContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6BC35924E99DAE00F55DB8 /* ArtistListContainer.swift */; };
 		9C6BC35C24E99DCB00F55DB8 /* ArtistContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6BC35B24E99DCB00F55DB8 /* ArtistContainer.swift */; };
+		9C6BC35E24EAA3A900F55DB8 /* JSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6BC35D24EAA3A900F55DB8 /* JSONDecoder.swift */; };
+		9C6BC36024EAA3C600F55DB8 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6BC35F24EAA3C600F55DB8 /* DateFormatter.swift */; };
 		9C6F4AC62496458100F59905 /* AudioSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F4AC52496458100F59905 /* AudioSessionManager.swift */; };
 		9C6F4AC824966FC700F59905 /* CombineQueuePlayer+MedataChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6F4AC724966FC700F59905 /* CombineQueuePlayer+MedataChanges.swift */; };
 		9C9004AD24C31E58005454DE /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 9C9004AC24C31E58005454DE /* KeychainAccess */; };
@@ -94,6 +96,8 @@
 		9C6BC35624E99B6600F55DB8 /* SingleLevelNestedDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLevelNestedDecodable.swift; sourceTree = "<group>"; };
 		9C6BC35924E99DAE00F55DB8 /* ArtistListContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistListContainer.swift; sourceTree = "<group>"; };
 		9C6BC35B24E99DCB00F55DB8 /* ArtistContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistContainer.swift; sourceTree = "<group>"; };
+		9C6BC35D24EAA3A900F55DB8 /* JSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoder.swift; sourceTree = "<group>"; };
+		9C6BC35F24EAA3C600F55DB8 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		9C6F4AC52496458100F59905 /* AudioSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSessionManager.swift; sourceTree = "<group>"; };
 		9C6F4AC724966FC700F59905 /* CombineQueuePlayer+MedataChanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CombineQueuePlayer+MedataChanges.swift"; sourceTree = "<group>"; };
 		9C9004AE24C337F2005454DE /* ServerPersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerPersistenceManager.swift; sourceTree = "<group>"; };
@@ -200,6 +204,8 @@
 				9C6133422493E7E7004E81A2 /* AVPlayer.swift */,
 				9C9004B024C33861005454DE /* Bundle.swift */,
 				9C6AEBC724CC69C100E66B02 /* Data.swift */,
+				9C6BC35F24EAA3C600F55DB8 /* DateFormatter.swift */,
+				9C6BC35D24EAA3A900F55DB8 /* JSONDecoder.swift */,
 				9C61334824964399004E81A2 /* Publisher.swift */,
 				9CBB21B724D712AB002484DF /* Result.swift */,
 				9C6AEBC524CC69AA00E66B02 /* String.swift */,
@@ -438,6 +444,7 @@
 				9C9004B124C33861005454DE /* Bundle.swift in Sources */,
 				9C6AEBC624CC69AA00E66B02 /* String.swift in Sources */,
 				9C99E32924B25D2400C82B42 /* AuthenticationManager.swift in Sources */,
+				9C6BC35E24EAA3A900F55DB8 /* JSONDecoder.swift in Sources */,
 				9CD36DBA24E95FD1001F6B09 /* ArtistList.swift in Sources */,
 				9C61334924964399004E81A2 /* Publisher.swift in Sources */,
 				9CBB21B824D712AB002484DF /* Result.swift in Sources */,
@@ -469,6 +476,7 @@
 				9C53A1F524CDD85400A5CB79 /* AuthenticationMode.swift in Sources */,
 				9C94FFAA24CCB818006640FF /* AuthenticationStatus.swift in Sources */,
 				9CBB21B624D71275002484DF /* FetchStatus.swift in Sources */,
+				9C6BC36024EAA3C600F55DB8 /* DateFormatter.swift in Sources */,
 				9C6BC35C24E99DCB00F55DB8 /* ArtistContainer.swift in Sources */,
 				9C99E31D24B2255600C82B42 /* Constants.swift in Sources */,
 				9C6AEBC424CC687F00E66B02 /* Endpoint.swift in Sources */,
