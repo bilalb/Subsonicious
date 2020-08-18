@@ -37,12 +37,11 @@ private extension ArtistList {
                         Section(header: Text(index.name)) {
                             ForEach(index.artists) { artist in
                                 NavigationLink(
-                                    destination: AnyView(
-                                        AlbumList(artistName: artist.name)
-                                            .environmentObject(
-                                                Manager<ArtistContainer<SubsoniciousKit.Artist>>(
-                                                    endpoint: .albumList(
-                                                        artistId: "\(artist.id)")))),
+                                    destination: AlbumList(artistName: artist.name)
+                                        .environmentObject(
+                                            Manager<ArtistContainer<SubsoniciousKit.Artist>>(
+                                                endpoint: .albumList(
+                                                    artistId: "\(artist.id)"))),
                                     tag: ArtistContainer<SubsoniciousKit.Artist>(artist),
                                     selection: $selection) {
                                     Text(artist.name)

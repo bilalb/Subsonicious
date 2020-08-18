@@ -35,7 +35,11 @@ private extension AlbumList {
             List(selection: $selection) {
                 ForEach(albums) { album in
                     NavigationLink(
-                        destination: AnyView(PlayerView()),
+                        destination: SongList(albumName: album.name)
+                            .environmentObject(
+                                Manager<AlbumContainer<SubsoniciousKit.Album>>(
+                                    endpoint: .songList(
+                                        albumId: "\(album.id)"))),
                         tag: album,
                         selection: $selection) {
                         Text(album.name)

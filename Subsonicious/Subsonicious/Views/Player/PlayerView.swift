@@ -14,7 +14,6 @@ struct PlayerView: View {
 
     var body: some View {
         VStack {
-
             Spacer()
 
             ArtworkImage()
