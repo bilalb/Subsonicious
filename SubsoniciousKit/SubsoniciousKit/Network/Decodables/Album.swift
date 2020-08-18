@@ -20,6 +20,7 @@ public struct Album {
     let playCount: Int
     let year: Int?
     let genre: String?
+    public let songs: [Song]?
 }
 
 extension Album: Decodable {
@@ -35,10 +36,11 @@ extension Album: Decodable {
         case playCount
         case year
         case genre
+        case songs = "song"
     }
 }
 
-extension Album {
+public extension Album {
     static let placeholder = Album(
         id: "772",
         name: "Legend",
@@ -50,7 +52,8 @@ extension Album {
         artistId: "460",
         playCount: 42,
         year: 1984,
-        genre: "Reggae")
+        genre: "Reggae",
+        songs: [])
 }
 
 extension Album: Hashable { }
