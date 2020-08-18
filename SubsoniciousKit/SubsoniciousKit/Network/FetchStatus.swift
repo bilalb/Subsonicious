@@ -30,6 +30,21 @@ extension FetchStatus: Equatable {
 }
 
 public extension FetchStatus {
+    func content<T: Decodable, V: SingleCodingKey>(for singleCodingKey: V) -> T? {
+        switch self {
+        case .fetched(let result):
+            switch result {
+            case .success(let response):
+                let container = response as? SubsonicResponseContainer<T, V>
+                return container?.content
+            default:
+                return nil
+            }
+        default:
+            return nil
+        }
+    }
+
     var errorDescription: String? {
         switch self {
         case .fetched(let result):

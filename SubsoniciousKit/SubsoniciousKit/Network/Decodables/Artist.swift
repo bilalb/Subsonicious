@@ -14,6 +14,7 @@ public struct Artist {
     let albumCount: Int
     let coverArt: String?
     let artistImageUrl: URL?
+    public let albums: [Album]?
 }
 
 extension Artist: Decodable {
@@ -24,6 +25,7 @@ extension Artist: Decodable {
         case albumCount
         case coverArt
         case artistImageUrl
+        case albums = "album"
     }
 
     public init(from decoder: Decoder) throws {
@@ -35,16 +37,18 @@ extension Artist: Decodable {
 
         coverArt = try container.decodeIfPresent(String.self, forKey: .coverArt)
         artistImageUrl = try container.decodeIfPresent(SafeURL.self, forKey: .artistImageUrl)?.value
+        albums = try container.decodeIfPresent([Album].self, forKey: .albums)
     }
 }
 
 public extension Artist {
     static let placeholder = Artist(
-        id: 0,
+        id: 460,
         name: "Bob Marley",
         albumCount: 42,
-        coverArt: "",
-        artistImageUrl: URL(string: "https://www.artist.image.url"))
+        coverArt: "ar-460",
+        artistImageUrl: URL(string: "https://assets.fanart.tv/fanart/music/ed2ac1e9-d51d-4eff-a2c2-85e81abd6360/artistbackground/marley-bob-50976093292ea.jpg"),
+        albums: [.placeholder])
 }
 
 extension Artist: Identifiable { }

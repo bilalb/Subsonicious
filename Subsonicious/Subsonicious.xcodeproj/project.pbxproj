@@ -32,6 +32,7 @@
 		9C9004B624C456E8005454DE /* LibraryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9004B524C456E8005454DE /* LibraryItem.swift */; };
 		9C9004B824C4595E005454DE /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9004B724C4595E005454DE /* Helpers.swift */; };
 		9C94FFA824CCB5D8006640FF /* RootContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C94FFA724CCB5D8006640FF /* RootContainerView.swift */; };
+		9CA20A8324E97EAE00AC1113 /* AlbumList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA20A8224E97EAE00AC1113 /* AlbumList.swift */; };
 		9CD36DB224E959B5001F6B09 /* ArtistList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD36DB124E959B5001F6B09 /* ArtistList.swift */; };
 		9CD36DB524E95A70001F6B09 /* LoadableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD36DB424E95A70001F6B09 /* LoadableView.swift */; };
 		9CD36DB724E95C99001F6B09 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD36DB624E95C99001F6B09 /* ErrorView.swift */; };
@@ -104,6 +105,7 @@
 		9C9004B524C456E8005454DE /* LibraryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryItem.swift; sourceTree = "<group>"; };
 		9C9004B724C4595E005454DE /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		9C94FFA724CCB5D8006640FF /* RootContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootContainerView.swift; sourceTree = "<group>"; };
+		9CA20A8224E97EAE00AC1113 /* AlbumList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumList.swift; sourceTree = "<group>"; };
 		9CD36DB124E959B5001F6B09 /* ArtistList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistList.swift; sourceTree = "<group>"; };
 		9CD36DB424E95A70001F6B09 /* LoadableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableView.swift; sourceTree = "<group>"; };
 		9CD36DB624E95C99001F6B09 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				9CD36DB124E959B5001F6B09 /* ArtistList.swift */,
+				9CA20A8224E97EAE00AC1113 /* AlbumList.swift */,
 				9C9004B224C43E71005454DE /* LibraryView.swift */,
 			);
 			path = Library;
@@ -441,6 +444,7 @@
 				9C2222012497E2FE00B35A29 /* PlayerView.swift in Sources */,
 				9C94FFA824CCB5D8006640FF /* RootContainerView.swift in Sources */,
 				9C062FBE24A26681006001EB /* String.swift in Sources */,
+				9CA20A8324E97EAE00AC1113 /* AlbumList.swift in Sources */,
 				9C7E9C5F24B642DB009E0A51 /* Constants.swift in Sources */,
 				9C2222002497E2FE00B35A29 /* ArtworkImage.swift in Sources */,
 				9C9004B624C456E8005454DE /* LibraryItem.swift in Sources */,

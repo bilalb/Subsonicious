@@ -44,7 +44,7 @@ extension LibraryItem {
         case .artists:
             return AnyView(ArtistList()
                             .environmentObject(
-                                Manager<SubsoniciousKit.ArtistList>(
+                                Manager<ArtistListContainer<SubsoniciousKit.ArtistList>>(
                                     endpoint: .artistList)))
         case .albums:
             return AnyView(PlayerView())
@@ -61,7 +61,6 @@ extension LibraryItem {
 extension LibraryItem: CaseIterable { }
 
 extension LibraryItem: Identifiable {
-    // swiftlint:disable identifier_name
     var id: String { localizedStringKey }
 }
 

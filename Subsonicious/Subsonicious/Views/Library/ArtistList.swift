@@ -11,10 +11,24 @@ import SwiftUI
 
 struct ArtistList: View {
 
-    @EnvironmentObject var artistListManager: Manager<SubsoniciousKit.ArtistList>
+    @EnvironmentObject var artistListManager: Manager<ArtistListContainer<SubsoniciousKit.ArtistList>>
     @State private var artistList: SubsoniciousKit.ArtistList?
-    @State private var selection: Artist?
+    @State private var selection: ArtistContainer<SubsoniciousKit.Artist>?
 
+    @ViewBuilder var body: some View {
+        content
+            .navigationBarTitle(Text("library.artists"))
+            .onAppear {
+                guard artistList == nil else { return }
+                fetchArtistList()
+            }
+            .onReceive(artistListManager.$status) { status in
+                artistList = status.content(for: ArtistListContainerCodingKey.key)
+            }
+    }
+}
+
+private extension ArtistList {
     @ViewBuilder var content: some View {
         LoadableView(status: artistListManager.status) {
             if let artistList = artistList {
@@ -23,8 +37,13 @@ struct ArtistList: View {
                         Section(header: Text(index.name)) {
                             ForEach(index.artists) { artist in
                                 NavigationLink(
-                                    destination: AnyView(PlayerView()),
-                                    tag: artist,
+                                    destination: AnyView(
+                                        AlbumList(artistName: artist.name)
+                                            .environmentObject(
+                                                Manager<ArtistContainer<SubsoniciousKit.Artist>>(
+                                                    endpoint: .albumList(
+                                                        artistId: "\(artist.id)")))),
+                                    tag: ArtistContainer<SubsoniciousKit.Artist>(artist),
                                     selection: $selection) {
                                     Text(artist.name)
                                 }
@@ -41,35 +60,11 @@ struct ArtistList: View {
         }
     }
 
-    @ViewBuilder var body: some View {
-        content
-            .navigationBarTitle(Text("library.artists"))
-            .onAppear {
-                guard artistList == nil else { return }
-                fetchArtistList()
-            }
-            .onReceive(artistListManager.$status) { status in
-                switch status {
-                case .fetched(let result):
-                    switch result {
-                    case .success(let artistList):
-                        self.artistList = artistList as? SubsoniciousKit.ArtistList
-                    default:
-                        break
-                    }
-                default:
-                    break
-                }
-            }
-    }
-}
-
-private extension ArtistList {
     func fetchArtistList() {
         do {
             try artistListManager.fetch()
         } catch {
-            debugPrint(error)
+            preconditionFailure(error.localizedDescription)
         }
     }
 
