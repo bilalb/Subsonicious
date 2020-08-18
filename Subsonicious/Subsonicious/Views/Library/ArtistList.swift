@@ -15,6 +15,20 @@ struct ArtistList: View {
     @State private var artistList: SubsoniciousKit.ArtistList?
     @State private var selection: ArtistContainer<SubsoniciousKit.Artist>?
 
+    @ViewBuilder var body: some View {
+        content
+            .navigationBarTitle(Text("library.artists"))
+            .onAppear {
+                guard artistList == nil else { return }
+                fetchArtistList()
+            }
+            .onReceive(artistListManager.$status) { status in
+                artistList = status.content(for: ArtistListContainerCodingKey.key)
+            }
+    }
+}
+
+private extension ArtistList {
     @ViewBuilder var content: some View {
         LoadableView(status: artistListManager.status) {
             if let artistList = artistList {
@@ -24,7 +38,7 @@ struct ArtistList: View {
                             ForEach(index.artists) { artist in
                                 NavigationLink(
                                     destination: AnyView(
-                                        ArtistView(artistName: artist.name)
+                                        AlbumList(artistName: artist.name)
                                             .environmentObject(
                                                 Manager<ArtistContainer<SubsoniciousKit.Artist>>(
                                                     endpoint: .albumList(
@@ -46,20 +60,6 @@ struct ArtistList: View {
         }
     }
 
-    @ViewBuilder var body: some View {
-        content
-            .navigationBarTitle(Text("library.artists"))
-            .onAppear {
-                guard artistList == nil else { return }
-                fetchArtistList()
-            }
-            .onReceive(artistListManager.$status) { status in
-                artistList = status.content(for: ArtistListContainerCodingKey.key)
-            }
-    }
-}
-
-private extension ArtistList {
     func fetchArtistList() {
         do {
             try artistListManager.fetch()

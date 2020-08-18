@@ -1,5 +1,5 @@
 //
-//  ArtistView.swift
+//  AlbumList.swift
 //  Subsonicious
 //
 //  Created by Bilal on 16/08/2020.
@@ -9,13 +9,27 @@
 import SubsoniciousKit
 import SwiftUI
 
-struct ArtistView: View {
+struct AlbumList: View {
 
     @EnvironmentObject var manager: Manager<ArtistContainer<SubsoniciousKit.Artist>>
     var artistName: String
     @State private var artist: SubsoniciousKit.Artist?
     @State private var selection: Album?
 
+    @ViewBuilder var body: some View {
+        content
+            .navigationBarTitle(Text(artistName))
+            .onAppear {
+                guard artist == nil else { return }
+                fetchArtist()
+            }
+            .onReceive(manager.$status) { status in
+                artist = status.content(for: ArtistContainerCodingKey.key)
+            }
+    }
+}
+
+private extension AlbumList {
     @ViewBuilder var content: some View {
         if let albums = artist?.albums {
             List(selection: $selection) {
@@ -36,20 +50,6 @@ struct ArtistView: View {
         }
     }
 
-    @ViewBuilder var body: some View {
-        content
-            .navigationBarTitle(Text(artistName))
-            .onAppear {
-                guard artist == nil else { return }
-                fetchArtist()
-            }
-            .onReceive(manager.$status) { status in
-                artist = status.content(for: ArtistContainerCodingKey.key)
-            }
-    }
-}
-
-private extension ArtistView {
     func fetchArtist() {
         do {
             try manager.fetch()
@@ -59,8 +59,8 @@ private extension ArtistView {
     }
 }
 
-struct ArtistView_Previews: PreviewProvider {
+struct AlbumList_Previews: PreviewProvider {
     static var previews: some View {
-        ArtistView(artistName: Artist.placeholder.name)
+        AlbumList(artistName: Artist.placeholder.name)
     }
 }
