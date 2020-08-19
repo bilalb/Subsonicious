@@ -11,8 +11,8 @@ import SwiftUI
 
 struct ArtistList: View {
 
-    let manager: Manager<ArtistListContainer<SubsoniciousKit.ArtistList>>
-    @State private var artistList: SubsoniciousKit.ArtistList?
+    let manager: Manager<CompleteArtistListContainer<SubsoniciousKit.CompleteArtistList>>
+    @State private var artistList: SubsoniciousKit.CompleteArtistList?
     @State private var selection: ArtistContainer<SubsoniciousKit.Artist>?
 
     @ViewBuilder var body: some View {
@@ -23,7 +23,7 @@ struct ArtistList: View {
                 fetchArtistList()
             }
             .onReceive(manager.$status) { status in
-                artistList = status.content(for: ArtistListContainerCodingKey.key)
+                artistList = status.content(for: CompleteArtistListContainerCodingKey.key)
             }
     }
 }
@@ -74,6 +74,6 @@ private extension ArtistList {
 
 struct ArtistList_Previews: PreviewProvider {
     static var previews: some View {
-        ArtistList(manager: .init(endpoint: .artistList))
+        ArtistList(manager: .init(endpoint: .completeArtistList))
     }
 }

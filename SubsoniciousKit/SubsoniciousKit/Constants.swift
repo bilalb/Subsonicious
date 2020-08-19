@@ -45,7 +45,7 @@ enum Constant {
             static let path = "/rest/ping"
         }
 
-        enum ArtistList {
+        enum CompleteArtistList {
             static let path = "/rest/getArtists"
         }
 

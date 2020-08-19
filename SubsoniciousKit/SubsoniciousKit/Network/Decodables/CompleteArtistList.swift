@@ -1,5 +1,5 @@
 //
-//  ArtistList.swift
+//  CompleteArtistList.swift
 //  SubsoniciousKit
 //
 //  Created by Bilal on 16/08/2020.
@@ -8,25 +8,25 @@
 
 import Foundation
 
-public struct ArtistList {
+public struct CompleteArtistList {
     let ignoredArticles: String
     public let indexes: [Index]
 }
 
-extension ArtistList: Decodable {
+extension CompleteArtistList: Decodable {
     enum CodingKeys: String, CodingKey {
         case ignoredArticles
         case indexes = "index"
     }
 }
 
-public extension ArtistList {
-    static let placeholder = ArtistList(
+public extension CompleteArtistList {
+    static let placeholder = CompleteArtistList(
         ignoredArticles: "",
         indexes: [.placeholder])
 }
 
-public extension ArtistList {
+public extension CompleteArtistList {
     struct Index: Decodable {
         public let name: String
         public let artists: [Artist]
@@ -38,12 +38,12 @@ public extension ArtistList {
     }
 }
 
-extension ArtistList.Index: Identifiable {
+extension CompleteArtistList.Index: Identifiable {
     public var id: String { name }
 }
 
-public extension ArtistList.Index {
-    static let placeholder = ArtistList.Index(
+public extension CompleteArtistList.Index {
+    static let placeholder = CompleteArtistList.Index(
         name: "B",
         artists: [.placeholder])
 }
