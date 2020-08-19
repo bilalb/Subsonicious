@@ -11,8 +11,8 @@ import SwiftUI
 
 struct SongList: View {
 
-    @EnvironmentObject var manager: Manager<AlbumContainer<SubsoniciousKit.Album>>
-    var albumName: String
+    let manager: Manager<AlbumContainer<SubsoniciousKit.Album>>
+    let albumName: String
     @State private var album: SubsoniciousKit.Album?
     @State private var selection: Song?
 
@@ -61,6 +61,10 @@ private extension SongList {
 
 struct SongList_Previews: PreviewProvider {
     static var previews: some View {
-        SongList(albumName: Album.placeholder.name)
+        SongList(
+            manager: .init(
+                endpoint: .songList(
+                    albumId: Song.placeholder.id)),
+            albumName: Album.placeholder.name)
     }
 }

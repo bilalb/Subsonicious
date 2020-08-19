@@ -11,8 +11,8 @@ import SwiftUI
 
 struct AlbumList: View {
 
-    @EnvironmentObject var manager: Manager<ArtistContainer<SubsoniciousKit.Artist>>
-    var artistName: String
+    let manager: Manager<ArtistContainer<SubsoniciousKit.Artist>>
+    let artistName: String
     @State private var artist: SubsoniciousKit.Artist?
     @State private var selection: Album?
 
@@ -35,11 +35,11 @@ private extension AlbumList {
             List(selection: $selection) {
                 ForEach(albums) { album in
                     NavigationLink(
-                        destination: SongList(albumName: album.name)
-                            .environmentObject(
-                                Manager<AlbumContainer<SubsoniciousKit.Album>>(
-                                    endpoint: .songList(
-                                        albumId: "\(album.id)"))),
+                        destination: SongList(
+                            manager: .init(
+                                endpoint: .songList(
+                                    albumId: album.id)),
+                            albumName: album.name),
                         tag: album,
                         selection: $selection) {
                         Text(album.name)
@@ -65,6 +65,10 @@ private extension AlbumList {
 
 struct AlbumList_Previews: PreviewProvider {
     static var previews: some View {
-        AlbumList(artistName: Artist.placeholder.name)
+        AlbumList(
+            manager: .init(
+                endpoint: .albumList(
+                    artistId: Artist.placeholder.id)),
+            artistName: Artist.placeholder.name)
     }
 }

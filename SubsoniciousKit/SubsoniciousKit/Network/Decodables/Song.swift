@@ -64,7 +64,7 @@ extension Song: Hashable { }
 
 extension Song: Identifiable { }
 
-extension Song {
+public extension Song {
     static let placeholder = Song(
         id: "9070",
         parent: "8957",
