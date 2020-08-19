@@ -41,7 +41,7 @@ private extension ArtistList {
                                         .environmentObject(
                                             Manager<ArtistContainer<SubsoniciousKit.Artist>>(
                                                 endpoint: .albumList(
-                                                    artistId: "\(artist.id)"))),
+                                                    artistId: artist.id))),
                                     tag: ArtistContainer<SubsoniciousKit.Artist>(artist),
                                     selection: $selection) {
                                     Text(artist.name)

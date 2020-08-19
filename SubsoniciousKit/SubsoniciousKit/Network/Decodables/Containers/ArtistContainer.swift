@@ -17,7 +17,7 @@ public enum ArtistContainerCodingKey: String, SingleCodingKey {
 public typealias ArtistContainer<T: Decodable> = SubsonicResponseContainer<T, ArtistContainerCodingKey>
 
 extension ArtistContainer: Identifiable where T == Artist {
-    public var id: Int {
+    public var id: String {
         content.id
     }
 }
