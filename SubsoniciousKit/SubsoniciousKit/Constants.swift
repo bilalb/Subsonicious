@@ -73,6 +73,14 @@ enum Constant {
                 static let albumId = "id"
             }
         }
+
+        enum Stream {
+            static let path = "/rest/stream"
+
+            enum ParameterName {
+                static let mediaFileId = "id"
+            }
+        }
     }
 
     enum Keychain {
