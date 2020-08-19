@@ -9,7 +9,7 @@
 import Foundation
 
 public struct Artist {
-    public let id: Int
+    public let id: String
     public let name: String
     let albumCount: Int
     let coverArt: String?
@@ -31,7 +31,7 @@ extension Artist: Decodable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        id = try container.decode(SafeInt.self, forKey: .id).value
+        id = try container.decode(String.self, forKey: .id)
         name = try container.decode(String.self, forKey: .name)
         albumCount = try container.decode(SafeInt.self, forKey: .albumCount).value
 
@@ -43,7 +43,7 @@ extension Artist: Decodable {
 
 public extension Artist {
     static let placeholder = Artist(
-        id: 460,
+        id: "460",
         name: "Bob Marley",
         albumCount: 42,
         coverArt: "ar-460",

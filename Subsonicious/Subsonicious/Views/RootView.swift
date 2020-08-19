@@ -21,8 +21,6 @@ struct RootView: View {
             switch status {
             case .authenticated:
                 ContentView()
-                    .environmentObject(player)
-                    .environmentObject(playerObserver)
             case .authenticating:
                 ProgressView("authenticating")
             case .notAuthenticated:

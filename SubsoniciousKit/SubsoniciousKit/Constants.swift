@@ -49,7 +49,7 @@ enum Constant {
             static let path = "/rest/getArtists"
         }
 
-        enum Artist {
+        enum AlbumList {
             static let path = "/rest/getArtist"
 
             enum ParameterName {
@@ -63,6 +63,14 @@ enum Constant {
             enum ParameterName {
                 /// The artist ID.
                 static let id = "id"
+            }
+        }
+
+        enum SongList {
+            static let path = "/rest/getAlbum"
+
+            enum ParameterName {
+                static let albumId = "id"
             }
         }
     }

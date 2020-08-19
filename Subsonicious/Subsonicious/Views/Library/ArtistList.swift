@@ -11,7 +11,7 @@ import SwiftUI
 
 struct ArtistList: View {
 
-    @EnvironmentObject var artistListManager: Manager<ArtistListContainer<SubsoniciousKit.ArtistList>>
+    let manager: Manager<ArtistListContainer<SubsoniciousKit.ArtistList>>
     @State private var artistList: SubsoniciousKit.ArtistList?
     @State private var selection: ArtistContainer<SubsoniciousKit.Artist>?
 
@@ -22,7 +22,7 @@ struct ArtistList: View {
                 guard artistList == nil else { return }
                 fetchArtistList()
             }
-            .onReceive(artistListManager.$status) { status in
+            .onReceive(manager.$status) { status in
                 artistList = status.content(for: ArtistListContainerCodingKey.key)
             }
     }
@@ -30,19 +30,18 @@ struct ArtistList: View {
 
 private extension ArtistList {
     @ViewBuilder var content: some View {
-        LoadableView(status: artistListManager.status) {
+        LoadableView(status: manager.status) {
             if let artistList = artistList {
                 List(selection: $selection) {
                     ForEach(artistList.indexes) { index in
                         Section(header: Text(index.name)) {
                             ForEach(index.artists) { artist in
                                 NavigationLink(
-                                    destination: AnyView(
-                                        AlbumList(artistName: artist.name)
-                                            .environmentObject(
-                                                Manager<ArtistContainer<SubsoniciousKit.Artist>>(
-                                                    endpoint: .albumList(
-                                                        artistId: "\(artist.id)")))),
+                                    destination: AlbumList(
+                                        manager: .init(
+                                            endpoint: .albumList(
+                                                artistId: artist.id)),
+                                        artistName: artist.name),
                                     tag: ArtistContainer<SubsoniciousKit.Artist>(artist),
                                     selection: $selection) {
                                     Text(artist.name)
@@ -62,22 +61,19 @@ private extension ArtistList {
 
     func fetchArtistList() {
         do {
-            try artistListManager.fetch()
+            try manager.fetch()
         } catch {
             preconditionFailure(error.localizedDescription)
         }
     }
 
     var errorDescription: String? {
-        artistListManager.status.errorDescription
+        manager.status.errorDescription
     }
 }
 
 struct ArtistList_Previews: PreviewProvider {
     static var previews: some View {
-        ArtistList()
-            .environmentObject(
-                Manager<SubsoniciousKit.ArtistList>(
-                    endpoint: .artistList))
+        ArtistList(manager: .init(endpoint: .artistList))
     }
 }
