@@ -13,8 +13,9 @@ struct SongList: View {
 
     let manager: Manager<AlbumContainer<SubsoniciousKit.Album>>
     let albumName: String
+    @EnvironmentObject var player: CombineQueuePlayer
     @State private var album: SubsoniciousKit.Album?
-    @State private var selection: Song?
+    @State private var selectedSong: Song?
 
     @ViewBuilder var body: some View {
         content
@@ -32,12 +33,12 @@ struct SongList: View {
 private extension SongList {
     @ViewBuilder var content: some View {
         if let songs = album?.songs {
-            List(selection: $selection) {
+            List(selection: selection) {
                 ForEach(songs) { song in
                     NavigationLink(
                         destination: PlayerView(),
                         tag: song,
-                        selection: $selection) {
+                        selection: selection) {
                         Text(song.title)
                     }
                     .tag(song)
@@ -50,9 +51,31 @@ private extension SongList {
         }
     }
 
+    var selection: Binding<Song?> {
+        Binding<Song?>(
+            get: {
+                selectedSong
+            },
+            set: {
+                selectedSong = $0
+                if let selectedSong = self.selectedSong {
+                    replaceCurrentSong(with: selectedSong)
+                }
+            })
+    }
+
     func fetchSongList() {
         do {
             try manager.fetch()
+        } catch {
+            preconditionFailure(error.localizedDescription)
+        }
+    }
+
+    func replaceCurrentSong(with song: Song) {
+        do {
+            try player.replaceCurrentSong(with: song)
+            player.play()
         } catch {
             preconditionFailure(error.localizedDescription)
         }
