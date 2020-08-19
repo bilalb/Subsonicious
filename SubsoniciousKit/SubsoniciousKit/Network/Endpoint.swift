@@ -10,7 +10,8 @@ import Foundation
 
 public enum Endpoint {
     case authentication
-    case artistList
+    /// Indexed structure of all artists.
+    case completeArtistList
     /// Details for an artist, including a list of albums.
     case albumList(artistId: String)
     /// Artist info with biography, image URLs and similar artists.
@@ -22,8 +23,8 @@ public enum Endpoint {
         switch self {
         case .authentication:
             return Constant.NetworkRequest.Authentication.path
-        case .artistList:
-            return Constant.NetworkRequest.ArtistList.path
+        case .completeArtistList:
+            return Constant.NetworkRequest.CompleteArtistList.path
         case .albumList:
             return Constant.NetworkRequest.AlbumList.path
         case .artistDetails:

@@ -45,7 +45,7 @@ extension LibraryItem {
             return AnyView(
                 ArtistList(
                     manager: .init(
-                        endpoint: .artistList)))
+                        endpoint: .completeArtistList)))
         case .albums:
             return AnyView(PlayerView())
         case .songs:
