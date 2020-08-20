@@ -10,18 +10,17 @@ import Foundation
 import MediaPlayer
 import UIKit
 
-enum NowPlayingMetadata { }
+public enum NowPlayingMetadata { }
 
-extension NowPlayingMetadata {
-
+public extension NowPlayingMetadata {
     struct Static {
         let collectionIdentifier: String
-        let assetURL: URL
+        let assetURL: URL?
         let mediaType: MPNowPlayingInfoMediaType
         let isLiveStream: Bool
 
-        let title: String
-        let artist: String?
+        public let title: String
+        public let artist: String?
         let artwork: MPMediaItemArtwork?
 
         let albumArtist: String?
@@ -34,7 +33,6 @@ extension NowPlayingMetadata {
 }
 
 extension NowPlayingMetadata {
-
     struct Dynamic {
         let rate: Float
         let defaultRate: Float
@@ -46,7 +44,6 @@ extension NowPlayingMetadata {
 }
 
 extension NowPlayingMetadata.Static {
-
     static var dummyInstance: NowPlayingMetadata.Static {
         let path = Bundle.main.path(forResource: "example.mp3", ofType: nil)!
         let url = URL(fileURLWithPath: path)
