@@ -6,22 +6,30 @@
 //  Copyright © 2020 Bilal Benlarbi. All rights reserved.
 //
 
+import SubsoniciousKit
 import SwiftUI
 
 struct ArtworkImage: View {
+    @EnvironmentObject var nowPlayingInfoManager: NowPlayingInfoManager
+
     var body: some View {
         GeometryReader { containerView in
-            Image(systemName: "music.note")
+            Image(uiImage: image)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(maxWidth: containerView.size.width,
                        maxHeight: containerView.size.width)
                 .clipped()
-                .background(Color.blue)
                 .cornerRadius(Constant.View.CornerRadius.default)
                 .shadow(radius: 10)
         }
         .aspectRatio(contentMode: .fit)
+    }
+}
+
+private extension ArtworkImage {
+    var image: UIImage {
+        nowPlayingInfoManager.staticMetadata?.artwork?.image(at: .zero) ?? UIImage()
     }
 }
 

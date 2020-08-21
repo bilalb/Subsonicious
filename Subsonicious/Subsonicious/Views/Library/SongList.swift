@@ -25,7 +25,7 @@ struct SongList: View {
                 fetchSongList()
             }
             .onReceive(manager.$status) { status in
-                album = status.content(for: AlbumContainerCodingKey.key)
+                album = status.decodable(for: AlbumContainerCodingKey.key)
             }
     }
 }

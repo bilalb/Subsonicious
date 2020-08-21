@@ -20,4 +20,8 @@ public final class Service<T: Decodable> {
     func fetch(_ url: URL) -> AnyPublisher<T, Error> {
         fetcher.fetch(url)
     }
+
+    func fetchData(_ url: URL) -> AnyPublisher<Data, Error> {
+        fetcher.fetchData(url)
+    }
 }

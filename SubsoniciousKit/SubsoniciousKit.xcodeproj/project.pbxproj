@@ -53,6 +53,8 @@
 		9CA20A7D24E966C100AC1113 /* Valuable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA20A7C24E966C100AC1113 /* Valuable.swift */; };
 		9CA20A7F24E97CF200AC1113 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA20A7E24E97CF200AC1113 /* Album.swift */; };
 		9CA20A8124E97D0E00AC1113 /* ArtistDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA20A8024E97D0E00AC1113 /* ArtistDetails.swift */; };
+		9CB4623E24F038C70050B83B /* CoverArtManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB4623D24F038C70050B83B /* CoverArtManager.swift */; };
+		9CB4624024F0392C0050B83B /* SubsonicPlayerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB4623F24F0392C0050B83B /* SubsonicPlayerItem.swift */; };
 		9CBB21B624D71275002484DF /* FetchStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBB21B524D71275002484DF /* FetchStatus.swift */; };
 		9CBB21B824D712AB002484DF /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBB21B724D712AB002484DF /* Result.swift */; };
 		9CD0FF6E24EC30BD00BB6989 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD0FF6D24EC30BD00BB6989 /* Song.swift */; };
@@ -119,6 +121,8 @@
 		9CA20A7C24E966C100AC1113 /* Valuable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Valuable.swift; sourceTree = "<group>"; };
 		9CA20A7E24E97CF200AC1113 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		9CA20A8024E97D0E00AC1113 /* ArtistDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetails.swift; sourceTree = "<group>"; };
+		9CB4623D24F038C70050B83B /* CoverArtManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverArtManager.swift; sourceTree = "<group>"; };
+		9CB4623F24F0392C0050B83B /* SubsonicPlayerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubsonicPlayerItem.swift; sourceTree = "<group>"; };
 		9CBB21B524D71275002484DF /* FetchStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchStatus.swift; sourceTree = "<group>"; };
 		9CBB21B724D712AB002484DF /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		9CD0FF6D24EC30BD00BB6989 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
@@ -223,7 +227,10 @@
 		9C6231FA248C129500D0E703 /* Player */ = {
 			isa = PBXGroup;
 			children = (
+				9C342D272490E98A000DD778 /* CombineQueuePlayer.swift */,
+				9C6F4AC724966FC700F59905 /* CombineQueuePlayer+MedataChanges.swift */,
 				9C6231FB248C12AE00D0E703 /* PlayerObserver.swift */,
+				9CB4623F24F0392C0050B83B /* SubsonicPlayerItem.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -231,8 +238,6 @@
 		9C623202248C1B0E00D0E703 /* NowPlayingInfo */ = {
 			isa = PBXGroup;
 			children = (
-				9C342D272490E98A000DD778 /* CombineQueuePlayer.swift */,
-				9C6F4AC724966FC700F59905 /* CombineQueuePlayer+MedataChanges.swift */,
 				9C623203248C1B1900D0E703 /* NowPlayingInfoManager.swift */,
 				9C623206248C1B9100D0E703 /* NowPlayingMetadata.swift */,
 			);
@@ -271,6 +276,7 @@
 		9C99E31E24B22C2600C82B42 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				9CB4623D24F038C70050B83B /* CoverArtManager.swift */,
 				9CD36DB824E95FB8001F6B09 /* Decodables */,
 				9C6AEBC324CC687F00E66B02 /* Endpoint.swift */,
 				9C635D5F24D5BD85009003AF /* Fetcher.swift */,
@@ -476,6 +482,7 @@
 				9C6F4AC824966FC700F59905 /* CombineQueuePlayer+MedataChanges.swift in Sources */,
 				9C6231FC248C12AE00D0E703 /* PlayerObserver.swift in Sources */,
 				9CA20A7F24E97CF200AC1113 /* Album.swift in Sources */,
+				9CB4623E24F038C70050B83B /* CoverArtManager.swift in Sources */,
 				9C6AEBC224CC684100E66B02 /* Authentication.swift in Sources */,
 				9C6BC35724E99B6600F55DB8 /* SingleLevelNestedDecodable.swift in Sources */,
 				9CA20A8124E97D0E00AC1113 /* ArtistDetails.swift in Sources */,
@@ -494,6 +501,7 @@
 				9C6AEBC424CC687F00E66B02 /* Endpoint.swift in Sources */,
 				9CD36DBC24E96035001F6B09 /* Artist.swift in Sources */,
 				9C99E32024B22C3E00C82B42 /* SubsonicResponse.swift in Sources */,
+				9CB4624024F0392C0050B83B /* SubsonicPlayerItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

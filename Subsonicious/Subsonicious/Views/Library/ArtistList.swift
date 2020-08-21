@@ -23,7 +23,7 @@ struct ArtistList: View {
                 fetchArtistList()
             }
             .onReceive(manager.$status) { status in
-                artistList = status.content(for: CompleteArtistListContainerCodingKey.key)
+                artistList = status.decodable(for: CompleteArtistListContainerCodingKey.key)
             }
     }
 }

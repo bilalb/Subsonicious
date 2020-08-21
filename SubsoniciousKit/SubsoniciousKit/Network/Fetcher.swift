@@ -21,9 +21,15 @@ public final class Fetcher {
     }
 
     func fetch<T: Decodable>(_ url: URL) -> AnyPublisher<T, Error> {
+        fetchData(url)
+            .decode(type: T.self, decoder: jsonDecoder)
+            .eraseToAnyPublisher()
+    }
+
+    func fetchData(_ url: URL) -> AnyPublisher<Data, Error> {
         session.dataTaskPublisher(for: url)
             .map(\.data)
-            .decode(type: T.self, decoder: jsonDecoder)
+            .catch { Fail(error: $0) }
             .eraseToAnyPublisher()
     }
 }

@@ -21,7 +21,7 @@ public extension NowPlayingMetadata {
 
         public let title: String
         public let artist: String?
-        let artwork: MPMediaItemArtwork?
+        public let artwork: MPMediaItemArtwork?
 
         let albumArtist: String?
         let albumTitle: String?

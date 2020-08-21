@@ -15,7 +15,7 @@ public final class NowPlayingInfoManager: ObservableObject {
     private let player: CombineQueuePlayer
     private let nowPlayingInfoCenter = MPNowPlayingInfoCenter.default()
     private var cancellables: Set<AnyCancellable> = []
-    private var covertArtDownloader: CovertArtDownloader?
+    private var coverArtManager: CoverArtManager?
     private var dynamicMetadata: NowPlayingMetadata.Dynamic? {
         didSet {
             guard let dynamicMetadata = dynamicMetadata else { return }
@@ -42,7 +42,7 @@ public final class NowPlayingInfoManager: ObservableObject {
 
         player.staticMetadataChangesPublisher
             .sink { [weak self] _ in
-                self?.updateStaticMetadata()
+                self?.prepareStaticMetadataUpdate()
             }
             .store(in: &cancellables)
     }
@@ -59,51 +59,99 @@ private extension NowPlayingInfoManager {
             availableLanguageOptionGroups: [])
     }
 
-    func updateStaticMetadata() {
+    func prepareStaticMetadataUpdate() {
+        if let item = player.currentItem as? SubsonicPlayerItem {
+            do {
+                try downloadArtwork(with: item.subsonicId)
+            } catch {
+                updateStaticMetadata()
+                preconditionFailure(error.localizedDescription)
+            }
+        } else {
+            updateStaticMetadata()
+        }
+    }
+
+    func downloadArtwork(with id: String) throws {
+        let coverArtManager = CoverArtManager(endpoint: .coverArt(id: id))
+        self.coverArtManager = coverArtManager
+        try coverArtManager.fetch()
+        bindCoverArtData()
+    }
+
+    func bindCoverArtData() {
+        coverArtManager?.$data
+            .compactMap { $0 }
+            .map { UIImage(data: $0) }
+            .sink { [weak self] image in
+                self?.updateStaticMetadata(with: image)
+            }
+            .store(in: &cancellables)
+    }
+
+    func updateStaticMetadata(with artworkImage: UIImage? = nil) {
         guard let currentItem = player.currentItem else { return }
-        let asset = currentItem.asset
-        let commonMetadata = asset.commonMetadata
+        let commonMetadata = currentItem.asset.commonMetadata
+        staticMetadata = self.staticMetadata(
+            for: commonMetadata,
+            playerItem: currentItem,
+            artworkImage: artworkImage)
+    }
+
+    func staticMetadata(
+        for metadata: [AVMetadataItem],
+        playerItem: AVPlayerItem,
+        artworkSize: CGSize = .init(width: 50, height: 50),
+        artworkImage: UIImage? = nil) -> NowPlayingMetadata.Static {
 
         let mediaType = MPNowPlayingInfoMediaType(
             rawValue: UInt(
                 truncating: AVMetadataItem.metadataItems(
-                    from: commonMetadata,
+                    from: metadata,
                     filteredByIdentifier: .id3MetadataMediaType)
                     .first?
                     .numberValue ?? 0)) ?? .audio
 
         let title = AVMetadataItem.metadataItems(
-            from: commonMetadata,
+            from: metadata,
             filteredByIdentifier: .commonIdentifierTitle)
             .first?.stringValue ?? ""
 
         let artist = AVMetadataItem.metadataItems(
-            from: commonMetadata,
+            from: metadata,
             filteredByIdentifier: .commonIdentifierArtist)
             .first?.stringValue
 
+        var artwork: MPMediaItemArtwork?
+        if let artworkImage = artworkImage {
+            artwork = MPMediaItemArtwork(boundsSize: artworkSize) { _ -> UIImage in
+                // TODO: provide image based on size
+                artworkImage
+            }
+        }
+
         let albumArtist = AVMetadataItem.metadataItems(
-            from: commonMetadata,
+            from: metadata,
             filteredByIdentifier: .iTunesMetadataAlbumArtist)
             .first?.stringValue
 
         let albumName = AVMetadataItem.metadataItems(
-            from: commonMetadata,
+            from: metadata,
             filteredByIdentifier: .commonIdentifierAlbumName)
             .first?.stringValue
 
-        staticMetadata = NowPlayingMetadata.Static(
+        return NowPlayingMetadata.Static(
             collectionIdentifier: "",
-            assetURL: (asset as? AVURLAsset)?.url,
+            assetURL: (playerItem.asset as? AVURLAsset)?.url,
             mediaType: mediaType,
             isLiveStream: false,
             title: title,
             artist: artist,
-            artwork: nil,
+            artwork: artwork,
             albumArtist: albumArtist,
             albumTitle: albumName,
-            duration: currentItem.duration.seconds,
+            duration: playerItem.duration.seconds,
             queueCount: player.items().count ,
-            queueIndex: player.items().firstIndex { $0 == currentItem } ?? 0)
+            queueIndex: player.items().firstIndex { $0 == playerItem } ?? 0)
     }
 }
