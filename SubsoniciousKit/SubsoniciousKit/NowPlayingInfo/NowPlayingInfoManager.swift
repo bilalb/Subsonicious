@@ -15,6 +15,7 @@ public final class NowPlayingInfoManager: ObservableObject {
     private let player: CombineQueuePlayer
     private let nowPlayingInfoCenter = MPNowPlayingInfoCenter.default()
     private var cancellables: Set<AnyCancellable> = []
+    private var covertArtDownloader: CovertArtDownloader?
     private var dynamicMetadata: NowPlayingMetadata.Dynamic? {
         didSet {
             guard let dynamicMetadata = dynamicMetadata else { return }

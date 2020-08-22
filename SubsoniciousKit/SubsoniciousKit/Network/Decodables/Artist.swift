@@ -18,7 +18,6 @@ public struct Artist {
 }
 
 extension Artist: Decodable {
-
     enum CodingKeys: String, CodingKey {
         case id
         case name

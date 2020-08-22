@@ -26,7 +26,6 @@ struct SafeInt: Valuable {
 }
 
 extension SafeInt: Decodable {
-
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         if let intValue = try? container.decode(Int.self) {

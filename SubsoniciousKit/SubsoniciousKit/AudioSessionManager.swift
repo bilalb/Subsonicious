@@ -9,7 +9,7 @@
 import AVFoundation
 import Foundation
 
-public class AudioSessionManager {
+public final class AudioSessionManager {
 
     private let audioSession = AVAudioSession.sharedInstance()
 

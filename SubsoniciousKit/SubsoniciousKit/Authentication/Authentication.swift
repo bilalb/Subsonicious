@@ -12,6 +12,8 @@ struct Authentication {
 
     let server: Server
 
+    private let salt = String.random(length: 8)
+
     var queryItems: [URLQueryItem] {
         [URLQueryItem(name: ParameterName.username, value: username),
          URLQueryItem(name: ParameterName.authenticationToken, value: authenticationToken),
@@ -25,8 +27,6 @@ struct Authentication {
     var host: String {
         baseURLComponents[safe: 1] ?? ""
     }
-
-    let salt = String.random(length: 8)
 }
 
 private extension Authentication {

@@ -10,7 +10,6 @@ import Combine
 import Foundation
 
 extension CombineQueuePlayer {
-
     var dynamicMetadataChangesPublisher: AnyPublisher<(), Never> {
         Publishers.MergeMany(anyVoidPublisher(for: \.currentItem),
                              anyVoidPublisher(for: \.rate),

@@ -9,7 +9,7 @@
 import Foundation
 import KeychainAccess
 
-public class ServerPersistenceManager {
+public final class ServerPersistenceManager {
 
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()

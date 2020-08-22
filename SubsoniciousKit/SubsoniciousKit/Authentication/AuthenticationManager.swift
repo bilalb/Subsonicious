@@ -9,7 +9,7 @@
 import Combine
 import Foundation
 
-public class AuthenticationManager: Manager<SubsonicResponse> {
+public final class AuthenticationManager: Manager<SubsonicResponse> {
 
     private let serverPersistenceManager: ServerPersistenceManager
     private var server: Server?

@@ -22,7 +22,6 @@ struct SafeURL: Valuable {
 }
 
 extension SafeURL: Decodable {
-
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         if let urlValue = try? container.decode(URL.self) {

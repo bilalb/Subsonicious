@@ -10,7 +10,7 @@ import Combine
 import Foundation
 import MediaPlayer
 
-public class CombineQueuePlayer: AVQueuePlayer, ObservableObject {
+public final class CombineQueuePlayer: AVQueuePlayer, ObservableObject {
 
     /// When the player starts seeking it sends `true`.
     /// When the player finishes seeking it sends `false`.
@@ -64,7 +64,6 @@ public class CombineQueuePlayer: AVQueuePlayer, ObservableObject {
 }
 
 public extension CombineQueuePlayer {
-
     static var dummyInstance: CombineQueuePlayer {
         let path = Bundle.main.path(forResource: "example.mp3", ofType: nil)!
         let url = URL(fileURLWithPath: path)

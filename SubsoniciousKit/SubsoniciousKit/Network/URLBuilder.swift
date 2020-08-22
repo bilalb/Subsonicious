@@ -10,8 +10,8 @@ import Foundation
 
 struct URLBuilder {
 
-    let authentication: Authentication
-    let endpoint: Endpoint
+    private let authentication: Authentication
+    private let endpoint: Endpoint
 
     init(authentication: Authentication? = nil, endpoint: Endpoint) throws {
         if let authentication = authentication {

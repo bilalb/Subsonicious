@@ -9,10 +9,10 @@
 import Combine
 import Foundation
 
-public class Fetcher {
+public final class Fetcher {
 
-    let session: URLSession
-    let jsonDecoder: JSONDecoder
+    private let session: URLSession
+    private let jsonDecoder: JSONDecoder
 
     public init(sessionConfiguration: URLSessionConfiguration = .default,
                 jsonDecoder: JSONDecoder = .subsonicDecoder) {

@@ -13,12 +13,6 @@ struct NetworkRequest {
     let endpoint: Endpoint
 
     func url() throws -> URL {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = authentication.scheme
-        urlComponents.host = authentication.host
-        urlComponents.path = endpoint.path
-        urlComponents.queryItems = defaultQueryItems + authentication.queryItems + endpoint.queryItems
-
         guard let url = urlComponents.url else {
             throw Error.nilURL
         }
@@ -35,6 +29,15 @@ extension NetworkRequest {
 private extension NetworkRequest {
     typealias ParameterName = Constant.NetworkRequest.Parameter.Name
     typealias ParameterValue = Constant.NetworkRequest.Parameter.Value
+
+    var urlComponents: URLComponents {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = authentication.scheme
+        urlComponents.host = authentication.host
+        urlComponents.path = endpoint.path
+        urlComponents.queryItems = defaultQueryItems + authentication.queryItems + endpoint.queryItems
+        return urlComponents
+    }
 
     var defaultQueryItems: [URLQueryItem] {
         [URLQueryItem(name: ParameterName.version, value: ParameterValue.version),

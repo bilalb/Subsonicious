@@ -9,9 +9,9 @@
 import Combine
 import Foundation
 
-public class Service<T: Decodable> {
+public final class Service<T: Decodable> {
 
-    let fetcher: Fetcher
+    private let fetcher: Fetcher
 
     public init(fetcher: Fetcher = Fetcher()) {
         self.fetcher = fetcher
