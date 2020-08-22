@@ -18,6 +18,7 @@ public enum Endpoint {
     case artistDetails(id: String)
     /// Details for an album, including a list of songs.
     case songList(albumId: String)
+    case stream(mediaFileId: String)
 
     var path: String {
         switch self {
@@ -31,6 +32,8 @@ public enum Endpoint {
             return Constant.NetworkRequest.ArtistDetails.path
         case .songList:
             return Constant.NetworkRequest.SongList.path
+        case .stream:
+            return Constant.NetworkRequest.Stream.path
         }
     }
 
@@ -42,6 +45,8 @@ public enum Endpoint {
             return [URLQueryItem(name: Constant.NetworkRequest.ArtistDetails.ParameterName.id, value: id)]
         case .songList(let albumId):
             return [URLQueryItem(name: Constant.NetworkRequest.SongList.ParameterName.albumId, value: albumId)]
+        case .stream(let mediaFileId):
+            return [URLQueryItem(name: Constant.NetworkRequest.Stream.ParameterName.mediaFileId, value: mediaFileId)]
         default:
             return []
         }

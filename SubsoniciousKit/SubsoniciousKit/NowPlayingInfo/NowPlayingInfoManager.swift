@@ -10,11 +10,23 @@ import Combine
 import Foundation
 import MediaPlayer
 
-public final class NowPlayingInfoManager {
+public final class NowPlayingInfoManager: ObservableObject {
 
     private let player: CombineQueuePlayer
     private let nowPlayingInfoCenter = MPNowPlayingInfoCenter.default()
     private var cancellables: Set<AnyCancellable> = []
+    private var dynamicMetadata: NowPlayingMetadata.Dynamic? {
+        didSet {
+            guard let dynamicMetadata = dynamicMetadata else { return }
+            nowPlayingInfoCenter.setDynamicMetadata(dynamicMetadata)
+        }
+    }
+    @Published public private(set) var staticMetadata: NowPlayingMetadata.Static? {
+        didSet {
+            guard let staticMetadata = staticMetadata else { return }
+            nowPlayingInfoCenter.setStaticMetadata(staticMetadata)
+        }
+    }
 
     public init(player: CombineQueuePlayer) {
         self.player = player
@@ -29,7 +41,7 @@ public final class NowPlayingInfoManager {
 
         player.staticMetadataChangesPublisher
             .sink { [weak self] _ in
-                self?.nowPlayingInfoCenter.setStaticMetadata(.dummyInstance)
+                self?.updateStaticMetadata()
             }
             .store(in: &cancellables)
     }
@@ -38,51 +50,59 @@ public final class NowPlayingInfoManager {
 private extension NowPlayingInfoManager {
 
     func updateDynamicMetadata() {
-        let metadata = NowPlayingMetadata.Dynamic(rate: player.rate,
-                                                  defaultRate: 1.0,
-                                                  position: NSNumber(value: CMTimeGetSeconds(player.currentTime())),
-                                                  currentLanguageOptions: [],
-                                                  availableLanguageOptionGroups: [])
-
-        nowPlayingInfoCenter.setDynamicMetadata(metadata)
-    }
-}
-
-extension MPNowPlayingInfoCenter {
-
-    func setStaticMetadata(_ metadata: NowPlayingMetadata.Static) {
-        var nowPlayingInfo = [String: Any]()
-
-        //        MPNowPlayingInfoPropertyCurrentPlaybackDate
-        //        MPNowPlayingInfoPropertyExternalContentIdentifier
-        //        MPNowPlayingInfoPropertyExternalUserProfileIdentifier
-        //        MPNowPlayingInfoPropertyPlaybackProgress
-        //        MPNowPlayingInfoPropertyServiceIdentifier
-        nowPlayingInfo[MPNowPlayingInfoCollectionIdentifier] = metadata.collectionIdentifier
-        nowPlayingInfo[MPNowPlayingInfoPropertyAssetURL] = metadata.assetURL
-        nowPlayingInfo[MPNowPlayingInfoPropertyMediaType] = metadata.mediaType.rawValue
-        nowPlayingInfo[MPNowPlayingInfoPropertyIsLiveStream] = metadata.isLiveStream
-        nowPlayingInfo[MPMediaItemPropertyTitle] = metadata.title
-        nowPlayingInfo[MPMediaItemPropertyArtist] = metadata.artist
-        nowPlayingInfo[MPMediaItemPropertyArtwork] = metadata.artwork
-        nowPlayingInfo[MPMediaItemPropertyAlbumArtist] = metadata.albumArtist
-        nowPlayingInfo[MPMediaItemPropertyAlbumTitle] = metadata.albumTitle
-        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = metadata.duration
-        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackQueueCount] = metadata.queueCount
-        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackQueueIndex] = metadata.queueIndex
-
-        self.nowPlayingInfo = nowPlayingInfo
+        dynamicMetadata = NowPlayingMetadata.Dynamic(
+            rate: player.rate,
+            defaultRate: 1.0,
+            position: NSNumber(value: CMTimeGetSeconds(player.currentTime())),
+            currentLanguageOptions: [],
+            availableLanguageOptionGroups: [])
     }
 
-    func setDynamicMetadata(_ metadata: NowPlayingMetadata.Dynamic) {
-        var nowPlayingInfo = self.nowPlayingInfo ?? [String: Any]()
+    func updateStaticMetadata() {
+        guard let currentItem = player.currentItem else { return }
+        let asset = currentItem.asset
+        let commonMetadata = asset.commonMetadata
 
-        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = metadata.position
-        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = metadata.rate
-        nowPlayingInfo[MPNowPlayingInfoPropertyDefaultPlaybackRate] = metadata.defaultRate
-        nowPlayingInfo[MPNowPlayingInfoPropertyCurrentLanguageOptions] = metadata.currentLanguageOptions
-        nowPlayingInfo[MPNowPlayingInfoPropertyAvailableLanguageOptions] = metadata.availableLanguageOptionGroups
+        let mediaType = MPNowPlayingInfoMediaType(
+            rawValue: UInt(
+                truncating: AVMetadataItem.metadataItems(
+                    from: commonMetadata,
+                    filteredByIdentifier: .id3MetadataMediaType)
+                    .first?
+                    .numberValue ?? 0)) ?? .audio
 
-        self.nowPlayingInfo = nowPlayingInfo
+        let title = AVMetadataItem.metadataItems(
+            from: commonMetadata,
+            filteredByIdentifier: .commonIdentifierTitle)
+            .first?.stringValue ?? ""
+
+        let artist = AVMetadataItem.metadataItems(
+            from: commonMetadata,
+            filteredByIdentifier: .commonIdentifierArtist)
+            .first?.stringValue
+
+        let albumArtist = AVMetadataItem.metadataItems(
+            from: commonMetadata,
+            filteredByIdentifier: .iTunesMetadataAlbumArtist)
+            .first?.stringValue
+
+        let albumName = AVMetadataItem.metadataItems(
+            from: commonMetadata,
+            filteredByIdentifier: .commonIdentifierAlbumName)
+            .first?.stringValue
+
+        staticMetadata = NowPlayingMetadata.Static(
+            collectionIdentifier: "",
+            assetURL: (asset as? AVURLAsset)?.url,
+            mediaType: mediaType,
+            isLiveStream: false,
+            title: title,
+            artist: artist,
+            artwork: nil,
+            albumArtist: albumArtist,
+            albumTitle: albumName,
+            duration: currentItem.duration.seconds,
+            queueCount: player.items().count ,
+            queueIndex: player.items().firstIndex { $0 == currentItem } ?? 0)
     }
 }

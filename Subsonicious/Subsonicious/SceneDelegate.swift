@@ -45,6 +45,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             .environmentObject(authenticationManager)
             .environmentObject(player)
             .environmentObject(playerObserver)
+            .environmentObject(nowPlayingInfoManager)
 
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
