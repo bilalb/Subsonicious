@@ -35,7 +35,7 @@ extension AVPlayer {
         let manager: Manager<Song> = .init(endpoint: .stream(mediaFileId: song.id))
         let url = try manager.url()
         let asset = AVURLAsset(url: url)
-        let item = AVPlayerItem(asset: asset)
+        let item = SubsonicPlayerItem(subsonicId: song.id, asset: asset)
         replaceCurrentItem(with: item)
     }
 }

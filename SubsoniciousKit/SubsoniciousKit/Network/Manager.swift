@@ -12,7 +12,7 @@ import Foundation
 public class Manager<T: Decodable>: ObservableObject {
     let service: Service<T>
     private let endpoint: Endpoint
-    @Published public private(set) var status: FetchStatus = .notFetchedYet
+    @Published public internal(set) var status: FetchStatus = .notFetchedYet
     var cancellables: Set<AnyCancellable> = []
 
     public init(service: Service<T> = Service<T>(), endpoint: Endpoint) {

@@ -81,6 +81,15 @@ enum Constant {
                 static let mediaFileId = "id"
             }
         }
+
+        enum CoverArt {
+            static let path = "/rest/getCoverArt"
+
+            enum ParameterName {
+                static let id = "id"
+                static let size = "size"
+            }
+        }
     }
 
     enum Keychain {
