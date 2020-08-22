@@ -42,3 +42,13 @@ extension SafeURL {
         case urlRepresentationInvalid
     }
 }
+
+extension SafeURL.Error: LocalizedError {
+    var errorDescription: String? {
+        switch self {
+        case .urlRepresentationInvalid:
+            return "SafeURL.Error.urlRepresentationInvalid \n The url created from a String is nil. The string doesn’t represent a valid URL. For example, an empty string or one containing characters that are illegal in a URL produces nil."
+        }
+    }
+}
+

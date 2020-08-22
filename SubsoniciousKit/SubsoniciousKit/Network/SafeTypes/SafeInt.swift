@@ -48,3 +48,12 @@ extension SafeInt {
         case nilInt
     }
 }
+
+extension SafeInt.Error: LocalizedError {
+    var errorDescription: String? {
+        switch self {
+        case .nilInt:
+            return "SafeInt.Error.nilInt \n The int created from a String is nil."
+        }
+    }
+}

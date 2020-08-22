@@ -92,3 +92,12 @@ extension AuthenticationManager {
         case nilServer
     }
 }
+
+extension AuthenticationManager.Error: LocalizedError {
+    var errorDescription: String? {
+        switch self {
+        case .nilServer:
+            return "AuthenticationManager.Error.nilServer \n The server used to authenticate is nil."
+        }
+    }
+}

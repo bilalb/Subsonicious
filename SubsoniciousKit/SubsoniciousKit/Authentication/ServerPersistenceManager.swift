@@ -47,3 +47,14 @@ private extension ServerPersistenceManager {
         case nilPersistedServer
     }
 }
+
+extension ServerPersistenceManager.Error: LocalizedError {
+    var errorDescription: String? {
+        switch self {
+        case .nilBundleIdentifier:
+            return "ServerPersistenceManager.Error.nilBundleIdentifier \n The SubsoniciousKit bundle identifier used to create a Keychain instance is nil."
+        case .nilPersistedServer:
+            return "ServerPersistenceManager.Error.nilPersistedServer \n The persisted server  is nil."
+        }
+    }
+}

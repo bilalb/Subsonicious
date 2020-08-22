@@ -26,6 +26,16 @@ extension NetworkRequest {
     }
 }
 
+extension NetworkRequest.Error: LocalizedError {
+    var errorDescription: String? {
+        switch self {
+        case .nilURL:
+            return "NetworkRequest.Error.nilURL \n The url is nil."
+        }
+    }
+}
+
+
 private extension NetworkRequest {
     typealias ParameterName = Constant.NetworkRequest.Parameter.Name
     typealias ParameterValue = Constant.NetworkRequest.Parameter.Value
