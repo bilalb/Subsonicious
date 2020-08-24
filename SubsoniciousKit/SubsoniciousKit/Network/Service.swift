@@ -9,7 +9,7 @@
 import Combine
 import Foundation
 
-public final class Service<T: Decodable> {
+public class Service<T: Decodable> {
 
     private let fetcher: Fetcher
 
