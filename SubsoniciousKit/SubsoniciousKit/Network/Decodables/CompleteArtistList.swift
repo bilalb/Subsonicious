@@ -20,10 +20,11 @@ extension CompleteArtistList: Decodable {
     }
 }
 
-public extension CompleteArtistList {
-    static let placeholder = CompleteArtistList(
-        ignoredArticles: "",
-        indexes: [.placeholder])
+extension CompleteArtistList: PlaceholderProtocol {
+    public static var placeholder: CompleteArtistList {
+        .init(ignoredArticles: "",
+              indexes: [.placeholder])
+    }
 }
 
 public extension CompleteArtistList {
