@@ -74,6 +74,16 @@ private extension ArtistList {
 
 struct ArtistList_Previews: PreviewProvider {
     static var previews: some View {
-        ArtistList(manager: .init(endpoint: .completeArtistList))
+        let manager = Manager<CompleteArtistListContainer<SubsoniciousKit.CompleteArtistList>>(
+            service: MockedSuccessService<CompleteArtistListContainer<SubsoniciousKit.CompleteArtistList>>(),
+            endpoint: .completeArtistList)
+
+        do {
+            try manager.fetch()
+        } catch {
+            preconditionFailure(error.localizedDescription)
+        }
+
+        return ArtistList(manager: manager)
     }
 }

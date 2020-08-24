@@ -15,3 +15,9 @@ public enum CompleteArtistListContainerCodingKey: String, SingleCodingKey {
 }
 
 public typealias CompleteArtistListContainer<T: Decodable> = SubsonicResponseContainer<T, CompleteArtistListContainerCodingKey>
+
+extension CompleteArtistListContainer: PlaceholderProtocol {
+    public static var placeholder: CompleteArtistListContainer<CompleteArtistList> {
+        .init(.placeholder)
+    }
+}
