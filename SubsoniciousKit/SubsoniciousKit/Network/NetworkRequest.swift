@@ -35,7 +35,6 @@ extension NetworkRequest.Error: LocalizedError {
     }
 }
 
-
 private extension NetworkRequest {
     typealias ParameterName = Constant.NetworkRequest.Parameter.Name
     typealias ParameterValue = Constant.NetworkRequest.Parameter.Value

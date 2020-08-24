@@ -104,23 +104,21 @@ private extension NowPlayingInfoManager {
         artworkSize: CGSize = .init(width: 50, height: 50),
         artworkImage: UIImage? = nil) -> NowPlayingMetadata.Static {
 
+        func firstMetadataItem(filteredByIdentifier identifier: AVMetadataIdentifier) -> AVMetadataItem? {
+            AVMetadataItem.metadataItems(
+                from: metadata,
+                filteredByIdentifier: identifier)
+                .first
+        }
+
         let mediaType = MPNowPlayingInfoMediaType(
             rawValue: UInt(
-                truncating: AVMetadataItem.metadataItems(
-                    from: metadata,
-                    filteredByIdentifier: .id3MetadataMediaType)
-                    .first?
+                truncating: firstMetadataItem(filteredByIdentifier: .id3MetadataMediaType)?
                     .numberValue ?? 0)) ?? .audio
 
-        let title = AVMetadataItem.metadataItems(
-            from: metadata,
-            filteredByIdentifier: .commonIdentifierTitle)
-            .first?.stringValue ?? ""
+        let title = firstMetadataItem(filteredByIdentifier: .commonIdentifierTitle)?.stringValue ?? ""
 
-        let artist = AVMetadataItem.metadataItems(
-            from: metadata,
-            filteredByIdentifier: .commonIdentifierArtist)
-            .first?.stringValue
+        let artist = firstMetadataItem(filteredByIdentifier: .commonIdentifierArtist)?.stringValue
 
         var artwork: MPMediaItemArtwork?
         if let artworkImage = artworkImage {
@@ -130,15 +128,9 @@ private extension NowPlayingInfoManager {
             }
         }
 
-        let albumArtist = AVMetadataItem.metadataItems(
-            from: metadata,
-            filteredByIdentifier: .iTunesMetadataAlbumArtist)
-            .first?.stringValue
+        let albumArtist = firstMetadataItem(filteredByIdentifier: .iTunesMetadataAlbumArtist)?.stringValue
 
-        let albumName = AVMetadataItem.metadataItems(
-            from: metadata,
-            filteredByIdentifier: .commonIdentifierAlbumName)
-            .first?.stringValue
+        let albumName = firstMetadataItem(filteredByIdentifier: .commonIdentifierAlbumName)?.stringValue
 
         return NowPlayingMetadata.Static(
             collectionIdentifier: "",
