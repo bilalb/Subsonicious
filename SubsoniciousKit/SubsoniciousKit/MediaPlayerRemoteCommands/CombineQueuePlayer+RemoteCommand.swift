@@ -88,10 +88,10 @@ extension QueuePlayer {
     }
 
     var changeRepeatModeCommandHandler: (MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
-        { _ in
-            // TODO: to implement when the player will have more than one track
-            // set remoteCommandCenter.changeRepeatModeCommand.currentRepeatType
-            return .commandFailed
+        { [weak self] event in
+            guard let event = event as? MPChangeRepeatModeCommandEvent else { return .commandFailed }
+            self?.repeatType = event.repeatType
+            return .success
         }
     }
 

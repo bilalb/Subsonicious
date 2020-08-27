@@ -25,6 +25,21 @@ public final class QueuePlayer: CombinePlayer {
         }
     }
 
+    var repeatType: MPRepeatType = .off {
+        didSet {
+            switch repeatType {
+            case .off, .all:
+                itemDidPlayToEndTimeSelector = #selector(skipToNext)
+            case .one:
+                itemDidPlayToEndTimeSelector = #selector(skipToTheStart)
+            @unknown default:
+                assertionFailure("Unknown MPRepeatType")
+            }
+        }
+    }
+
+    var itemDidPlayToEndTimeSelector = #selector(skipToNext)
+
     public override init() {
         super.init()
     }
@@ -46,7 +61,7 @@ public final class QueuePlayer: CombinePlayer {
         currentItemIndex = previousItemIndex
     }
 
-    public func skipToNext() {
+    @objc public func skipToNext() {
         guard let nextItemIndex = nextItemIndex else {
             stop()
             return
@@ -84,7 +99,7 @@ public final class QueuePlayer: CombinePlayer {
 
 // MARK: - Miscellaneous Private Methods
 private extension QueuePlayer {
-    func skipToTheStart() {
+    @objc func skipToTheStart() {
         let time = CMTime(seconds: 0, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
         seek(to: time)
     }
@@ -100,10 +115,14 @@ private extension QueuePlayer {
     }
 
     var nextItemIndex: Int? {
-        if let currentItemIndex = currentItemIndex {
+        let isLastItem = currentItemIndex == items.indices.last
+        if repeatType == .all, isLastItem {
+            return 0
+        } else if let currentItemIndex = currentItemIndex {
             return currentItemIndex + 1
+        } else {
+            return nil
         }
-        return nil
     }
 }
 
@@ -117,7 +136,7 @@ private extension QueuePlayer {
     func addObservers() {
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(itemDidPlayToEndTime),
+            selector: itemDidPlayToEndTimeSelector,
             name: .AVPlayerItemDidPlayToEndTime,
             object: currentItem)
     }
@@ -127,10 +146,6 @@ private extension QueuePlayer {
             self,
             name: .AVPlayerItemDidPlayToEndTime,
             object: currentItem)
-    }
-
-    @objc func itemDidPlayToEndTime() {
-        skipToNext()
     }
 }
 
