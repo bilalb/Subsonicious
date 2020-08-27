@@ -9,7 +9,7 @@
 import Combine
 import Foundation
 
-extension CombineQueuePlayer {
+extension CombinePlayer {
     var dynamicMetadataChangesPublisher: AnyPublisher<(), Never> {
         Publishers.MergeMany(anyVoidPublisher(for: \.currentItem),
                              anyVoidPublisher(for: \.rate),
@@ -24,9 +24,9 @@ extension CombineQueuePlayer {
     }
 }
 
-private extension CombineQueuePlayer {
+private extension CombinePlayer {
 
-    func anyVoidPublisher<Value>(for keyPath: KeyPath<CombineQueuePlayer, Value>) -> AnyPublisher<(), Never> {
+    func anyVoidPublisher<Value>(for keyPath: KeyPath<CombinePlayer, Value>) -> AnyPublisher<(), Never> {
         publisher(for: keyPath)
             .eraseToAnyVoidPublisher()
     }

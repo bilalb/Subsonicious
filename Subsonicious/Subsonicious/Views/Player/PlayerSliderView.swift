@@ -12,7 +12,7 @@ import SwiftUI
 
 struct PlayerSliderView: View {
 
-    @EnvironmentObject var player: CombineQueuePlayer
+    @EnvironmentObject var player: QueuePlayer
     @EnvironmentObject var playerObserver: PlayerObserver
 
     var body: some View {
@@ -47,7 +47,7 @@ private extension PlayerSliderView {
 
 struct PlayerSliderView_Previews: PreviewProvider {
     static var previews: some View {
-        let player = CombineQueuePlayer.dummyInstance
+        let player = QueuePlayer.placeholder
         let playerObserver = PlayerObserver(player: player)
         let playerSliderView = PlayerSliderView()
             .environmentObject(player)
