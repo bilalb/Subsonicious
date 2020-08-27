@@ -38,6 +38,8 @@ public final class QueuePlayer: CombinePlayer {
         }
     }
 
+    var shuffleType: MPShuffleType = .off
+
     var itemDidPlayToEndTimeSelector = #selector(skipToNext)
 
     public override init() {
@@ -115,12 +117,21 @@ private extension QueuePlayer {
     }
 
     var nextItemIndex: Int? {
-        let isLastItem = currentItemIndex == items.indices.last
-        if repeatType == .all, isLastItem {
-            return 0
-        } else if let currentItemIndex = currentItemIndex {
-            return currentItemIndex + 1
-        } else {
+        switch shuffleType {
+        case .off:
+            let isLastItem = currentItemIndex == items.indices.last
+            if repeatType == .all, isLastItem {
+                return 0
+            } else if let currentItemIndex = currentItemIndex {
+                return currentItemIndex + 1
+            } else {
+                return nil
+            }
+        case .items, .collections:
+            // TODO: implement something else for .collections
+            return .random(in: 0 ..< items.count)
+        @unknown default:
+            assertionFailure("Unknown MPShuffleType")
             return nil
         }
     }

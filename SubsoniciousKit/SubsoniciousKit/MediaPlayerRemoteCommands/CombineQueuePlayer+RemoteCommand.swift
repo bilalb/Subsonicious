@@ -96,10 +96,10 @@ extension QueuePlayer {
     }
 
     var changeShuffleModeCommandHandler: (MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
-        { _ in
-            // TODO: to implement when the player will have more than one track
-            // Set remoteCommandCenter.changeShuffleModeCommand.currentShuffleType
-            return .commandFailed
+        { [weak self] event in
+            guard let event = event as? MPChangeShuffleModeCommandEvent else { return .commandFailed }
+            self?.shuffleType = event.shuffleType
+            return .success
         }
     }
 }
