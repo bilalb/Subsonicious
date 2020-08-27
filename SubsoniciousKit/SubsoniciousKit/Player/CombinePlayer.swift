@@ -1,5 +1,5 @@
 //
-//  CombineQueuePlayer.swift
+//  CombinePlayer.swift
 //  SubsoniciousKit
 //
 //  Created by Bilal on 10/06/2020.
@@ -10,7 +10,7 @@ import Combine
 import Foundation
 import MediaPlayer
 
-public final class CombineQueuePlayer: AVQueuePlayer, ObservableObject {
+public class CombinePlayer: AVPlayer, ObservableObject {
 
     /// When the player starts seeking it sends `true`.
     /// When the player finishes seeking it sends `false`.
@@ -60,17 +60,5 @@ public final class CombineQueuePlayer: AVQueuePlayer, ObservableObject {
                         self?.seeking.send(true)
                     }
         }
-    }
-}
-
-public extension CombineQueuePlayer {
-    static var dummyInstance: CombineQueuePlayer {
-        let path = Bundle.main.path(forResource: "example.mp3", ofType: nil)!
-        let url = URL(fileURLWithPath: path)
-        let playerItem = AVPlayerItem(url: url)
-        let player = CombineQueuePlayer(items: [playerItem])
-        player.actionAtItemEnd = .advance
-
-        return player
     }
 }

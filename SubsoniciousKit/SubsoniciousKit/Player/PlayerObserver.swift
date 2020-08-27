@@ -14,7 +14,7 @@ public final class PlayerObserver: ObservableObject {
 
     public var shouldPauseTimeObserver = false
 
-    private let player: CombineQueuePlayer
+    private let player: QueuePlayer
     private var cancellables: Set<AnyCancellable> = []
     private var timeObserverToken: Any?
 
@@ -25,7 +25,7 @@ public final class PlayerObserver: ObservableObject {
          abs(currentTime - duration)
     }
 
-    public init(player: CombineQueuePlayer) {
+    public init(player: QueuePlayer) {
         self.player = player
     }
 

@@ -13,7 +13,7 @@
 		9C24522C2484265D00CDE6F3 /* SubsoniciousKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C24522B2484265D00CDE6F3 /* SubsoniciousKitTests.swift */; };
 		9C24522E2484265D00CDE6F3 /* SubsoniciousKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C2452202484265D00CDE6F3 /* SubsoniciousKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9C2D97A624B4F1B600D7F543 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2D97A524B4F1B600D7F543 /* Array.swift */; };
-		9C342D282490E98A000DD778 /* CombineQueuePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C342D272490E98A000DD778 /* CombineQueuePlayer.swift */; };
+		9C342D282490E98A000DD778 /* CombinePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C342D272490E98A000DD778 /* CombinePlayer.swift */; };
 		9C53A1F524CDD85400A5CB79 /* AuthenticationMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C53A1F424CDD85400A5CB79 /* AuthenticationMode.swift */; };
 		9C5F435C24F3E44300CC302B /* MockedSuccessService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5F435B24F3E44300CC302B /* MockedSuccessService.swift */; };
 		9C5F435E24F3E46600CC302B /* PlaceholderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5F435D24F3E46600CC302B /* PlaceholderProtocol.swift */; };
@@ -59,6 +59,7 @@
 		9CB4624024F0392C0050B83B /* SubsonicPlayerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB4623F24F0392C0050B83B /* SubsonicPlayerItem.swift */; };
 		9CBB21B624D71275002484DF /* FetchStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBB21B524D71275002484DF /* FetchStatus.swift */; };
 		9CBB21B824D712AB002484DF /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBB21B724D712AB002484DF /* Result.swift */; };
+		9CBCFEF924F7C13F000C61CE /* QueuePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBCFEF824F7C13F000C61CE /* QueuePlayer.swift */; };
 		9CD0FF6E24EC30BD00BB6989 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD0FF6D24EC30BD00BB6989 /* Song.swift */; };
 		9CD36DBA24E95FD1001F6B09 /* CompleteArtistList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD36DB924E95FD1001F6B09 /* CompleteArtistList.swift */; };
 		9CD36DBC24E96035001F6B09 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD36DBB24E96035001F6B09 /* Artist.swift */; };
@@ -84,7 +85,7 @@
 		9C24522B2484265D00CDE6F3 /* SubsoniciousKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubsoniciousKitTests.swift; sourceTree = "<group>"; };
 		9C24522D2484265D00CDE6F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C2D97A524B4F1B600D7F543 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
-		9C342D272490E98A000DD778 /* CombineQueuePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineQueuePlayer.swift; sourceTree = "<group>"; };
+		9C342D272490E98A000DD778 /* CombinePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinePlayer.swift; sourceTree = "<group>"; };
 		9C53A1F424CDD85400A5CB79 /* AuthenticationMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationMode.swift; sourceTree = "<group>"; };
 		9C5F435B24F3E44300CC302B /* MockedSuccessService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedSuccessService.swift; sourceTree = "<group>"; };
 		9C5F435D24F3E46600CC302B /* PlaceholderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderProtocol.swift; sourceTree = "<group>"; };
@@ -129,6 +130,7 @@
 		9CB4623F24F0392C0050B83B /* SubsonicPlayerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubsonicPlayerItem.swift; sourceTree = "<group>"; };
 		9CBB21B524D71275002484DF /* FetchStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchStatus.swift; sourceTree = "<group>"; };
 		9CBB21B724D712AB002484DF /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		9CBCFEF824F7C13F000C61CE /* QueuePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueuePlayer.swift; sourceTree = "<group>"; };
 		9CD0FF6D24EC30BD00BB6989 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		9CD36DB924E95FD1001F6B09 /* CompleteArtistList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteArtistList.swift; sourceTree = "<group>"; };
 		9CD36DBB24E96035001F6B09 /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
@@ -240,9 +242,10 @@
 		9C6231FA248C129500D0E703 /* Player */ = {
 			isa = PBXGroup;
 			children = (
-				9C342D272490E98A000DD778 /* CombineQueuePlayer.swift */,
+				9C342D272490E98A000DD778 /* CombinePlayer.swift */,
 				9C6F4AC724966FC700F59905 /* CombineQueuePlayer+MedataChanges.swift */,
 				9C6231FB248C12AE00D0E703 /* PlayerObserver.swift */,
+				9CBCFEF824F7C13F000C61CE /* QueuePlayer.swift */,
 				9CB4623F24F0392C0050B83B /* SubsonicPlayerItem.swift */,
 			);
 			path = Player;
@@ -473,6 +476,7 @@
 				9CA20A7924E9646000AC1113 /* SafeURL.swift in Sources */,
 				9C9004B124C33861005454DE /* Bundle.swift in Sources */,
 				9C6AEBC624CC69AA00E66B02 /* String.swift in Sources */,
+				9CBCFEF924F7C13F000C61CE /* QueuePlayer.swift in Sources */,
 				9C99E32924B25D2400C82B42 /* AuthenticationManager.swift in Sources */,
 				9C6BC35E24EAA3A900F55DB8 /* JSONDecoder.swift in Sources */,
 				9CD36DBA24E95FD1001F6B09 /* CompleteArtistList.swift in Sources */,
@@ -501,7 +505,7 @@
 				9C6AEBC224CC684100E66B02 /* Authentication.swift in Sources */,
 				9C6BC35724E99B6600F55DB8 /* SingleLevelNestedDecodable.swift in Sources */,
 				9CA20A8124E97D0E00AC1113 /* ArtistDetails.swift in Sources */,
-				9C342D282490E98A000DD778 /* CombineQueuePlayer.swift in Sources */,
+				9C342D282490E98A000DD778 /* CombinePlayer.swift in Sources */,
 				9C99E32B24B25D4300C82B42 /* Manager.swift in Sources */,
 				9C9004AF24C337F2005454DE /* ServerPersistenceManager.swift in Sources */,
 				9C6BC35A24E99DAE00F55DB8 /* CompleteArtistListContainer.swift in Sources */,
