@@ -25,21 +25,21 @@ public class CombinePlayer: AVPlayer, ObservableObject {
     }
 
     public override func seek(to time: CMTime, completionHandler: @escaping (Bool) -> Void) {
-        seeking.send(false)
+        seeking.send(true)
         super.seek(to: time) { [weak self] finished in
             completionHandler(finished)
             if finished {
-                self?.seeking.send(true)
+                self?.seeking.send(false)
             }
         }
     }
 
     public override func seek(to date: Date, completionHandler: @escaping (Bool) -> Void) {
-        seeking.send(false)
+        seeking.send(true)
         super.seek(to: date) { [weak self] finished in
             completionHandler(finished)
             if finished {
-                self?.seeking.send(true)
+                self?.seeking.send(false)
             }
         }
     }
@@ -51,13 +51,13 @@ public class CombinePlayer: AVPlayer, ObservableObject {
     }
 
     public override func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completionHandler: @escaping (Bool) -> Void) {
-        seeking.send(false)
+        seeking.send(true)
         super.seek(to: time,
                    toleranceBefore: toleranceBefore,
                    toleranceAfter: toleranceAfter) { [weak self] finished in
                     completionHandler(finished)
                     if finished {
-                        self?.seeking.send(true)
+                        self?.seeking.send(false)
                     }
         }
     }

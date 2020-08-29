@@ -16,7 +16,7 @@ public final class PlayerObserver: ObservableObject {
 
     private let player: QueuePlayer
     private var cancellables: Set<AnyCancellable> = []
-    private var timeObserverToken: Any?
+    private var timeObserver: Any?
 
     @Published public private(set) var timeControlStatus: AVPlayer.TimeControlStatus?
     @Published public private(set) var duration: Double = .zero
@@ -42,7 +42,7 @@ public final class PlayerObserver: ObservableObject {
             .store(in: &cancellables)
 
         player.seeking
-            .map { !$0 }
+            .map { $0 }
             .assign(to: \.shouldPauseTimeObserver, on: self)
             .store(in: &cancellables)
 
@@ -62,16 +62,15 @@ private extension PlayerObserver {
         let interval = CMTime(seconds: 0.5,
                               preferredTimescale: CMTimeScale(NSEC_PER_SEC))
 
-        timeObserverToken = player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] time in
+        timeObserver = player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] time in
             guard self?.shouldPauseTimeObserver == false else { return }
             self?.currentTime = time.seconds
         }
     }
 
     func removePeriodicTimeObserver() {
-        if let token = timeObserverToken {
-            player.removeTimeObserver(token)
-            timeObserverToken = nil
-        }
+        guard let observer = timeObserver else { return }
+        player.removeTimeObserver(observer)
+        timeObserver = nil
     }
 }
