@@ -39,7 +39,8 @@ public final class QueuePlayer: CombinePlayer {
     public func skipToPrevious() {
         let skipToPreviousDurationThreshold: Double = 4
         guard CMTimeGetSeconds(currentTime()) < skipToPreviousDurationThreshold,
-              let previousItemIndex = previousItemIndex else {
+              let previousItemIndex = previousItemIndex,
+              currentItemIndex != previousItemIndex else {
             skipToTheStart()
             return
         }
@@ -47,7 +48,8 @@ public final class QueuePlayer: CombinePlayer {
     }
 
     public func skipToNext() {
-        guard let nextItemIndex = nextItemIndex else {
+        guard let nextItemIndex = nextItemIndex,
+              currentItemIndex != nextItemIndex else {
             stop()
             return
         }
@@ -55,8 +57,11 @@ public final class QueuePlayer: CombinePlayer {
     }
 
     func stop() {
-        currentItemIndex = 0
         pause()
+        if currentItemIndex != 0 {
+            currentItemIndex = 0
+        }
+        skipToTheStart()
     }
 
     public override func replaceCurrentItem(with item: AVPlayerItem?) {
@@ -85,8 +90,7 @@ public final class QueuePlayer: CombinePlayer {
 // MARK: - Miscellaneous Private Methods
 private extension QueuePlayer {
     func skipToTheStart() {
-        let time = CMTime(seconds: 0, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
-        seek(to: time)
+        seek(to: .zero)
     }
 }
 
@@ -94,14 +98,14 @@ private extension QueuePlayer {
 private extension QueuePlayer {
     var previousItemIndex: Int? {
         if let currentItemIndex = currentItemIndex {
-            return currentItemIndex - 1
+            return max(0, currentItemIndex - 1)
         }
         return nil
     }
 
     var nextItemIndex: Int? {
         if let currentItemIndex = currentItemIndex {
-            return currentItemIndex + 1
+            return min(currentItemIndex + 1, items.count - 1)
         }
         return nil
     }
