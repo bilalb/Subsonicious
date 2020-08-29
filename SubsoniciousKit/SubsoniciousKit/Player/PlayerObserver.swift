@@ -12,15 +12,14 @@ import Foundation
 
 public final class PlayerObserver: ObservableObject {
 
-    public var shouldPauseTimeObserver = false
-
     private let player: QueuePlayer
     private var cancellables: Set<AnyCancellable> = []
     private var timeObserver: Any?
 
+    @Published public var shouldPauseTimeObserver = false
+    @Published public var currentTime: Double = .zero
     @Published public private(set) var timeControlStatus: AVPlayer.TimeControlStatus?
     @Published public private(set) var duration: Double = .zero
-    @Published public var currentTime: Double = .zero
     public var remainingTime: Double {
          abs(currentTime - duration)
     }
@@ -44,6 +43,12 @@ public final class PlayerObserver: ObservableObject {
         player.seeking
             .map { $0 }
             .assign(to: \.shouldPauseTimeObserver, on: self)
+            .store(in: &cancellables)
+
+        $shouldPauseTimeObserver
+            .filter { [weak self] _ in self?.player.timeControlStatus == .paused }
+            .filter { !$0 }
+            .sink { [weak self] _ in self?.currentTime = self?.player.currentTime().seconds ?? 0 }
             .store(in: &cancellables)
 
         addPeriodicTimeObserver()
