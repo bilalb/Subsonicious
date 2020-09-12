@@ -1,5 +1,5 @@
 //
-//  QueuePlayer+RemoteCommand.swift
+//  CombineQueuePlayer+RemoteCommand.swift
 //  SubsoniciousKit
 //
 //  Created by Bilal on 07/06/2020.
@@ -9,14 +9,12 @@
 import Foundation
 import MediaPlayer
 
-// swiftlint:disable opening_brace
-
 // MARK: - Playback Commands Handlers
 
-extension QueuePlayer {
+extension CombineQueuePlayer {
 
     var pauseCommandHandler: (MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
-        { [weak self] _ in
+        return { [weak self] _ in
             switch self?.timeControlStatus {
             case .paused:
                 preconditionFailure("Tried to pause the player which is already paused")
@@ -32,7 +30,7 @@ extension QueuePlayer {
     }
 
     var playCommandHandler: (MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
-        { [weak self] _ in
+        return { [weak self] _ in
             switch self?.timeControlStatus {
             case .paused:
                 switch self?.status {
@@ -55,14 +53,15 @@ extension QueuePlayer {
     }
 
     var stopCommandHandler: (MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
-        { [weak self] _ in
-            self?.stop()
+        return { [weak self] _ in
+            self?.pause()
+            self?.removeAllItems()
             return .success
         }
     }
 
     var togglePlayPauseCommandHandler: (MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
-        { [weak self] _ in
+        return { [weak self] _ in
             self?.togglePlayPause()
             return .success
         }
@@ -71,24 +70,24 @@ extension QueuePlayer {
 
 // MARK: - Between Tracks Navigation Commands Handlers
 
-extension QueuePlayer {
+extension CombineQueuePlayer {
 
     var nextTrackCommandHandler: (MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
-        { [weak self] _ in
-            self?.skipToNext()
+        return { [weak self] _ in
+            self?.advanceToNextItem()
             return .success
         }
     }
 
     var previousTrackCommandHandler: (MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
-        { [weak self] _ in
-            self?.skipToPrevious()
-            return .success
+        return { _ in
+            // TODO: to implement when the player will have more than one track
+            return .commandFailed
         }
     }
 
     var changeRepeatModeCommandHandler: (MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
-        { _ in
+        return { _ in
             // TODO: to implement when the player will have more than one track
             // set remoteCommandCenter.changeRepeatModeCommand.currentRepeatType
             return .commandFailed
@@ -96,7 +95,7 @@ extension QueuePlayer {
     }
 
     var changeShuffleModeCommandHandler: (MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
-        { _ in
+        return { _ in
             // TODO: to implement when the player will have more than one track
             // Set remoteCommandCenter.changeShuffleModeCommand.currentShuffleType
             return .commandFailed
@@ -106,10 +105,10 @@ extension QueuePlayer {
 
 // MARK: - Inner Track Navigation Commands Handlers
 
-extension QueuePlayer {
+extension CombineQueuePlayer {
 
     var changePlaybackRateCommandHandler: (MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
-        { [weak self] event in
+        return { [weak self] event in
             guard let event = event as? MPChangePlaybackRateCommandEvent else { return .commandFailed }
             self?.rate = event.playbackRate
             return .success
@@ -117,21 +116,21 @@ extension QueuePlayer {
     }
 
     var seekBackwardCommandHandler: (MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
-        { _ in
-            // TODO: to implement (see: MPSeekCommandEvent)
+        return { _ in
+            // TODO: to implement
             return .commandFailed
         }
     }
 
     var seekForwardCommandHandler: (MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
-        { _ in
-            // TODO: to implement (see: MPSeekCommandEvent)
+        return { _ in
+            // TODO: to implement
             return .commandFailed
         }
     }
 
     var skipBackwardCommandHandler: (MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
-        { [weak self] event in
+        return { [weak self] event in
             guard let event = event as? MPSkipIntervalCommandEvent else { return .commandFailed }
             self?.skip(.backward, interval: event.interval)
             return .success
@@ -139,7 +138,7 @@ extension QueuePlayer {
     }
 
     var skipForwardCommandHandler: (MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
-        { [weak self] event in
+        return { [weak self] event in
             guard let event = event as? MPSkipIntervalCommandEvent else { return .commandFailed }
             self?.skip(.forward, interval: event.interval)
             return .success
@@ -147,7 +146,7 @@ extension QueuePlayer {
     }
 
     var changePlaybackPositionCommandHandler: (MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus {
-        { [weak self] event in
+        return { [weak self] event in
             guard let event = event as? MPChangePlaybackPositionCommandEvent else { return .commandFailed }
             let time = CMTime(seconds: event.positionTime, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
             self?.seek(to: time)
@@ -156,7 +155,8 @@ extension QueuePlayer {
     }
 }
 
-extension QueuePlayer {
+extension CombineQueuePlayer {
+
     enum SkipType {
         case backward
         case forward

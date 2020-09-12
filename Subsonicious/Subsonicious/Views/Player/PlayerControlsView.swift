@@ -11,16 +11,14 @@ import SwiftUI
 
 struct PlayerControlsView: View {
 
-    @EnvironmentObject var player: QueuePlayer
+    @EnvironmentObject var player: CombineQueuePlayer
     @EnvironmentObject var playerObserver: PlayerObserver
 
     var body: some View {
         HStack {
             Spacer()
 
-            Button(action: {
-                player.skipToPrevious()
-            }) {
+            Button(action: {}) {
                 PlayerControlImage(systemName: "backward.fill")
             }
 
@@ -34,9 +32,7 @@ struct PlayerControlsView: View {
 
             Spacer()
 
-            Button(action: {
-                player.skipToNext()
-            }) {
+            Button(action: {}) {
                 PlayerControlImage(systemName: "forward.fill")
             }
 
@@ -53,7 +49,7 @@ private extension PlayerControlsView {
 
 struct PlayerControlsView_Previews: PreviewProvider {
     static var previews: some View {
-        let player = QueuePlayer.placeholder
+        let player = CombineQueuePlayer.dummyInstance
         let playerObserver = PlayerObserver(player: player)
         let playerControlsView = PlayerControlsView()
             .environmentObject(player)

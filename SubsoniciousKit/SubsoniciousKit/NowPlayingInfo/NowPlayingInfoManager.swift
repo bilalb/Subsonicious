@@ -12,7 +12,7 @@ import MediaPlayer
 
 public final class NowPlayingInfoManager: ObservableObject {
 
-    private let player: QueuePlayer
+    private let player: CombineQueuePlayer
     private let nowPlayingInfoCenter = MPNowPlayingInfoCenter.default()
     private var cancellables: Set<AnyCancellable> = []
     private var coverArtManager: CoverArtManager?
@@ -29,7 +29,7 @@ public final class NowPlayingInfoManager: ObservableObject {
         }
     }
 
-    public init(player: QueuePlayer) {
+    public init(player: CombineQueuePlayer) {
         self.player = player
     }
 
@@ -62,7 +62,7 @@ private extension NowPlayingInfoManager {
     func prepareStaticMetadataUpdate() {
         if let item = player.currentItem as? SubsonicPlayerItem {
             do {
-                try downloadArtwork(with: item.id)
+                try downloadArtwork(with: item.subsonicId)
             } catch {
                 updateStaticMetadata()
                 preconditionFailure(error.localizedDescription)
@@ -143,7 +143,7 @@ private extension NowPlayingInfoManager {
             albumArtist: albumArtist,
             albumTitle: albumName,
             duration: playerItem.duration.seconds,
-            queueCount: player.items.count,
-            queueIndex: player.currentItemIndex ?? 0)
+            queueCount: player.items().count ,
+            queueIndex: player.items().firstIndex { $0 == playerItem } ?? 0)
     }
 }
