@@ -12,19 +12,20 @@ import Foundation
 
 public final class PlayerObserver: ObservableObject {
 
-    private let player: QueuePlayer
-    private var cancellables: Set<AnyCancellable> = []
-    private var timeObserver: Any?
+    public var shouldPauseTimeObserver = false
 
-    @Published public var shouldPauseTimeObserver = false
-    @Published public var currentTime: Double = .zero
+    private let player: CombineQueuePlayer
+    private var cancellables: Set<AnyCancellable> = []
+    private var timeObserverToken: Any?
+
     @Published public private(set) var timeControlStatus: AVPlayer.TimeControlStatus?
     @Published public private(set) var duration: Double = .zero
+    @Published public var currentTime: Double = .zero
     public var remainingTime: Double {
          abs(currentTime - duration)
     }
 
-    public init(player: QueuePlayer) {
+    public init(player: CombineQueuePlayer) {
         self.player = player
     }
 
@@ -41,14 +42,8 @@ public final class PlayerObserver: ObservableObject {
             .store(in: &cancellables)
 
         player.seeking
-            .map { $0 }
+            .map { !$0 }
             .assign(to: \.shouldPauseTimeObserver, on: self)
-            .store(in: &cancellables)
-
-        $shouldPauseTimeObserver
-            .filter { [weak self] _ in self?.player.timeControlStatus == .paused }
-            .filter { !$0 }
-            .sink { [weak self] _ in self?.currentTime = self?.player.currentTime().seconds ?? 0 }
             .store(in: &cancellables)
 
         addPeriodicTimeObserver()
@@ -67,15 +62,16 @@ private extension PlayerObserver {
         let interval = CMTime(seconds: 0.5,
                               preferredTimescale: CMTimeScale(NSEC_PER_SEC))
 
-        timeObserver = player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] time in
+        timeObserverToken = player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] time in
             guard self?.shouldPauseTimeObserver == false else { return }
             self?.currentTime = time.seconds
         }
     }
 
     func removePeriodicTimeObserver() {
-        guard let observer = timeObserver else { return }
-        player.removeTimeObserver(observer)
-        timeObserver = nil
+        if let token = timeObserverToken {
+            player.removeTimeObserver(token)
+            timeObserverToken = nil
+        }
     }
 }

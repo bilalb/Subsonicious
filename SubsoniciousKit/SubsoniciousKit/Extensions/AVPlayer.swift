@@ -30,4 +30,12 @@ extension AVPlayer {
             preconditionFailure("Unknown AVPlayer.TimeControlStatus")
         }
     }
+
+    public func replaceCurrentSong(with song: Song) throws {
+        let manager: Manager<Song> = .init(endpoint: .stream(mediaFileId: song.id))
+        let url = try manager.url()
+        let asset = AVURLAsset(url: url)
+        let item = SubsonicPlayerItem(subsonicId: song.id, asset: asset)
+        replaceCurrentItem(with: item)
+    }
 }

@@ -19,7 +19,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private var nowPlayingInfoManager: NowPlayingInfoManager!
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        let player = QueuePlayer()
+        let player = CombineQueuePlayer.dummyInstance
 
         playerObserver = PlayerObserver(player: player)
         playerObserver.listenToPlayerChanges()

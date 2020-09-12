@@ -11,9 +11,9 @@ import MediaPlayer
 
 public final class MediaPlayerRemoteCommandsManager {
 
-    private let player: QueuePlayer
+    private let player: CombineQueuePlayer
 
-    public init(player: QueuePlayer) {
+    public init(player: CombineQueuePlayer) {
         self.player = player
     }
 
