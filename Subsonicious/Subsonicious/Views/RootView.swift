@@ -11,8 +11,6 @@ import SwiftUI
 
 struct RootView: View {
 
-    @EnvironmentObject var player: CombineQueuePlayer
-    @EnvironmentObject var playerObserver: PlayerObserver
     var status: AuthenticationStatus
     var authenticate: () -> Void
 

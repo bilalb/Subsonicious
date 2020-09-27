@@ -11,21 +11,22 @@ import MediaPlayer
 
 public final class MediaPlayerRemoteCommandsManager {
 
-    private let player: CombineQueuePlayer
+    private let player: CombineAudioController
 
-    public init(player: CombineQueuePlayer) {
+    public init(player: CombineAudioController) {
         self.player = player
-    }
-
-    public func configureRemoteCommands() {
-        configurePlaybackAndNavigationCommands()
-        disableUnusedCommands()
+        configureRemoteCommands()
     }
 }
 
 // MARK: - Private Methods
 
 private extension MediaPlayerRemoteCommandsManager {
+
+    func configureRemoteCommands() {
+        configurePlaybackAndNavigationCommands()
+        disableUnusedCommands()
+    }
 
     typealias CommandHandler = (command: MPRemoteCommand, handler: (MPRemoteCommandEvent) -> MPRemoteCommandHandlerStatus)
 

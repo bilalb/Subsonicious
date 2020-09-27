@@ -16,30 +16,30 @@ public extension NowPlayingMetadata {
     struct Static {
         let collectionIdentifier: String
         let assetURL: URL?
-        let mediaType: MPNowPlayingInfoMediaType
-        let isLiveStream: Bool
+        let mediaType = NSNumber(value: MPNowPlayingInfoMediaType.audio.rawValue)
+        let isLiveStream = NSNumber(value: false)
 
-        public let title: String
-        public let artist: String?
+        public let title: NSString
+        public let artist: NSString?
         public let artwork: MPMediaItemArtwork?
 
-        let albumArtist: String?
-        let albumTitle: String?
+        let albumArtist: NSString?
+        let albumTitle: NSString?
 
-        let duration: TimeInterval
-        let queueCount: Int
-        let queueIndex: Int
+        let duration: NSNumber
+        let queueCount: NSNumber
+        let queueIndex: NSNumber
     }
 }
 
 extension NowPlayingMetadata {
     struct Dynamic {
-        let rate: Float
-        let defaultRate: Float
+        let rate: NSNumber
+        let defaultRate: NSNumber
         let position: NSNumber
 
-        let currentLanguageOptions: [MPNowPlayingInfoLanguageOption]
-        let availableLanguageOptionGroups: [MPNowPlayingInfoLanguageOptionGroup]
+        let currentLanguageOptions = [MPNowPlayingInfoLanguageOption]()
+        let availableLanguageOptionGroups = [MPNowPlayingInfoLanguageOptionGroup]()
     }
 }
 
@@ -50,8 +50,6 @@ extension NowPlayingMetadata.Static {
 
         return .init(collectionIdentifier: "",
                      assetURL: url,
-                     mediaType: .audio,
-                     isLiveStream: false,
                      title: "Corovon",
                      artist: "Metropolitan Jazz Affair",
                      artwork: nil,

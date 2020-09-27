@@ -6,7 +6,6 @@
 //  Copyright © 2020 Bilal Benlarbi. All rights reserved.
 //
 
-import AVFoundation
 import SubsoniciousKit
 import SwiftUI
 

@@ -31,11 +31,11 @@ struct PlayerItemDataView: View {
 
 private extension PlayerItemDataView {
     var title: String {
-        nowPlayingInfoManager.staticMetadata?.title ?? ""
+        nowPlayingInfoManager.staticMetadata?.title as String? ?? ""
     }
 
     var artist: String {
-        nowPlayingInfoManager.staticMetadata?.artist ?? ""
+        nowPlayingInfoManager.staticMetadata?.artist as String? ?? ""
     }
 }
 

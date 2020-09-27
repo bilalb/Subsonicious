@@ -11,28 +11,31 @@ import SwiftUI
 
 struct PlayerControlsView: View {
 
-    @EnvironmentObject var player: CombineQueuePlayer
-    @EnvironmentObject var playerObserver: PlayerObserver
+    @EnvironmentObject var player: CombineAudioController
 
     var body: some View {
         HStack {
             Spacer()
 
-            Button(action: {}) {
+            Button(action: {
+                player.playPreviousItem()
+            }) {
                 PlayerControlImage(systemName: "backward.fill")
             }
 
             Spacer()
 
             Button(action: {
-                player.togglePlayPause()
+                player.pause()
             }) {
                 PlayerControlImage(systemName: playPauseImageName)
             }
 
             Spacer()
 
-            Button(action: {}) {
+            Button(action: {
+                player.playNextItem()
+            }) {
                 PlayerControlImage(systemName: "forward.fill")
             }
 
@@ -43,18 +46,13 @@ struct PlayerControlsView: View {
 
 private extension PlayerControlsView {
     var playPauseImageName: String {
-        playerObserver.timeControlStatus == .playing ? "pause.fill" : "play.fill"
+        player.state == .fsAudioStreamPlaying ? "pause.fill" : "play.fill"
     }
 }
 
 struct PlayerControlsView_Previews: PreviewProvider {
     static var previews: some View {
-        let player = CombineQueuePlayer.dummyInstance
-        let playerObserver = PlayerObserver(player: player)
-        let playerControlsView = PlayerControlsView()
-            .environmentObject(player)
-            .environmentObject(playerObserver)
-
-        return playerControlsView
+        PlayerControlsView()
+            .environmentObject(CombineAudioController())
     }
 }

@@ -20,7 +20,7 @@ extension MPNowPlayingInfoCenter {
         //        MPNowPlayingInfoPropertyServiceIdentifier
         nowPlayingInfo[MPNowPlayingInfoCollectionIdentifier] = metadata.collectionIdentifier
         nowPlayingInfo[MPNowPlayingInfoPropertyAssetURL] = metadata.assetURL
-        nowPlayingInfo[MPNowPlayingInfoPropertyMediaType] = metadata.mediaType.rawValue
+        nowPlayingInfo[MPNowPlayingInfoPropertyMediaType] = metadata.mediaType
         nowPlayingInfo[MPNowPlayingInfoPropertyIsLiveStream] = metadata.isLiveStream
         nowPlayingInfo[MPMediaItemPropertyTitle] = metadata.title
         nowPlayingInfo[MPMediaItemPropertyArtist] = metadata.artist

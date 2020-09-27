@@ -12,7 +12,7 @@ import MediaPlayer
 
 public final class NowPlayingInfoManager: ObservableObject {
 
-    private let player: CombineQueuePlayer
+    private let player: CombineAudioController
     private let nowPlayingInfoCenter = MPNowPlayingInfoCenter.default()
     private var cancellables: Set<AnyCancellable> = []
     private var coverArtManager: CoverArtManager?
@@ -29,53 +29,47 @@ public final class NowPlayingInfoManager: ObservableObject {
         }
     }
 
-    public init(player: CombineQueuePlayer) {
+    public init(player: CombineAudioController) {
         self.player = player
-    }
-
-    public func listenToNowPlayingInfoChanges() {
-        player.dynamicMetadataChangesPublisher
-            .sink { [weak self] _ in
-                self?.updateDynamicMetadata()
-            }
-            .store(in: &cancellables)
-
-        player.staticMetadataChangesPublisher
-            .sink { [weak self] _ in
-                self?.prepareStaticMetadataUpdate()
-            }
-            .store(in: &cancellables)
+        bindPlayerState()
     }
 }
 
 private extension NowPlayingInfoManager {
 
+    func bindPlayerState() {
+        player.$state
+            .sink { [weak self] _ in
+                self?.updateDynamicMetadata()
+                self?.prepareStaticMetadataUpdate()
+            }
+            .store(in: &cancellables)
+    }
+
     func updateDynamicMetadata() {
+        // FIXME: (player.activeStream?.value(forKey: "_private") as? NSObject)?.value(forKey: "_url")
         dynamicMetadata = NowPlayingMetadata.Dynamic(
-            rate: player.rate,
-            defaultRate: 1.0,
-            position: NSNumber(value: CMTimeGetSeconds(player.currentTime())),
-            currentLanguageOptions: [],
-            availableLanguageOptionGroups: [])
+            rate: NSNumber(value: Double(1.0)),
+            defaultRate: NSNumber(value: Double(1.0)),
+            position: NSNumber(value: Double(player.currentTime)))
     }
 
     func prepareStaticMetadataUpdate() {
-        if let item = player.currentItem as? SubsonicPlayerItem {
+        if let item = player.currentPlaylistItem as? SubsonicPlaylistItem {
             do {
-                try downloadArtwork(with: item.subsonicId)
+                try downloadArtwork(with: item.song.id)
             } catch {
-                updateStaticMetadata()
+                try? updateStaticMetadata()
                 preconditionFailure(error.localizedDescription)
             }
         } else {
-            updateStaticMetadata()
+            try? updateStaticMetadata()
         }
     }
 
     func downloadArtwork(with id: String) throws {
-        let coverArtManager = CoverArtManager(endpoint: .coverArt(id: id))
-        self.coverArtManager = coverArtManager
-        try coverArtManager.fetch()
+        coverArtManager = CoverArtManager(endpoint: .coverArt(id: id))
+        try coverArtManager?.fetch()
         bindCoverArtData()
     }
 
@@ -84,41 +78,21 @@ private extension NowPlayingInfoManager {
             .compactMap { $0 }
             .map { UIImage(data: $0) }
             .sink { [weak self] image in
-                self?.updateStaticMetadata(with: image)
+                try? self?.updateStaticMetadata(with: image)
             }
             .store(in: &cancellables)
     }
 
-    func updateStaticMetadata(with artworkImage: UIImage? = nil) {
-        guard let currentItem = player.currentItem else { return }
-        let commonMetadata = currentItem.asset.commonMetadata
-        staticMetadata = self.staticMetadata(
-            for: commonMetadata,
-            playerItem: currentItem,
-            artworkImage: artworkImage)
+    func updateStaticMetadata(with artworkImage: UIImage? = nil) throws {
+        guard let item = player.currentPlaylistItem as? SubsonicPlaylistItem else { return }
+        staticMetadata = try self.staticMetadata(for: item.song, artworkImage: artworkImage)
     }
 
     func staticMetadata(
-        for metadata: [AVMetadataItem],
-        playerItem: AVPlayerItem,
+        for song: Song,
         artworkSize: CGSize = .init(width: 50, height: 50),
-        artworkImage: UIImage? = nil) -> NowPlayingMetadata.Static {
-
-        func firstMetadataItem(filteredByIdentifier identifier: AVMetadataIdentifier) -> AVMetadataItem? {
-            AVMetadataItem.metadataItems(
-                from: metadata,
-                filteredByIdentifier: identifier)
-                .first
-        }
-
-        let mediaType = MPNowPlayingInfoMediaType(
-            rawValue: UInt(
-                truncating: firstMetadataItem(filteredByIdentifier: .id3MetadataMediaType)?
-                    .numberValue ?? 0)) ?? .audio
-
-        let title = firstMetadataItem(filteredByIdentifier: .commonIdentifierTitle)?.stringValue ?? ""
-
-        let artist = firstMetadataItem(filteredByIdentifier: .commonIdentifierArtist)?.stringValue
+        artworkImage: UIImage? = nil) throws -> NowPlayingMetadata.Static {
+        let manager: Manager<Song> = .init(endpoint: .stream(mediaFileId: song.id))
 
         var artwork: MPMediaItemArtwork?
         if let artworkImage = artworkImage {
@@ -128,22 +102,18 @@ private extension NowPlayingInfoManager {
             }
         }
 
-        let albumArtist = firstMetadataItem(filteredByIdentifier: .iTunesMetadataAlbumArtist)?.stringValue
-
-        let albumName = firstMetadataItem(filteredByIdentifier: .commonIdentifierAlbumName)?.stringValue
+        let queueIndex = player.value(forKey: "currentPlaylistItemIndex") as? UInt ?? 0
 
         return NowPlayingMetadata.Static(
             collectionIdentifier: "",
-            assetURL: (playerItem.asset as? AVURLAsset)?.url,
-            mediaType: mediaType,
-            isLiveStream: false,
-            title: title,
-            artist: artist,
+            assetURL: try manager.url(),
+            title: NSString(string: song.title),
+            artist: NSString(string: song.artistName),
             artwork: artwork,
-            albumArtist: albumArtist,
-            albumTitle: albumName,
-            duration: playerItem.duration.seconds,
-            queueCount: player.items().count ,
-            queueIndex: player.items().firstIndex { $0 == playerItem } ?? 0)
+            albumArtist: NSString(string: song.artistName),
+            albumTitle: NSString(string: song.albumTitle),
+            duration: NSNumber(value: TimeInterval(song.duration)),
+            queueCount: NSNumber(value: UInt(player.countOfItems())),
+            queueIndex: NSNumber(value: queueIndex))
     }
 }

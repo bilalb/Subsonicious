@@ -6,7 +6,6 @@
 //  Copyright © 2020 Bilal Benlarbi. All rights reserved.
 //
 
-import AVFoundation
 import SubsoniciousKit
 import SwiftUI
 import UIKit
@@ -14,21 +13,15 @@ import UIKit
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    private var playerObserver: PlayerObserver!
     private var remoteCommandsManager: MediaPlayerRemoteCommandsManager!
     private var nowPlayingInfoManager: NowPlayingInfoManager!
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        let player = CombineQueuePlayer.dummyInstance
-
-        playerObserver = PlayerObserver(player: player)
-        playerObserver.listenToPlayerChanges()
+        let player = CombineAudioController()
 
         remoteCommandsManager = MediaPlayerRemoteCommandsManager(player: player)
-        remoteCommandsManager.configureRemoteCommands()
 
         nowPlayingInfoManager = NowPlayingInfoManager(player: player)
-        nowPlayingInfoManager.listenToNowPlayingInfoChanges()
 
         var serverPerstistenceManager: ServerPersistenceManager!
         do {
@@ -44,7 +37,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let rootContainerView = RootContainerView()
             .environmentObject(authenticationManager)
             .environmentObject(player)
-            .environmentObject(playerObserver)
             .environmentObject(nowPlayingInfoManager)
 
         if let windowScene = scene as? UIWindowScene {

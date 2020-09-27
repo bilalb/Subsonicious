@@ -13,7 +13,7 @@ struct SongList: View {
 
     let manager: Manager<AlbumContainer<SubsoniciousKit.Album>>
     let albumName: String
-    @EnvironmentObject var player: CombineQueuePlayer
+    @EnvironmentObject var player: CombineAudioController
     @State private var album: SubsoniciousKit.Album?
     @State private var selectedSong: Song?
 
@@ -52,15 +52,13 @@ private extension SongList {
     }
 
     var selection: Binding<Song?> {
-        Binding<Song?>(
+        .init(
             get: {
                 selectedSong
             },
             set: {
                 selectedSong = $0
-                if let selectedSong = self.selectedSong {
-                    replaceCurrentSong(with: selectedSong)
-                }
+                performSongSelection()
             })
     }
 
@@ -72,10 +70,14 @@ private extension SongList {
         }
     }
 
-    func replaceCurrentSong(with song: Song) {
+    func performSongSelection() {
+        guard let songs = album?.songs,
+              let selectedSong = self.selectedSong,
+              let index = songs.firstIndex(of: selectedSong) else { return }
+
         do {
-            try player.replaceCurrentSong(with: song)
-            player.play()
+            try player.replaceCurrentSongs(with: songs)
+            player.playItem(at: UInt(index))
         } catch {
             preconditionFailure(error.localizedDescription)
         }
