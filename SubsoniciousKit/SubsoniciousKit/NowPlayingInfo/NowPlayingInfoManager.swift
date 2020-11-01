@@ -77,6 +77,8 @@ private extension NowPlayingInfoManager {
         coverArtManager?.$data
             .compactMap { $0 }
             .map { UIImage(data: $0) }
+            // FIXME: is following instruction necessary?
+//            .receive(on: DispatchQueue.main)
             .sink { [weak self] image in
                 try? self?.updateStaticMetadata(with: image)
             }

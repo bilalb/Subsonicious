@@ -63,6 +63,8 @@ public final class CombineAudioController: FSAudioController, ObservableObject {
 private extension CombineAudioController {
     func bindState() {
         $state
+            // FIXME: is following instruction necessary?
+//            .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.updateDuration()
                 self?.updateCurrentTime()
