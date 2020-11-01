@@ -18,11 +18,16 @@ struct PlayerItemDataView: View {
                 Text(title)
                     .font(.system(size: 20))
                     .fontWeight(.bold)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
 
                 Text(artist)
                     .font(.subheadline)
                     .opacity(0.6)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
             }
+            .animation(nil)
 
             Spacer()
         }

@@ -22,10 +22,14 @@ struct PlayerSliderView: View {
 
             HStack {
                 Text("\(TimeInterval(player.currentTime), formatter: .minutesSecondsFormatter)")
-                    .font(.caption)
+                    .font(Font.caption.monospacedDigit())
+                    .multilineTextAlignment(.leading)
+
                 Spacer()
+
                 Text("-\(TimeInterval(player.remainingTime), formatter: .minutesSecondsFormatter)")
-                    .font(.caption)
+                    .font(Font.caption.monospacedDigit())
+                    .multilineTextAlignment(.trailing)
             }
         }
     }
