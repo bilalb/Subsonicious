@@ -32,7 +32,7 @@ extension SafeURL: Decodable {
             let context = DecodingError.Context(
                 codingPath: container.codingPath,
                 debugDescription: "Expected to decode URL or String but found another type instead.")
-            throw DecodingError.typeMismatch(SafeURL.self, context)
+            throw DecodingError.typeMismatch(Self.self, context)
         }
     }
 }

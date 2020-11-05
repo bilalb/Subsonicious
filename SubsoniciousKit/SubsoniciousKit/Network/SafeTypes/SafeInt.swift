@@ -38,7 +38,7 @@ extension SafeInt: Decodable {
             let context = DecodingError.Context(
                 codingPath: container.codingPath,
                 debugDescription: "Expected to decode Int, Double or String but found another type instead.")
-            throw DecodingError.typeMismatch(SafeInt.self, context)
+            throw DecodingError.typeMismatch(Self.self, context)
         }
     }
 }

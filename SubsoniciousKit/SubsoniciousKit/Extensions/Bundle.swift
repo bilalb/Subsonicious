@@ -10,6 +10,6 @@ import Foundation
 
 extension Bundle {
     static var kit: Bundle {
-        return Bundle(for: AudioSessionManager.self)
+        Bundle(for: Self.self)
     }
 }
